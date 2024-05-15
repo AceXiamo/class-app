@@ -1,0 +1,32 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+page {
+  height: 100%;
+  font-family: 'PingFang SC', 'PingFangSC-Regular';
+  background-color: #f7f7f7;
+}
+
+uni-page-body {
+  height: 100%;
+}
+
+button::after {
+  border: none !important;
+}
+
+.ios-bottom {
+  padding-bottom: calc(20rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* 解决H5 的问题 */
+uni-scroll-view .uni-scroll-view::-webkit-scrollbar {
+  /* 隐藏滚动条，仍然可以滚动 */
+  display: none
+}

@@ -1,0 +1,250 @@
+<template>
+  <view class="overflow-auto p-4 text-sm h-full space-y-4">
+    <view class="rounded-[10rpx] border-solid border-[1rpx] border-repeat-79">
+
+      <view v-if="profile" class="flex m-[-1rpx] p-4 border-solid border-repeat-79 border-[1rpx] rounded-md">
+        <view class="relative w-16 h-20">
+          <!-- <image mode="aspectFill" class="w-16 h-16 border-solid border-repeat-79 border-[1rpx]"
+            src="https://img.zcool.cn/community/0111775a9abd19a801219586bae286.JPG@2o.jpg">
+          </image> -->
+          <image mode="aspectFill" class="w-16 h-16 border-solid border-repeat-79 border-[1rpx]" :src="info?.avatar">
+          </image>
+          <view v-if="info?.leadership"
+            class="absolute text-xs py-0.5 w-20 text-center bottom-[-12rpx] left-[-16rpx] rounded-full bg-white border-solid border-repeat-79 border-[1rpx]">
+            {{ info?.leadership }}</view>
+        </view>
+        <view class="h-20 w-full ml-6 text-xs flex flex-col justify-between">
+          <view class="font-bold text-sm">{{ info?.name }}</view>
+          <view class="w-full line-clamp-1">行业：{{ info?.industry }}</view>
+          <view class="w-full flex">
+            <view class="">{{ info?.company }}</view>
+            <view class="ml-6">{{ info?.position }}</view>
+          </view>
+          <view class="w-full items-center relative">&nbsp;
+            <view @tap="toInfo" class="absolute right-0 bottom-0">修改个人信息></view>
+          </view>
+        </view>
+      </view>
+
+      <view @tap="toLogin" v-else
+        class="flex m-[-1rpx] p-4 py-8 border-solid border-repeat-79 border-[1rpx] rounded-md">
+        点击登录
+      </view>
+
+      <view v-if="profile && info?.tags.length > 0" class="py-1">
+        <uni-collapse ref="collapse">
+          <uni-collapse-item titleBorder="none" :border="false" :open="false">
+            <template v-slot:title>
+              <view class=" flex">
+                <view v-for="(item, index) in info?.tags" :key="index"
+                  class="text-xs border-solid border-repeat-79 border-[1rpx] rounded-md m-1 px-1 py-0.5 w-22.5 text-center">
+                  {{ item }}
+                </view>
+              </view>
+            </template>
+            <view class=" flex flex-wrap" style="width: calc(100% - 40rpx)">
+              <view v-for="(item, index) in info?.tags" :key="index">
+                <view v-if="index >= 3"
+                  class="text-xs border-solid border-repeat-79 border-[1rpx] rounded-md m-1 px-1 py-0.5 w-22.5 text-center">
+                  {{ item }}
+                </view>
+              </view>
+            </view>
+          </uni-collapse-item>
+        </uni-collapse>
+      </view>
+    </view>
+
+    <!-- 我的数据 -->
+    <!-- <view v-if="profile && profile?.userInfo.status == 4"> -->
+    <view v-if="profile">
+      <view class="font-bold text-base mb-4">我的数据</view>
+      <view class="border-solid border-[1rpx] border-repeat-79 py-4">
+        <view class="flex text-center">
+          <view class="flex-1">
+            <view>累计给出引荐</view>
+            <view class="my-2">{{ myData?.recommendNum }}</view>
+          </view>
+          <view class="flex-1">
+            <view>给出引荐成交金额</view>
+            <view class="my-2">{{ myData?.submitMoneySum }}</view>
+          </view>
+        </view>
+        <view class="flex text-center">
+          <view class="flex-1">
+            <view>累计收到引荐</view>
+            <view class="mt-2">{{ myData?.receiveRecommendNum }}</view>
+          </view>
+          <view class="flex-1">
+            <view>收到引荐成交金额</view>
+            <view class="mt-2">{{ myData?.harvestMoneySum }}</view>
+          </view>
+        </view>
+      </view>
+      <view class="mt-2 border-solid border-[1rpx] border-repeat-79 py-4">
+        <view class="flex text-center">
+          <view class="flex-1">
+            <view>走访数量</view>
+            <view class="mt-2">{{ myData?.visitNum }}</view>
+          </view>
+          <view class="flex-1">
+            <view>嘉宾数量</view>
+            <view class="mt-2">{{ myData?.guestNum }}</view>
+          </view>
+          <view class="flex-1">
+            <view>全勤月数</view>
+            <view class="mt-2">{{ myData?.fullAttendanceMonth }}/{{ myData?.monthNum }}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 我的引荐 -->
+    <!-- <view v-if="profile && profile?.userInfo.status == 4"> -->
+    <view v-if="profile">
+      <view class="font-bold text-base mb-4">我的引荐</view>
+      <view class="flex flex-col border-solid border-[1rpx] border-repeat-79 px-4">
+        <view @tap="toPostRecommend" class="h-10 flex items-center border-solid border-b-[1rpx] border-repeat-79">
+          <view class="flex-1">我给出的引荐</view>
+          <view>></view>
+        </view>
+        <view @tap="toReceiveRecommend" class="h-10 flex items-center border-solid border-b-[1rpx] border-repeat-79">
+          <view class="flex-1">我收到的引荐</view>
+          <view>></view>
+        </view>
+        <view @tap="toCreateRecommend" class="h-10 flex items-center">
+          <view class="flex-1">创建一个引荐</view>
+          <view>></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 我的走访 -->
+    <!-- <view v-if="profile && profile?.userInfo.status == 4"> -->
+    <view v-if="profile">
+      <view class="font-bold text-base mb-4">我的走访</view>
+      <view class="flex flex-col border-solid border-[1rpx] border-repeat-79 px-4">
+        <view @tap="toInterviewList" class="h-10 flex items-center border-solid border-b-[1rpx] border-repeat-79">
+          <view class="flex-1">我的走访列表</view>
+          <view>></view>
+        </view>
+        <view @tap="toCreateInterview" class="h-10 flex items-center">
+          <view class="flex-1">录入一个点对点走访</view>
+          <view>></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 我的嘉宾 -->
+    <!-- <view v-if="profile && profile?.userInfo.status == 4" @tap="toGuestList"> -->
+    <view v-if="profile">
+      <view class="font-bold text-base mb-4">我的嘉宾</view>
+      <view class="flex flex-col border-solid border-[1rpx] border-repeat-79 px-4">
+        <view @tap="toGuestList" class="h-10 flex items-center">
+          <view class="flex-1">我的嘉宾列表</view>
+          <view>></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 我的活动 -->
+    <!-- <view v-if="profile && profile?.userInfo.status == 3 || profile?.userInfo.status == 4"> -->
+    <view v-if="profile">
+      <view class="font-bold text-base mb-4">我的活动</view>
+      <view class="flex flex-col border-solid border-[1rpx] border-repeat-79 px-4">
+        <view @tap="toAttendance" class="h-10 flex items-center border-solid border-b-[1rpx] border-repeat-79">
+          <view class="flex-1">我的出勤情况</view>
+          <view>></view>
+        </view>
+        <view @tap="toActivities" class="h-10 flex items-center">
+          <view class="flex-1">我参加的活动</view>
+          <view>></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 我的嘉宾 -->
+    <!-- <view v-if="profile && profile?.userInfo.status == 4" @tap="toGuestList"> -->
+    <view v-if="profile">
+      <view class="font-bold text-base mb-4">系统</view>
+      <view class="flex flex-col border-solid border-[1rpx] border-repeat-79 px-4">
+        <view @tap="toNotice" class="h-10 flex items-center">
+          <view class="flex-1">系统通知</view>
+          <view>></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script lang="ts"></script>
+
+<script setup lang="ts">
+import { useMemberStore } from '@/stores'
+import { onShow } from '@dcloudio/uni-app'
+import { ref } from 'vue'
+import { getMyData, getInfo_1 } from '@/api/app/my'
+
+let memberStore = useMemberStore()
+let profile = ref(null)
+let myData: any = ref({})
+let info = ref()
+
+onShow(async () => {
+  profile.value = memberStore.profile
+  // console.log('profile', profile.value)
+  if (profile.value) {
+    const { data } = await getMyData()
+    myData.value = data
+    const result = await getInfo_1()
+    info.value = result.data
+  }
+})
+
+const toNotice = () => {
+  uni.navigateTo({ url: '/pages/my/notice/index' })
+}
+
+const toLogin = () => {
+  uni.navigateTo({ url: '/pages/login/login' })
+}
+
+const toInfo = () => {
+  uni.navigateTo({ url: '/pages/my/info/info' })
+}
+
+const toPostRecommend = () => {
+  uni.navigateTo({ url: '/pages/my/recommend/postRecommend' })
+}
+
+const toCreateRecommend = () => {
+  uni.navigateTo({ url: '/pages/my/recommend/createRecommend' })
+}
+
+const toReceiveRecommend = () => {
+  uni.navigateTo({ url: '/pages/my/recommend/receiveRecommend' })
+}
+
+const toGuestList = () => {
+  uni.navigateTo({ url: '/pages/my/guestList/index' })
+}
+
+const toInterviewList = () => {
+  uni.navigateTo({ url: '/pages/my/interview/interviewList' })
+}
+
+const toCreateInterview = () => {
+  uni.navigateTo({ url: '/pages/my/interview/createInterview' })
+}
+
+const toActivities = () => {
+  uni.navigateTo({ url: '/pages/my/activity/activities' })
+}
+
+const toAttendance = () => {
+  uni.navigateTo({ url: '/pages/my/activity/attendance' })
+}
+
+</script>
+
+<style lang="scss"></style>

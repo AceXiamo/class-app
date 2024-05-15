@@ -1,0 +1,202 @@
+{ //组件自动引入规则
+	"easycom": {
+		//是否开启自动扫描
+		"autoscan": true,
+		"custom": {
+			// uni-ui 规则如下配置
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+		}
+	},
+	"pages": [
+		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/home/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/member/index",
+			"style": {
+				"navigationBarTitleText": "会员/嘉宾"
+			}
+		},
+		{
+			"path": "pages/honor/index",
+			"style": {
+				"navigationBarTitleText": "荣誉榜"
+			}
+		},
+		{
+			"path": "pages/activity/index",
+			"style": {
+				"navigationBarTitleText": "活动/资讯"
+			}
+		},
+		{
+			"path": "pages/activity/news/index",
+			"style": {
+				"navigationBarTitleText": "资讯"
+			}
+		},
+		{
+			"path": "pages/activity/event/index",
+			"style": {
+				"navigationBarTitleText": "活动报名"
+			}
+		},
+		{
+			"path": "pages/activity/enroll/index",
+			"style": {
+				"navigationBarTitleText": "已报名活动名单"
+			}
+		},
+		{
+			"path": "pages/my/index",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/home/team/index",
+			"style": {
+				"navigationBarTitleText": "历届领导团队"
+			}
+		},
+		{
+			"path": "pages/home/about/index",
+			"style": {
+				"navigationBarTitleText": "关于我们"
+			}
+		},
+		{
+			"path": "pages/home/data/index",
+			"style": {
+				"navigationBarTitleText": "累计数据"
+			}
+		},
+		{
+			"path": "pages/member/detail/index",
+			"style": {
+				"navigationBarTitleText": "会员详情页"
+			}
+		},
+		{
+			"path": "pages/my/recommend/receiveRecommend",
+			"style": {
+				"navigationBarTitleText": "我收到的引荐"
+			}
+		},
+		{
+			"path": "pages/my/recommend/postRecommend",
+			"style": {
+				"navigationBarTitleText": "我给出的引荐"
+			}
+		},
+		{
+			"path": "pages/my/recommend/createRecommend",
+			"style": {
+				"navigationBarTitleText": "创建一个引荐"
+			}
+		},
+		{
+			"path": "pages/my/guestList/index",
+			"style": {
+				"navigationBarTitleText": "我的嘉宾列表"
+			}
+		},
+		{
+			"path": "pages/my/interview/interviewList",
+			"style": {
+				"navigationBarTitleText": "我的走访列表"
+			}
+		},
+		{
+			"path": "pages/my/interview/createInterview",
+			"style": {
+				"navigationBarTitleText": "录入一个点对点走访"
+			}
+		},
+		{
+			"path": "pages/my/activity/attendance",
+			"style": {
+				"navigationBarTitleText": "我的出勤"
+			}
+		},
+		{
+			"path": "pages/my/activity/activities",
+			"style": {
+				"navigationBarTitleText": "我参加的活动"
+			}
+		},
+		{
+			"path": "pages/my/info/info",
+			"style": {
+				"navigationBarTitleText": "个人信息"
+			}
+		},
+		{
+			"path": "pages/my/notice/index",
+			"style": {
+				"navigationBarTitleText": "系统通知"
+			}
+		},
+		{
+			"path": "pages/my/notice/detail",
+			"style": {
+				"navigationBarTitleText": "通知详情"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF"
+	},
+	// 设置 TabBar
+	"tabBar": {
+		"color": "#333",
+		"selectedColor": "#159efc",
+		"backgroundColor": "#fff",
+		"borderStyle": "white",
+		"list": [
+			{
+				"text": "首页",
+				"pagePath": "pages/home/index",
+				"iconPath": "static/tabs/home_default.png",
+				"selectedIconPath": "static/tabs/home_selected.png"
+			},
+			{
+				"text": "会员/嘉宾",
+				"pagePath": "pages/member/index",
+				"iconPath": "static/tabs/member_default.png",
+				"selectedIconPath": "static/tabs/member_selected.png"
+			},
+			{
+				"text": "荣誉榜",
+				"pagePath": "pages/honor/index",
+				"iconPath": "static/tabs/honor_default.png",
+				"selectedIconPath": "static/tabs/honor_selected.png"
+			},
+			{
+				"text": "活动/资讯",
+				"pagePath": "pages/activity/index",
+				"iconPath": "static/tabs/activity_default.png",
+				"selectedIconPath": "static/tabs/activity_selected.png"
+			},
+			{
+				"text": "我的",
+				"pagePath": "pages/my/index",
+				"iconPath": "static/tabs/my_default.png",
+				"selectedIconPath": "static/tabs/my_selected.png"
+			}
+		]
+	}
+}
