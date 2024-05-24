@@ -1,37 +1,95 @@
 <template>
   <view class="overflow-auto text-sm">
     <!-- 轮播图 -->
-    <swiper v-if="banners.length > 0" class="h-[308rpx] w-full" circular :indicator-dots="true" :autoplay="true"
-      :interval="3000">
-      <swiper-item v-for="(item, index) in banners" :key="index" class="h-[308rpx]">
-        <image class="w-full h-full" :src="item.content" mode="scaleToFill" />>
-      </swiper-item>
-    </swiper>
+    <view class="relative">
+      <swiper
+        v-if="banners.length > 0"
+        class="h-[808rpx] w-full"
+        circular
+        :indicator-dots="false"
+        :autoplay="false"
+        :interval="3000"
+        @change="onBannersSwiperChange"
+      >
+        <swiper-item v-for="(item, index) in banners" :key="index" class="h-[308rpx]">
+          <image class="w-full h-full" :src="item.content" mode="scaleToFill" />>
+        </swiper-item>
+      </swiper>
+      <view class="flex w-full absolute bottom-[150rpx]">
+        <view class="flex-1 flex justify-center mx-4.5">
+          <template v-for="(item, index) in banners" :key="`dot-${index}`">
+            <view
+              :class="[
+                'w-1.5 h-1.5 mx-[7rpx] rounded-full bg-white',
+                {
+                  'opacity-50': activeBanners !== index,
+                },
+              ]"
+            />
+          </template>
+        </view>
+      </view>
+    </view>
 
     <!-- 广告位 -->
-    <swiper v-if="ads.length > 0" class="h-[202rpx] w-full mt-1.5" circular :indicator-dots="true" :autoplay="true"
-      :interval="3000">
-      <swiper-item v-for="(item, index) in ads" :key="index" class="h-[308rpx]">
-        <image class="w-full h-full" :src="item.content" mode="scaleToFill" />>
-      </swiper-item>
-    </swiper>
+    <view class="w-full h-[100rpx] relative">
+      <swiper
+        v-if="ads.length > 0"
+        class="h-[200rpx] w-full absolute top-[-108rpx]"
+        circular
+        :indicator-dots="false"
+        :autoplay="false"
+        :interval="3000"
+        @change="onAdsSwiperChange"
+      >
+        <swiper-item
+          v-for="(item, index) in ads"
+          :key="index"
+          class="h-[308rpx] box-border px-[30rpx]"
+        >
+          <image
+            class="w-full h-full bg-red-500 rounded-[16rpx]"
+            :src="item.content"
+            mode="scaleToFill"
+          />>
+        </swiper-item>
+      </swiper>
+      <view class="flex w-full absolute bottom-[14rpx]">
+        <view class="flex-1 flex justify-center mx-4.5">
+          <template v-for="(item, index) in ads" :key="`dot-${index}`">
+            <view
+              :class="[
+                'w-1.5 h-1.5 mx-[7rpx] rounded-full bg-white',
+                {
+                  'bg-[#92003F]': activeAds == index,
+                  'bg-black opacity-20': activeAds !== index,
+                },
+              ]"
+            />
+          </template>
+        </view>
+      </view>
+    </view>
 
     <!-- 关于我们 -->
-    <view class="mt-5 px-4.5">
+    <view class="mt-[58rpx] px-4.5">
       <view class="relative w-full">
-        <text class="font-bold text-base">关于我们</text>
-        <text @tap="showMore"
-          class="absolute text-ss right-0 border-repeat-79 border-solid border-[1rpx] w-[136rpx] text-center py-1">了解更多..</text>
+        <text class="font-bold text-[40rpx] font-medium">关于我们</text>
+        <text
+          @tap="showMore"
+          class="absolute text-ss right-0 border-repeat-79 border-solid border-[1rpx] w-[136rpx] text-center py-1"
+          >了解更多..</text
+        >
       </view>
 
-      <view class="mt-5 text-justify break-all">
+      <view class="mt-3 text-justify break-all text-repeat-33 text-sm leading-[44rpx]">
         {{ about }}
       </view>
     </view>
 
     <!-- 累计数据 -->
     <view class="mt-5 px-3">
-      <view class="relative border-repeat-79 border-solid border-[1rpx] rounded-md p-4">
+      <view class="relative rounded-[16rpx] p-4 bg-white">
         <view class="mt-4">
           <view>本月</view>
           <view class="flex">
@@ -83,8 +141,11 @@
             </view>
           </view>
         </view>
-        <text @tap="showMoreData"
-          class="absolute text-ss right-4 bottom-8 border-repeat-79 border-solid border-[1rpx] w-[136rpx] text-center py-1">更多数据</text>
+        <text
+          @tap="showMoreData"
+          class="absolute text-ss right-4 bottom-8 border-repeat-79 border-solid border-[1rpx] w-[136rpx] text-center py-1"
+          >更多数据</text
+        >
       </view>
     </view>
 
@@ -96,33 +157,35 @@
       </view>
 
       <view v-if="team2.length > 0" class="mt-5 grid grid-cols-4 gap-[24rpx]">
-        <view v-for="(item, index) in team2" :key="index"
-          class="border-repeat-79 border-solid border-[1rpx] aspect-square">
-          <image mode="aspectFit" class="w-full h-full" :src="item.mainImg">
-          </image>
+        <view
+          v-for="(item, index) in team2"
+          :key="index"
+          class="border-repeat-79 border-solid border-[1rpx] aspect-square"
+        >
+          <image mode="aspectFit" class="w-full h-full" :src="item.mainImg"> </image>
           <view class="text-center">{{ item.leadership_position }}</view>
         </view>
       </view>
 
       <view v-if="team1.length > 0" class="mt-3 flex justify-center">
         <view class="w-[153rpx] border-repeat-79 border-solid border-[1rpx] aspect-square">
-          <image mode="aspectFit" class="w-full h-full" :src="team1[0].mainImg">
-          </image>
+          <image mode="aspectFit" class="w-full h-full" :src="team1[0].mainImg"> </image>
           <view class="text-center">{{ team1[0].leadership_position }}</view>
         </view>
       </view>
     </view>
 
     <!-- 申请加入 -->
-    <button class="font-bold rounded-full w-[510rpx] border-repeat-79 border-solid border-[1rpx] mt-4 mb-10"
-      @tap="join">
+    <button
+      class="font-bold rounded-full w-[510rpx] border-repeat-79 border-solid border-[1rpx] mt-4 mb-10"
+      @tap="join"
+    >
       申请加入
     </button>
   </view>
 </template>
 
-<script lang="ts">
-</script>
+<script lang="ts"></script>
 
 <script setup lang="ts">
 import { getContent } from '@/api/app/news'
@@ -135,9 +198,19 @@ let memberStore = useMemberStore()
 
 //轮播图
 let banners: any = ref([])
+const activeBanners = ref<number>(0)
+const onBannersSwiperChange = (e: any) => {
+  const { current } = e.detail
+  activeBanners.value = current
+}
 
 //广告
 let ads: any = ref([])
+const activeAds = ref<number>(0)
+const onAdsSwiperChange = (e: any) => {
+  const { current } = e.detail
+  activeAds.value = current
+}
 
 //关于我们
 let about: any = ref('')
@@ -174,7 +247,6 @@ onLoad(async () => {
   const result5 = await homeApi.rudeDataBoard()
   total.value = result5.data
   // console.log(total.value)
-
 })
 
 //跳转了解更多
@@ -203,4 +275,8 @@ const join = () => {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+page {
+  background-color: #f7f7f7;
+}
+</style>
