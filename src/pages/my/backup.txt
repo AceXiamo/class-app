@@ -1,25 +1,14 @@
 <template>
-  <view class="overflow-auto text-sm h-full space-y-4 relative">
-    <view class="w-full relative flex flex-col">
-      <image
-        src="/static/images/bg-my.png"
-        class="w-full h-full absolute top-0 left-0"
-        mode="scaleToFill"
-      />
-      <view class="w-full" :style="{ height: `${statusBar}px` }"></view>
-      <view
-        class="w-full z-10 flex items-center justify-center text-white text-base font-medium"
-        :style="{ height: `${customBar}px` }"
-        >我的</view
-      >
-    </view>
-
-    <!-- <view class="rounded-[10rpx] border-solid border-[1rpx] border-repeat-79">
+  <view class="overflow-auto p-4 text-sm h-full space-y-4">
+    <view class="rounded-[10rpx] border-solid border-[1rpx] border-repeat-79">
       <view
         v-if="profile"
         class="flex m-[-1rpx] p-4 border-solid border-repeat-79 border-[1rpx] rounded-md"
       >
         <view class="relative w-16 h-20">
+          <!-- <image mode="aspectFill" class="w-16 h-16 border-solid border-repeat-79 border-[1rpx]"
+            src="https://img.zcool.cn/community/0111775a9abd19a801219586bae286.JPG@2o.jpg">
+          </image> -->
           <image
             mode="aspectFill"
             class="w-16 h-16 border-solid border-repeat-79 border-[1rpx]"
@@ -82,11 +71,11 @@
           </uni-collapse-item>
         </uni-collapse>
       </view>
-    </view> -->
+    </view>
 
     <!-- 我的数据 -->
     <!-- <view v-if="profile && profile?.userInfo.status == 4"> -->
-    <!-- <view v-if="profile">
+    <view v-if="profile">
       <view class="font-bold text-base mb-4">我的数据</view>
       <view class="border-solid border-[1rpx] border-repeat-79 py-4">
         <view class="flex text-center">
@@ -126,11 +115,11 @@
           </view>
         </view>
       </view>
-    </view> -->
+    </view>
 
     <!-- 我的引荐 -->
     <!-- <view v-if="profile && profile?.userInfo.status == 4"> -->
-    <!-- <view v-if="profile">
+    <view v-if="profile">
       <view class="font-bold text-base mb-4">我的引荐</view>
       <view class="flex flex-col border-solid border-[1rpx] border-repeat-79 px-4">
         <view
@@ -152,11 +141,11 @@
           <view>></view>
         </view>
       </view>
-    </view> -->
+    </view>
 
     <!-- 我的走访 -->
     <!-- <view v-if="profile && profile?.userInfo.status == 4"> -->
-    <!-- <view v-if="profile">
+    <view v-if="profile">
       <view class="font-bold text-base mb-4">我的走访</view>
       <view class="flex flex-col border-solid border-[1rpx] border-repeat-79 px-4">
         <view
@@ -171,11 +160,11 @@
           <view>></view>
         </view>
       </view>
-    </view> -->
+    </view>
 
     <!-- 我的嘉宾 -->
     <!-- <view v-if="profile && profile?.userInfo.status == 4" @tap="toGuestList"> -->
-    <!-- <view v-if="profile">
+    <view v-if="profile">
       <view class="font-bold text-base mb-4">我的嘉宾</view>
       <view class="flex flex-col border-solid border-[1rpx] border-repeat-79 px-4">
         <view @tap="toGuestList" class="h-10 flex items-center">
@@ -183,11 +172,11 @@
           <view>></view>
         </view>
       </view>
-    </view> -->
+    </view>
 
     <!-- 我的活动 -->
     <!-- <view v-if="profile && profile?.userInfo.status == 3 || profile?.userInfo.status == 4"> -->
-    <!-- <view v-if="profile">
+    <view v-if="profile">
       <view class="font-bold text-base mb-4">我的活动</view>
       <view class="flex flex-col border-solid border-[1rpx] border-repeat-79 px-4">
         <view
@@ -202,11 +191,11 @@
           <view>></view>
         </view>
       </view>
-    </view> -->
+    </view>
 
     <!-- 我的嘉宾 -->
     <!-- <view v-if="profile && profile?.userInfo.status == 4" @tap="toGuestList"> -->
-    <!-- <view v-if="profile">
+    <view v-if="profile">
       <view class="font-bold text-base mb-4">系统</view>
       <view class="flex flex-col border-solid border-[1rpx] border-repeat-79 px-4">
         <view @tap="toNotice" class="h-10 flex items-center">
@@ -214,7 +203,7 @@
           <view>></view>
         </view>
       </view>
-    </view> -->
+    </view>
   </view>
 </template>
 
@@ -225,11 +214,6 @@ import { useMemberStore } from '@/stores'
 import { onShow } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 import { getMyData, getInfo_1 } from '@/api/app/my'
-import SystemStore from '@/utils/uniapp/system'
-import { storeToRefs } from 'pinia'
-
-const { statusBar, customBar } = storeToRefs(SystemStore())
-console.log(statusBar)
 
 let memberStore = useMemberStore()
 let profile = ref(null)
