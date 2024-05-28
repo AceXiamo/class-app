@@ -59,7 +59,7 @@
           <template v-for="(item, index) in ads" :key="`dot-${index}`">
             <view
               :class="[
-                'w-1.5 h-1.5 mx-[7rpx] rounded-full bg-white',
+                'w-1.5 h-1.5 mx-[7rpx] rounded-full',
                 {
                   'bg-[#92003F]': activeAds == index,
                   'bg-black opacity-20': activeAds !== index,
@@ -73,13 +73,14 @@
 
     <!-- 关于我们 -->
     <view class="mt-[58rpx] px-4.5">
-      <view class="relative w-full">
-        <text class="font-bold text-[40rpx] font-medium">关于我们</text>
-        <text
+      <view class="relative w-full flex items-center">
+        <view class="text-[40rpx] font-medium">关于我们</view>
+        <view
           @tap="showMore"
-          class="absolute text-ss right-0 border-repeat-79 border-solid border-[1rpx] w-[136rpx] text-center py-1"
-          >了解更多..</text
-        >
+          class="absolute text-sm text-repeat-99 right-0 flex items-center h-full"
+          >了解更多
+          <image src="/static/images/icon-r.png" class="w-[34rpx] h-[34rpx] mb-0.75" />
+        </view>
       </view>
 
       <view class="mt-3 text-justify break-all text-repeat-33 text-sm leading-[44rpx]">
@@ -89,99 +90,139 @@
 
     <!-- 累计数据 -->
     <view class="mt-5 px-3">
-      <view class="relative rounded-[16rpx] p-4 bg-white">
-        <view class="mt-4">
-          <view>本月</view>
-          <view class="flex">
+      <view class="relative rounded-[16rpx] py-5 bg-white text-xs text-repeat-33">
+        <view class="mt-1">
+          <view class="pl-[22rpx] text-black text-xl font-medium flex items-center">
+            <view class="bg-[#92003F] w-0.75 h-4 absolute left-0"></view>
+            本月</view
+          >
+          <view class="flex mt-[30rpx]">
             <view class="flex-1 text-center">
-              <view class="mt-2">{{ total?.monthRecommendNum }}</view>
-              <view class="mt-2">给出引荐</view>
+              <view class="text-[30rpx] text-[#92003F] font-bold">{{
+                formatNumber(total?.monthRecommendNum)
+              }}</view>
+              <view class="mt-[10rpx]">给出引荐</view>
             </view>
             <view class="flex-1 text-center">
-              <view class="mt-2">{{ total?.monthSubmitMoneySum }}</view>
-              <view class="mt-2">给出成交金额</view>
+              <view class="text-[30rpx] text-[#92003F] font-bold">{{
+                formatNumber(total?.monthSubmitMoneySum)
+              }}</view>
+              <view class="mt-[10rpx]">给出成交金额</view>
             </view>
             <view class="flex-1 text-center">
-              <view class="mt-2">{{ total?.monthHarvestMoneySum }}</view>
-              <view class="mt-2">收到成交金额</view>
-            </view>
-          </view>
-        </view>
-        <view class="mt-4">
-          <view>本届</view>
-          <view class="flex">
-            <view class="flex-1 text-center">
-              <view class="mt-2">{{ total?.sessionRecommendNum }}</view>
-              <view class="mt-2">给出引荐</view>
-            </view>
-            <view class="flex-1 text-center">
-              <view class="mt-2">{{ total?.sessionSubmitMoneySum }}</view>
-              <view class="mt-2">给出成交金额</view>
-            </view>
-            <view class="flex-1 text-center">
-              <view class="mt-2">{{ total?.sessionHarvestMoneySum }}</view>
-              <view class="mt-2">收到成交金额</view>
+              <view class="text-[30rpx] text-[#92003F] font-bold">{{
+                formatNumber(total?.monthHarvestMoneySum)
+              }}</view>
+              <view class="mt-[10rpx]">收到成交金额</view>
             </view>
           </view>
         </view>
-        <view class="mt-4 mb-16">
-          <view>创会累计</view>
-          <view class="flex">
+        <view class="mt-7">
+          <view class="pl-[22rpx] text-black text-xl font-medium flex items-center">
+            <view class="bg-[#92003F] w-0.75 h-4 absolute left-0"></view>
+            本届
+          </view>
+          <view class="flex mt-[30rpx]">
             <view class="flex-1 text-center">
-              <view class="mt-2">{{ total?.allRecommendNum }}</view>
-              <view class="mt-2">给出引荐</view>
+              <view class="text-[30rpx] text-[#92003F] font-bold">{{
+                formatNumber(total?.sessionRecommendNum)
+              }}</view>
+              <view class="mt-[10rpx]">给出引荐</view>
             </view>
             <view class="flex-1 text-center">
-              <view class="mt-2">{{ total?.allSubmitMoneySum }}</view>
-              <view class="mt-2">给出成交金额</view>
+              <view class="text-[30rpx] text-[#92003F] font-bold">{{
+                formatNumber(total?.sessionSubmitMoneySum)
+              }}</view>
+              <view class="mt-[10rpx]">给出成交金额</view>
             </view>
             <view class="flex-1 text-center">
-              <view class="mt-2">{{ total?.allHarvestMoneySum }}</view>
-              <view class="mt-2">收到成交金额</view>
+              <view class="text-[30rpx] text-[#92003F] font-bold">{{
+                formatNumber(total?.sessionHarvestMoneySum)
+              }}</view>
+              <view class="mt-[10rpx]">收到成交金额</view>
             </view>
           </view>
         </view>
-        <text
-          @tap="showMoreData"
-          class="absolute text-ss right-4 bottom-8 border-repeat-79 border-solid border-[1rpx] w-[136rpx] text-center py-1"
-          >更多数据</text
-        >
+        <view class="mt-7 mb-7">
+          <view class="pl-[22rpx] text-black text-xl font-medium flex items-center">
+            <view class="bg-[#92003F] w-0.75 h-4 absolute left-0"></view>
+            创会累计
+          </view>
+          <view class="flex mt-[30rpx]">
+            <view class="flex-1 text-center">
+              <view class="text-[30rpx] text-[#92003F] font-bold">{{
+                formatNumber(total?.allRecommendNum)
+              }}</view>
+              <view class="mt-[10rpx]">给出引荐</view>
+            </view>
+            <view class="flex-1 text-center">
+              <view class="text-[30rpx] text-[#92003F] font-bold">{{
+                formatNumber(total?.allSubmitMoneySum)
+              }}</view>
+              <view class="mt-[10rpx]">给出成交金额</view>
+            </view>
+            <view class="flex-1 text-center">
+              <view class="text-[30rpx] text-[#92003F] font-bold">{{
+                formatNumber(total?.allHarvestMoneySum)
+              }}</view>
+              <view class="mt-[10rpx]">收到成交金额</view>
+            </view>
+          </view>
+        </view>
+
+        <view class="w-full flex justify-center text-xs text-repeat-33">
+          <view @tap="showMoreData" class="flex items-center">
+            更多数据
+            <image src="/static/images/icon-r.png" class="w-[34rpx] h-[34rpx] mb-0.75" />
+          </view>
+        </view>
       </view>
     </view>
 
     <!-- 领导团队 -->
-    <view class="mt-5 px-4.5">
-      <view class="relative w-full text-base">
-        <text class="font-bold">领导团队</text>
-        <text @tap="showMoreTeam" class="absolute right-0">查看更多>></text>
-      </view>
-
-      <view v-if="team2.length > 0" class="mt-5 grid grid-cols-4 gap-[24rpx]">
+    <view class="mt-8 px-[30rpx]">
+      <view class="relative w-full flex items-center mb-[30rpx]">
+        <view class="text-[40rpx] font-medium">领导团队</view>
         <view
-          v-for="(item, index) in team2"
-          :key="index"
-          class="border-repeat-79 border-solid border-[1rpx] aspect-square"
-        >
-          <image mode="aspectFit" class="w-full h-full" :src="item.mainImg"> </image>
-          <view class="text-center">{{ item.leadership_position }}</view>
+          @tap="showMoreTeam"
+          class="absolute text-sm text-repeat-99 right-0 flex items-center h-full"
+          >查看更多
+          <image src="/static/images/icon-r.png" class="w-[34rpx] h-[34rpx] mb-0.75" />
         </view>
       </view>
 
-      <view v-if="team1.length > 0" class="mt-3 flex justify-center">
-        <view class="w-[153rpx] border-repeat-79 border-solid border-[1rpx] aspect-square">
-          <image mode="aspectFit" class="w-full h-full" :src="team1[0].mainImg"> </image>
-          <view class="text-center">{{ team1[0].leadership_position }}</view>
+      <view class="bg-white rounded-[16rpx] py-[30rpx] px-4 flex flex-col justify-center">
+        <view class="grid grid-cols-3 gap-[26rpx]">
+          <view
+            v-for="(item, index) in team"
+            :key="index"
+            class="aspect-square relative rounded-[16rpx] overflow-hidden"
+          >
+            <image mode="aspectFit" class="w-full h-full" :src="item.avatar"> </image>
+            <view
+              class="text-center absolute bottom-0 h-[49rpx] opacity-50 bg-black w-full text-white flex items-center justify-center text-xs"
+              >{{ item.leadership_position }}</view
+            >
+          </view>
+        </view>
+
+        <!-- 申请加入 -->
+        <view>
+          <button
+            class="font-medium text-white font-base bg-[#92003F] rounded-full w-[376rpx] mt-[66rpx] mb-[46rpx]"
+            @tap="join"
+          >
+            申请加入
+          </button>
         </view>
       </view>
     </view>
-
-    <!-- 申请加入 -->
-    <button
-      class="font-bold rounded-full w-[510rpx] border-repeat-79 border-solid border-[1rpx] mt-4 mb-10"
-      @tap="join"
-    >
-      申请加入
-    </button>
+    <!-- #ifndef H5 -->
+    <view class="w-full h-[34rpx]"></view>
+    <!-- #endif -->
+    <!-- #ifdef H5 -->
+    <view class="w-full h-[140rpx]"></view>
+    <!-- #endif -->
   </view>
 </template>
 
@@ -193,6 +234,7 @@ import * as homeApi from '@/api/app/home'
 import { onLoad } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 import { useMemberStore } from '@/stores'
+import { formatNumber } from '@/utils/tools'
 
 let memberStore = useMemberStore()
 
@@ -217,8 +259,6 @@ let about: any = ref('')
 
 //领导团队
 let team: any = ref([])
-let team1: any = ref([])
-let team2: any = ref([])
 
 //总数据
 let total: any = ref()
@@ -235,14 +275,6 @@ onLoad(async () => {
 
   const result4 = await homeApi.leaderList()
   team.value = result4.data || []
-
-  team.value.forEach((item: any) => {
-    if (item.position == '创会导师') {
-      team1.value.push(item)
-    } else {
-      team2.value.push(item)
-    }
-  })
 
   const result5 = await homeApi.rudeDataBoard()
   total.value = result5.data

@@ -164,8 +164,8 @@
   },
   // 设置 TabBar
   "tabBar": {
-    "color": "#333",
-    "selectedColor": "#159efc",
+    "color": "#B5B5B5",
+    "selectedColor": "#92003F",
     "backgroundColor": "#fff",
     "borderStyle": "white",
     "list": [
