@@ -13,12 +13,13 @@
 import { useMemberStore } from '@/stores'
 
 // 设置基础URL
-// const baseURL = 'http://localhost:8080'
-const baseURL = 'https://api.shanghui.vapinzhi.com'
-// 用ip方便真机调试
-// const baseURL = 'http://192.168.1.2:8080'
+let baseURL = import.meta.env.VITE_BASE_URL
+// #ifdef H5
+baseURL = ''
+// #endif
+
 // 是否开启日志打印
-const openLog = true
+const openLog = import.meta.env.VITE_OPEN_LOG
 
 // 添加拦截器
 const httpInterceptor = {
@@ -41,10 +42,8 @@ const httpInterceptor = {
     if (token) {
       options.header.Authorization = token
     }
-    if (openLog)
-      console.info("🕊️[request]发送请求", requestUrl, options)
+    if (openLog) console.info('🕊️[request]发送请求', requestUrl, options)
   },
-
 }
 uni.addInterceptor('request', httpInterceptor)
 uni.addInterceptor('uploadFile', httpInterceptor)
@@ -76,11 +75,10 @@ export const http = <T>(options: UniApp.RequestOptions) => {
       // 响应成功
       success(res) {
         if (openLog) {
-          console.log("🦚\x1B[32m%s\x1B[0m", "[request]", "收到回复", options.url, res) // 打印请求结果，方便调试
+          console.log('🦚\x1B[32m%s\x1B[0m', '[request]', '收到回复', options.url, res) // 打印请求结果，方便调试
         }
         // 状态码 2xx， axios 就是这样设计的
         if (res.statusCode >= 200 && res.statusCode < 300) {
-
           // 2.1 提取核心数据 res.data
           resolve(res.data as Data<T>)
         } else if (res.statusCode === 401) {
@@ -101,7 +99,7 @@ export const http = <T>(options: UniApp.RequestOptions) => {
       // 响应失败
       fail(err) {
         if (openLog) {
-          console.log("🐦\x1B[31m%s\x1B[0m", "[request]", options.url, "接口请求错误：", err) // 打印请求结果，方便调试
+          console.log('🐦\x1B[31m%s\x1B[0m', '[request]', options.url, '接口请求错误：', err) // 打印请求结果，方便调试
         }
         uni.showToast({
           icon: 'none',

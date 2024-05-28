@@ -1,4 +1,6 @@
 import { defineConfig } from 'vite'
+import { loadEnv } from 'vite'
+import type { ConfigEnv, UserConfig } from 'vite'
 import uni from '@dcloudio/vite-plugin-uni'
 
 const isH5 = process.env.UNI_PLATFORM === 'h5'
@@ -9,21 +11,47 @@ import { UnifiedViteWeappTailwindcssPlugin as uvtw } from 'weapp-tailwindcss-web
 import { resolve } from 'path'
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  build: {
-    // 开发阶段启用源码映射：https://uniapp.dcloud.net.cn/tutorial/migration-to-vue3.html#需主动开启-sourcemap
-    sourcemap: process.env.NODE_ENV === 'development',
-  },
-  plugins: [uni(), WeappTailwindcssDisabled ? undefined : uvtw()],
-  resolve: {
-    // 配置路径别名
-    alias: {
-      '@': resolve(__dirname, './src'),
+export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
+  const root = process.cwd()
+  const env = loadEnv(mode, root)
+  return {
+    server: {
+      hmr: true,
+      // 端口号
+      port: env.VITE_PORT as unknown as number,
+      host: '0.0.0.0',
+      // 本地跨域代理
+      proxy: {
+        ['/app']: {
+          target: env.VITE_BASE_URL,
+          ws: false,
+          changeOrigin: true,
+        },
+      },
     },
-  },
-  css: {
-    postcss: {
-      plugins: [require('tailwindcss'), require('autoprefixer')],
+    build: {
+      emptyOutDir: true,
+      sourcemap: true,
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_debugger: true,
+          // 发布时删除 console
+          drop_console: true,
+        },
+      },
     },
-  },
+    plugins: [uni(), WeappTailwindcssDisabled ? undefined : uvtw()],
+    resolve: {
+      // 配置路径别名
+      alias: {
+        '@': resolve(__dirname, './src'),
+      },
+    },
+    css: {
+      postcss: {
+        plugins: [require('tailwindcss'), require('autoprefixer')],
+      },
+    },
+  }
 })
