@@ -1,5 +1,5 @@
 <template>
-  <view class="overflow-auto text-sm">
+  <view class="overflow-auto h-full text-sm">
     <!-- 轮播图 -->
     <view class="relative">
       <swiper
@@ -213,12 +213,7 @@
         </view>
       </view>
     </view>
-    <!-- #ifndef H5 -->
     <view class="w-full h-[34rpx]"></view>
-    <!-- #endif -->
-    <!-- #ifdef H5 -->
-    <view class="w-full h-[140rpx]"></view>
-    <!-- #endif -->
   </view>
 </template>
 

@@ -1,86 +1,104 @@
 <template>
   <view class="h-full text-sm overflow-hidden">
     <!-- 搜索框 -->
-    <view class="mt-2 w-full px-4">
+    <view class="py-2 w-full px-[30rpx] box-border bg-white">
       <search-bar :placeholder="''" @search="search" />
     </view>
 
-    <view class="h-12 flex justify-between">
-      <view @tap="check(index)" v-for="(item, index) in options" :class="{ 'font-bold': index == i }" :key="index"
-        hover-class="bg-{#eef1f4}" class="flex items-center justify-center w-full">{{ item }}</view>
+    <view class="h-12.5 flex justify-between text-xl px-10 font-medium bg-white">
+      <view
+        @tap="check(index)"
+        v-for="(item, index) in options"
+        :class="{ 'text-[#92003F]': index == i }"
+        :key="index"
+        class="flex items-center justify-center w-full"
+        >{{ item }}</view
+      >
     </view>
 
-    <view class="px-2">
+    <view class="bg-white h-12.5 flex items-center">
       <slider-tab v-model="curValue" :tabs="tabs" @change="onChange">
         <template #="{ active, tab, index }">
-          <view :class="['h-6 text-xs flex items-center', {
-        'font-bold': active,
-        'mx-2': index !== tabs.length - 1
-      }]">
+          <view
+            :class="[
+              'text-[26rpx] h-12.5 flex items-center text-repeat-66 relative justify-center',
+              {
+                'text-repeat-33': active,
+                'font-bold': active,
+                'ml-6': index == 0,
+                'mx-3': index !== tabs.length - 1,
+                'ml-3': index == tabs.length - 1,
+                'mr-6': index == tabs.length - 1,
+              },
+            ]"
+          >
             {{ tab.title }}
+            <view v-if="active" class="bg-[#92003F] w-[30rpx] h-0.75 absolute bottom-2"></view>
           </view>
         </template>
       </slider-tab>
     </view>
 
-    <view class="flex justify-center" style="height: calc(100% - 224rpx)">
+    <view class="flex justify-center" style="height: calc(100% - 296rpx)">
       <od-list class="w-full" :total="total" :load-more="more" @on-load-more="lowerBottom">
-        <view v-for="(item, index) in list" :key="index"
-          class="m-4 border-solid border-repeat-79 border-[1rpx] rounded-md">
-          <view @tap="toDetail(item?.id)"
-            class="flex m-[-1rpx] p-4 border-solid border-repeat-79 border-[1rpx] rounded-md">
+        <view v-for="(item, index) in list" :key="index" class="m-[30rpx] rounded-[16rpx] bg-white">
+          <view @tap="toDetail(item?.id)" class="flex m-[-1rpx] p-4">
             <view class="relative w-16 h-20">
-              <image mode="aspectFill" class="w-16 h-16 border-solid border-repeat-79 border-[1rpx] bg-black"
-                :src="!memberStore.profile || memberStore.profile?.userInfo?.status == 0 || memberStore.profile?.userInfo?.status == 1 || memberStore.profile?.userInfo?.status == 2 ? '' : item?.avatar">
+              <image
+                mode="aspectFill"
+                class="w-16 h-16 border-solid border-repeat-79 border-[1rpx] bg-black"
+                :src="
+                  !memberStore.profile ||
+                  memberStore.profile?.userInfo?.status == 0 ||
+                  memberStore.profile?.userInfo?.status == 1 ||
+                  memberStore.profile?.userInfo?.status == 2
+                    ? ''
+                    : item?.avatar
+                "
+              >
               </image>
-              <view v-if="item?.leadership_position && item?.leadership_position != ''"
-                class="absolute text-xs py-0.5 w-20 text-center bottom-[-12rpx] left-[-16rpx] rounded-full bg-white border-solid border-repeat-79 border-[1rpx]">
-                {{ item?.leadership_position }}</view>
+              <view
+                v-if="item?.leadership_position && item?.leadership_position != ''"
+                class="absolute text-xs py-0.5 w-20 text-center bottom-[-12rpx] left-[-16rpx] rounded-full bg-white border-solid border-repeat-79 border-[1rpx]"
+              >
+                {{ item?.leadership_position }}</view
+              >
             </view>
             <view class="h-20 w-full ml-6 text-xs flex flex-col justify-between">
               <view class="font-bold text-sm">{{ item?.name }}</view>
               <view class="w-full line-clamp-1">行业：{{ item?.industry }}</view>
               <view class="w-full flex">
-                <view class="">{{ !memberStore.profile || memberStore.profile?.userInfo?.status == 0 ||
-        memberStore.profile?.userInfo?.status == 1 || memberStore.profile?.userInfo?.status ==
-        2 ? '' : item?.company
-                  }}</view>
-                <view class="ml-6">{{ !memberStore.profile || memberStore.profile?.userInfo?.status == 0 ||
-        memberStore.profile?.userInfo?.status == 1 || memberStore.profile?.userInfo?.status ==
-        2 ? '' : item?.position }}</view>
+                <view class="">{{
+                  !memberStore.profile ||
+                  memberStore.profile?.userInfo?.status == 0 ||
+                  memberStore.profile?.userInfo?.status == 1 ||
+                  memberStore.profile?.userInfo?.status == 2
+                    ? ''
+                    : item?.company
+                }}</view>
+                <view class="ml-6">{{
+                  !memberStore.profile ||
+                  memberStore.profile?.userInfo?.status == 0 ||
+                  memberStore.profile?.userInfo?.status == 1 ||
+                  memberStore.profile?.userInfo?.status == 2
+                    ? ''
+                    : item?.position
+                }}</view>
               </view>
               <view class="w-full flex items-center">
                 <image mode="aspectFill" class="w-4 h-4 mr-2" src="@/static/images/navigation.png">
                 </image>
-                {{ !memberStore.profile || memberStore.profile?.userInfo?.status == 0 ||
-        memberStore.profile?.userInfo?.status == 1 || memberStore.profile?.userInfo?.status ==
-        2 || memberStore.profile?.userInfo?.status ==
-        3 ? '' : item?.companyAddress }}
+                {{
+                  !memberStore.profile ||
+                  memberStore.profile?.userInfo?.status == 0 ||
+                  memberStore.profile?.userInfo?.status == 1 ||
+                  memberStore.profile?.userInfo?.status == 2 ||
+                  memberStore.profile?.userInfo?.status == 3
+                    ? ''
+                    : item?.companyAddress
+                }}
               </view>
             </view>
-          </view>
-          <view class="py-1" v-if="item?.tags && item?.tags.length > 0">
-            <uni-collapse ref="collapse">
-              <uni-collapse-item titleBorder="none" :border="false" :open="false">
-
-                <template v-slot:title>
-                  <view class=" flex">
-                    <view v-for="(item1, index) in item?.tags" :key="index"
-                      class="text-xs border-solid border-repeat-79 border-[1rpx] rounded-md m-1 px-1 py-0.5 w-22.5 text-center">
-                      {{ item1 }}
-                    </view>
-                  </view>
-                </template>
-                <view class=" flex flex-wrap" style="width: calc(100% - 40rpx)">
-                  <view v-for="(item1, index) in item?.tags" :key="index">
-                    <view v-if="index >= 3"
-                      class="text-xs border-solid border-repeat-79 border-[1rpx] rounded-md m-1 px-1 py-0.5 w-22.5 text-center">
-                      {{ item1 }}
-                    </view>
-                  </view>
-                </view>
-              </uni-collapse-item>
-            </uni-collapse>
           </view>
         </view>
 
@@ -97,21 +115,23 @@
 <script lang="ts"></script>
 
 <script setup lang="ts">
-import SearchBar from '@/components/searchBar/index.vue';
-import OdList from '@/components/list/index.vue';
-import SliderTab from '@/components/sliderTab/index.vue';
-import { ref, computed } from 'vue';
+import SearchBar from '@/components/searchBar/index.vue'
+import OdList from '@/components/list/index.vue'
+import SliderTab from '@/components/sliderTab/index.vue'
+import { ref, computed } from 'vue'
 import * as status from '@/api/app/status'
-import { onLoad } from '@dcloudio/uni-app';
+import { onLoad } from '@dcloudio/uni-app'
 import { useMemberStore } from '@/stores'
 
 let memberStore = useMemberStore()
 
-const toDetail = (id: number) => { uni.navigateTo({ url: '/pages/member/detail/index?id=' + id }); }
+const toDetail = (id: number) => {
+  uni.navigateTo({ url: '/pages/member/detail/index?id=' + id })
+}
 
-let option = ref(4);
+let option = ref(4)
 let i = ref(0)
-let options = ['会员', '嘉宾', '顾问团'];
+let options = ['会员', '嘉宾', '顾问团']
 const check = (index: number) => {
   i.value = index
   if (index == 0) {
@@ -123,7 +143,7 @@ const check = (index: number) => {
       option.value = 4
       loadData()
     } else {
-      option.value = 4;
+      option.value = 4
     }
   } else if (index == 1) {
     if (option.value != 3) {
@@ -148,7 +168,6 @@ const check = (index: number) => {
       option.value = 5
     }
   }
-
 }
 
 const searchKey = ref('')
@@ -175,8 +194,8 @@ let list: any = ref([])
 let recordTotal = ref(0)
 let total = ref(0)
 const more = computed(() => {
-  return list.value.length < recordTotal.value;
-});
+  return list.value.length < recordTotal.value
+})
 
 const lowerBottom = () => {
   page.value++
@@ -184,7 +203,13 @@ const lowerBottom = () => {
 }
 
 const loadData = async () => {
-  const { data } = await status.page_22({ rudeName: searchKey.value, status: option.value, industryId: curValue.value, page: page.value, limit: 10 })
+  const { data } = await status.page_22({
+    rudeName: searchKey.value,
+    status: option.value,
+    industryId: curValue.value,
+    page: page.value,
+    limit: 10,
+  })
   if (data?.list) {
     list.value = list.value.concat(data?.list)
   }
@@ -195,11 +220,8 @@ const loadData = async () => {
   }
 }
 
-let curValue = ref(0);
-let tabs = ref([
-  { key: 0, title: '全部' },
-]);
-
+let curValue = ref(0)
+let tabs = ref([{ key: 0, title: '全部' }])
 
 const GetIndustry = async () => {
   const { data } = await status.getIndustry()
@@ -208,13 +230,12 @@ const GetIndustry = async () => {
   })
 }
 
-
 onLoad(() => {
   GetIndustry()
   loadData()
-});
-
+})
 </script>
 
 <style lang="scss">
-//</style>
+//
+</style>
