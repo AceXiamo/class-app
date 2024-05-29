@@ -7,7 +7,7 @@ onLaunch(() => {
 })
 onResize(() => {
   useApp().onResize()
-});
+})
 onShow(() => {
   useApp().onShow()
 })
@@ -23,6 +23,6 @@ onHide(() => {
 @import '@/styles/common.scss';
 
 page {
-  background: white;
+  background: #f7f7f7;
 }
 </style>

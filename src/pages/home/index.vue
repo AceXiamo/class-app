@@ -47,11 +47,7 @@
           :key="index"
           class="h-[308rpx] box-border px-[30rpx]"
         >
-          <image
-            class="w-full h-full bg-red-500 rounded-[16rpx]"
-            :src="item.content"
-            mode="scaleToFill"
-          />>
+          <image class="w-full h-full rounded-[16rpx]" :src="item.content" mode="scaleToFill" />>
         </swiper-item>
       </swiper>
       <view class="flex w-full absolute bottom-[14rpx]">
