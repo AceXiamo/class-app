@@ -24,6 +24,7 @@
               borderWidth: `${borderWidth}rpx`,
               fontSize: `${fontSize}rpx`,
               marginRight: `${marginRight}rpx`,
+              background: `${bgColor}`,
             }"
             class="border-solid flex items-center justify-center"
           >
@@ -34,7 +35,7 @@
       <view :style="{ width: `${width}rpx` }" class="overflow-hidden">
         <view
           :style="{
-            marginTop: `${-(height + my * 2 - 2)}rpx`,
+            marginTop: `${-(height + my - 2)}rpx`,
           }"
           class="flex flex-wrap w-full"
         >
@@ -43,7 +44,7 @@
               :style="{
                 paddingLeft: `${px}rpx`,
                 paddingRight: `${px}rpx`,
-                marginTop: `${my}rpx`,
+                marginBottom: `${my}rpx`,
                 height: `${height}rpx`,
                 color: `${textColor}`,
                 borderRadius: `${borderRadius}rpx`,
@@ -51,6 +52,7 @@
                 borderWidth: `${borderWidth}rpx`,
                 fontSize: `${fontSize}rpx`,
                 marginRight: `${marginRight}rpx`,
+                background: `${bgColor}`,
               }"
               class="border-solid flex items-center justify-center"
             >
@@ -81,7 +83,7 @@ type TProps = {
   height?: number
   //文字颜色
   textColor?: string
-  //背景色
+  //边框色
   borderColor?: string
   //圆角
   borderRadius?: number
@@ -93,6 +95,8 @@ type TProps = {
   marginRight?: number
   // 数据源，数组类型，数组元素为字符串类型，长度为20个元素，每个元素为字符串类型，字符串长度为20个字符。例如：['1', '2', '3', ..., '20']。数组元素可以为空字符串。
   dataSource?: Array<any>
+  //背景色
+  bgColor?: string
 }
 const props = withDefaults(defineProps<TProps>(), {
   width: 600,
@@ -106,6 +110,7 @@ const props = withDefaults(defineProps<TProps>(), {
   fontSize: 24,
   marginRight: 18,
   dataSource: [],
+  bgColor: 'rgba(255, 255, 255, 0)', // 默认背景色为透明色，不显示背景色。如果需要显示背景色，请根据实际需求修改。
 })
 </script>
 

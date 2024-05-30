@@ -68,8 +68,8 @@
       </view>
 
       <!-- 标签 -->
-      <!-- <view v-if="profile && info?.tags.length > 0" class="mt-3 z-10"> -->
       <View v-if="profile && info?.tags.length > 0" class="mt-3 z-10 ml-[44rpx]">
+        <!-- <View class="mt-3 z-10 ml-[44rpx]"> -->
         <!-- 折叠组件 -->
         <collapse
           :width="600"
