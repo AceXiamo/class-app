@@ -87,7 +87,7 @@
     {
       "path": "pages/member/detail/index",
       "style": {
-        "navigationBarTitleText": "会员详情页"
+        "navigationBarTitleText": ""
       }
     },
     {

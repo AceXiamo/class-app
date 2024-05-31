@@ -64,11 +64,13 @@
               class="font-medium break-all line-clamp-2 text-[30rpx] h-[92rpx] flex items-center text-black"
               >{{ item?.theme }}</view
             >
-            <view class="mt-1 flex items-center h-5.5">活动时间：{{ item?.eventTime }}</view>
+            <view class="mt-1 flex items-center h-5.5"
+              >活动时间：{{ dateFormat(item?.eventTime) }}</view
+            >
             <view class="break-all line-clamp-1 flex w-full">
               <view class="w-[190rpx]">活动地点：</view>
               <view class="break-all line-clamp-2 w-full h-[78rpx]">
-                {{ item?.eventLocation }} 11111111111111111111111111111111111111111111111
+                {{ item?.eventLocation }}
               </view>
             </view>
           </view>
@@ -80,8 +82,8 @@
             >
             </image>
             <view
-              class="mt-4 text-center w-16 rounded-md p-1 border-[1rpx] border-solid border-repeat-79"
-              :class="item?.isEnroll ? 'bg-repeat-f7' : ''"
+              class="mt-[34rpx] rounded-full w-[166rpx] h-[52rpx] flex items-center justify-center text-white text-sm font-medium"
+              :class="item?.isEnroll ? 'bg-[#CFCFCF]' : ' bg-[#92003F]'"
             >
               {{ item?.isEnroll ? '已报名' : '报名' }}</view
             >
@@ -100,7 +102,9 @@
               class="font-medium break-all line-clamp-2 text-[30rpx] h-[92rpx] flex items-center text-black"
               >{{ item?.title }}</view
             >
-            <view class="mt-1 flex items-center h-5.5">发布时间：{{ item?.publishTime }}</view>
+            <view class="mt-1 flex items-center h-5.5"
+              >发布时间：{{ dateFormat(item?.publishTime) }}</view
+            >
             <view class="break-all line-clamp-1 h-5.5">来源：{{ item?.origin }}</view>
           </view>
           <view class="ml-4">
@@ -130,6 +134,7 @@ import { computed, ref } from 'vue'
 import * as event from '@/api/app/event'
 import { page_23 } from '@/api/app/news'
 import { onLoad, onShow } from '@dcloudio/uni-app'
+import { dateFormat } from '@/utils/tools'
 
 let page = ref(1)
 let list: any = ref([])

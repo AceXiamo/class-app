@@ -108,3 +108,18 @@ export function formatNumber(num: number): string {
 
   return result
 }
+
+//yyyy-MM-dd hh:mm:ss转换为yyyy年MM月dd日 hh:mm
+export function dateFormat(date: string): string {
+  if (!date) return ''
+  const newDate = new Date(date)
+  const year = newDate.getFullYear()
+  const month = newDate.getMonth() + 1
+  const day = newDate.getDate()
+  const hour = newDate.getHours()
+  const minute = newDate.getMinutes()
+
+  return `${year}年${month}月${day}日 ${hour.toString().padStart(2, '0')}:${minute
+    .toString()
+    .padStart(2, '0')}`
+}
