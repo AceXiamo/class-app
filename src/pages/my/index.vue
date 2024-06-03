@@ -310,6 +310,7 @@ onShow(async () => {
     const result = await getInfo_1()
     info.value = result.data
   }
+  toPostRecommend()
 })
 
 const toNotice = () => {

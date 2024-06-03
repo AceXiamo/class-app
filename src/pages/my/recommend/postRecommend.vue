@@ -1,12 +1,18 @@
 <template>
-  <view class="overflow-auto h-full p-4 text-sm space-y-4">
-
-    <view>我给出的引荐</view>
-
-    <view class="border-solid border-[1rpx] border-repeat-79 p-2 space-y-2">
-      <view class="flex justify-end">
-        <uni-data-select class="w-16" :clear="false" v-model="value" :localdata="range"
-          @change="onChange"></uni-data-select>
+  <view class="overflow-auto h-full p-[30rpx] text-sm">
+    <view class="rounded-[16rpx] bg-white w-full">
+      <view class="flex items-center">
+        <view class="w-0.75 h-[28rpx] bg-[#92003F] mr-2"></view>
+        <view>我给出的引荐</view>
+        <view class="w-[122rpx] h-[42rpx] rounded-full">
+          <uni-data-select
+            class="w-16"
+            :clear="false"
+            v-model="value"
+            :localdata="range"
+            @change="onChange"
+          ></uni-data-select>
+        </view>
       </view>
       <view class="flex">
         <view class="w-2/5">引荐数：{{ myRecommend?.recommendNum }}</view>
@@ -34,8 +40,14 @@
 
       <view class="mr-[-8rpx]">
         <uni-collapse ref="collapse">
-          <uni-collapse-item class="py-2" v-for="(item, index) in myRecommendList" :key="index" titleBorder="none"
-            :border="false" :open="false">
+          <uni-collapse-item
+            class="py-2"
+            v-for="(item, index) in myRecommendList"
+            :key="index"
+            titleBorder="none"
+            :border="false"
+            :open="false"
+          >
             <template v-slot:title>
               <view class="flex text-center items-center">
                 <view class="flex-1">{{ formatDate(item?.recommendTime) }}</view>
@@ -45,35 +57,30 @@
               </view>
             </template>
             <view class="mx-2 mt-1 p-1 flex border-solid border-t-[1rpx] border-repeat-79">
-              <view v-if="item?.recommendContent">
-                引荐内容：{{ item?.recommendContent }}
-              </view>
+              <view v-if="item?.recommendContent"> 引荐内容：{{ item?.recommendContent }} </view>
             </view>
           </uni-collapse-item>
         </uni-collapse>
       </view>
     </view>
-
   </view>
 </template>
 
-<script lang="ts">
-</script>
+<script lang="ts"></script>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 import { getMyRecommendList, getMyRecommend } from '@/api/app/my'
-import { onLoad } from '@dcloudio/uni-app';
-import { formatDate } from '@/utils/tools';
+import { onLoad } from '@dcloudio/uni-app'
+import { formatDate } from '@/utils/tools'
 
-
-let value = ref(0);
+let value = ref(0)
 let range = ref([
   { value: 0, text: '本周' },
   { value: 1, text: '本月' },
   { value: 2, text: '本届' },
   { value: 3, text: '累计' },
-]);
+])
 
 let myRecommend = ref()
 let myRecommendList = ref()
@@ -91,7 +98,23 @@ const onChange = async (e: any) => {
   const recommendList = await getMyRecommendList({ queryType: e })
   myRecommendList.value = recommendList.data
 }
-
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+::v-deep .uni-select {
+  border-radius: 9999rpx;
+  background-color: #fff5f9;
+  height: 44rpx;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+}
+
+::v-deep .uni-select__input-text {
+  color: #92003f;
+}
+
+::v-deep .uni-text {
+  color: #92003f;
+}
+</style>
