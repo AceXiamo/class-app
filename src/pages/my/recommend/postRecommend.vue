@@ -1,10 +1,12 @@
 <template>
   <view class="overflow-auto h-full p-[30rpx] text-sm">
     <view class="rounded-[16rpx] bg-white w-full">
-      <view class="flex items-center">
+      <view
+        class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative"
+      >
         <view class="w-0.75 h-[28rpx] bg-[#92003F] mr-2"></view>
         <view>我给出的引荐</view>
-        <view class="w-[122rpx] h-[42rpx] rounded-full">
+        <view class="w-[122rpx] h-[42rpx] rounded-full absolute right-[30rpx]">
           <uni-data-select
             class="w-16"
             :clear="false"
@@ -102,19 +104,20 @@ const onChange = async (e: any) => {
 
 <style lang="scss" scoped>
 ::v-deep .uni-select {
-  border-radius: 9999rpx;
-  background-color: #fff5f9;
-  height: 44rpx;
-  font-size: 24rpx;
-  display: flex;
-  align-items: center;
+  border-radius: 9999rpx !important;
+  background-color: #fff5f9 !important;
+  height: 44rpx !important;
+  font-size: 24rpx !important;
+  display: flex !important;
+  align-items: center !important;
+  border: 0 !important;
 }
 
 ::v-deep .uni-select__input-text {
-  color: #92003f;
+  color: #92003f !important;
 }
 
-::v-deep .uni-text {
-  color: #92003f;
+::v-deep .uni-icons {
+  color: #92003f !important;
 }
 </style>
