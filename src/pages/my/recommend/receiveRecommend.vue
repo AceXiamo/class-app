@@ -1,69 +1,91 @@
 <template>
   <view class="overflow-auto h-full p-4 text-sm space-y-4">
-
-    <view>我收到的引荐</view>
-
-    <view class="border-solid border-[1rpx] border-repeat-79 p-2 space-y-2">
-      <view class="flex justify-end">
-        <uni-data-select class="w-16" :clear="false" v-model="value" :localdata="range"
-          @change="onChange"></uni-data-select>
+    <view class="rounded-[16rpx] bg-white w-full pb-4">
+      <view class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative">
+        <view class="w-0.75 h-[28rpx] bg-[#92003F] mr-2"></view>
+        <view class="text-base">我收到的引荐</view>
+        <view class="w-[122rpx] h-[42rpx] rounded-full absolute right-[30rpx]">
+          <uni-data-select class="w-16" :clear="false" v-model="value" :localdata="range"
+            @change="onChange"></uni-data-select>
+        </view>
       </view>
-      <view class="flex">
-        <view class="w-2/5">引荐数：{{ receiveRecommend?.recommendNum }}</view>
-        <view class="w-3/5">成交金额：{{ receiveRecommend?.recommendAmount }}</view>
+      <view class="flex pt-4 pb-4">
+        <view class="flex-1 text-center">
+          <view class="text-[#333] text-[30rpx] mb-1">引荐数</view>
+          <view class="text-[#92003F] text-[40rpx] font-bold">{{ receiveRecommend?.recommendNum }}</view>
+        </view>
+        <view class="flex-1 text-center">
+          <view class="text-[#333] text-[30rpx] mb-1">成交金额</view>
+          <view class="text-[#92003F] text-[40rpx] font-bold">{{ receiveRecommend?.recommendAmount }}</view>
+        </view>
       </view>
-      <view class="flex">
-        <view class="w-2/5">内部引荐数：{{ receiveRecommend?.innerRecommendNum }}</view>
-        <view class="w-3/5">内部引荐成交金额：{{ receiveRecommend?.innerRecommendAmount }}</view>
+      <view class="flex pt-4 pb-4">
+        <view class="flex-1 text-center">
+          <view class="text-[#333] text-[30rpx] mb-1">内部引荐数</view>
+          <view class="text-[#92003F] text-[40rpx] font-bold">{{ receiveRecommend?.innerRecommendNum }}</view>
+        </view>
+        <view class="flex-1 text-center">
+          <view class="text-[#333] text-[30rpx] mb-1">内部引荐成交金额</view>
+          <view class="text-[#92003F] text-[40rpx] font-bold">{{ receiveRecommend?.innerRecommendAmount }}</view>
+        </view>
       </view>
-      <view class="flex">
-        <view class="w-2/5">外部引荐数：{{ receiveRecommend?.outRecommendNum }}</view>
-        <view class="w-3/5">外部引荐成交金额：{{ receiveRecommend?.outerRecommendAmount }}</view>
+      <view class="flex pt-4 pb-4">
+        <view class="flex-1 text-center">
+          <view class="text-[#333] text-[30rpx] mb-1">外部引荐数</view>
+          <view class="text-[#92003F] text-[40rpx] font-bold">{{ receiveRecommend?.outRecommendNum }}</view>
+        </view>
+        <view class="flex-1 text-center">
+          <view class="text-[#333] text-[30rpx] mb-1">外部引荐成交金额</view>
+          <view class="text-[#92003F] text-[40rpx] font-bold">{{ receiveRecommend?.outerRecommendAmount }}</view>
+        </view>
       </view>
     </view>
 
-    <view>引荐列表</view>
-
-    <view>
-      <view class="flex mr-6 text-center mb-2">
-        <view class="flex-1">日期</view>
-        <view class="flex-1">引荐人</view>
-        <view class="flex-1">类型</view>
-        <view class="flex-1">成交金额</view>
+    <view class="rounded-[16rpx] bg-white w-full overflow-hidden mt-[30rpx]">
+      <view class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative">
+        <view class="w-0.75 h-[28rpx] bg-[#92003F] mr-2"></view>
+        <view class="text-base">引荐列表</view>
       </view>
+      <view>
+        <view class="flex text-center mt-[30rpx] mb-[14rpx] leading-[44rpx] pr-6">
+          <view class="flex-1">日期</view>
+          <view class="flex-1">引荐人</view>
+          <view class="flex-1">类型</view>
+          <view class="flex-1">成交金额</view>
+        </view>
 
-      <view class="mr-[-8rpx]">
-        <uni-collapse ref="collapse">
-          <uni-collapse-item :disabled="disabled" class="py-2" v-for="(item, index) in receiveRecommendList"
-            :key="index" titleBorder="none" :border="false" :open="false">
-            <template v-slot:title>
-              <view class="flex text-center items-center">
-                <view class="flex-1">{{ formatDate(item?.recommendTime) }}</view>
-                <view class="flex-1">{{ item?.recommenderName }}</view>
-                <view class="flex-1">{{ item?.type == 0 ? '内部' : '外部' }}</view>
-                <view v-if="item?.dealAmout != 0" class="flex-1">{{ item.dealAmout }}</view>
-                <view v-else @tap="openPopup(item?.recommendedId)"
-                  class="flex-1 border-solid border-[1rpx] py-0.5 border-repeat-79">
-                  创建感谢函
+        <view>
+          <uni-collapse ref="collapse">
+            <uni-collapse-item v-for="(item, index) in receiveRecommendList" :key="index" titleBorder="none"
+              :border="false" :open="false">
+              <template v-slot:title>
+                <view class="flex text-center items-center text-[#333] leading-[44rpx] pt-3 pb-3">
+                  <view class="flex-1">{{ formatDate(item?.recommendTime) }}</view>
+                  <view class="flex-1">{{ item?.recommenderName }}</view>
+                  <view class="flex-1">{{ item?.type == 0 ? '内部' : '外部' }}</view>
+                  <view v-if="item?.dealAmout != 0" class="flex-1">{{ item.dealAmout }}</view>
+                  <view v-else @tap="openPopup(item?.recommendedId)"
+                    class="flex-1 border-solid border-[1rpx] border-[#AFAFAF] rounded-[54rpx] py-0.5 border-repeat-79">
+                    创建感谢函
+                  </view>
+                </view>
+              </template>
+              <view class="mx-4 mt-1 p-1 flex flex-col text-[#999]">
+                <view v-if="item?.recommendContent">
+                  引荐内容：{{ item?.recommendContent }}
+                </view>
+                <view v-if="item?.dealTime">
+                  成交日期：{{ formatDate(item?.dealTime) }}
+                </view>
+                <view v-if="item?.dealContent">
+                  成交内容：{{ item?.dealContent }}
                 </view>
               </view>
-            </template>
-            <view class="mx-2 mt-1 p-1 flex flex-col border-solid border-t-[1rpx] border-repeat-79">
-              <view v-if="item?.recommendContent">
-                引荐内容：{{ item?.recommendContent }}
-              </view>
-              <view v-if="item?.dealTime">
-                成交日期：{{ formatDate(item?.dealTime) }}
-              </view>
-              <view v-if="item?.dealContent">
-                成交内容：{{ item?.dealContent }}
-              </view>
-            </view>
-          </uni-collapse-item>
-        </uni-collapse>
+            </uni-collapse-item>
+          </uni-collapse>
+        </view>
       </view>
     </view>
-
   </view>
 
   <view>
@@ -199,4 +221,26 @@ const closePopup = () => {
 
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+::v-deep .uni-select {
+  border-radius: 9999rpx !important;
+  background-color: #fff5f9 !important;
+  height: 44rpx !important;
+  font-size: 24rpx !important;
+  display: flex !important;
+  align-items: center !important;
+  border: 0 !important;
+}
+
+::v-deep .uni-select__input-text {
+  color: #92003f !important;
+}
+
+::v-deep .uni-icons {
+  color: #92003f !important;
+}
+
+::v-deep .uni-collapse-item__title {
+  border-bottom: 2rpx solid #F8F8F8;
+}
+</style>

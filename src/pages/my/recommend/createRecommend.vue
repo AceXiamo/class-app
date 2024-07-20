@@ -1,38 +1,37 @@
 <template>
-  <view class="overflow-auto h-full p-4 text-sm space-y-4">
-    <view>
+  <view class="overflow-auto h-full p-4 text-sm">
+    <view class="text-[40rpx] leading-[92rpx]">
       创建一个引荐
     </view>
 
-    <view class="flex items-center">
-      <view class="flex-1">引荐给</view>
+    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0] mt-3">
+      <view class="text-[#333] mb-1">引荐给</view>
       <!-- <uni-data-select class="w-40" :clear="false" v-model="value" :localdata="range"
-        @change="onChange"></uni-data-select> -->
-      <view class="w-40 h-8 flex items-center border-solid border-[1rpx] border-[#e9e9e9] rounded-[8rpx]">
-        <searchCombox :candidates="member" :isJSON="true" keyName="name" placeholder="请选择" v-model="value"
-          @select="select"> </searchCombox>
-      </view>
+        @change="onChange"></uni-data-select>       -->
+      <searchCombox :candidates="member" :isJSON="true" keyName="name" placeholder="请选择" v-model="value" @select="select">
+      </searchCombox>
     </view>
 
-    <view class="flex items-center">
-      <view class="flex-1">引荐类型</view>
+    <view class="border-b-[1rpx] border-[#F0F0F0] mt-3">
+      <view class="text-[#333]">引荐类型</view>
       <uni-data-select class="w-40" :clear="false" v-model="value1" :localdata="range1"
         @change="onChange1"></uni-data-select>
     </view>
 
-    <view class="flex-1">引荐内容</view>
-    <view class="border-solid border-[1rpx] border-repeat-79">
-      <textarea v-model="content" :maxlength="-1"></textarea>
+    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0] mt-3">
+      <view class="text-[#333] mb-1">引荐内容</view>
+      <textarea v-model="content" :maxlength="-1" class="w-full mt-1" auto-height placeholder="请输入"
+        placeholder-class="placeholder"></textarea>
     </view>
 
-    <view class="flex justify-end space-x-4">
-      <view class="w-28">
-        <button class="rounded-[0rpx] bg-white border-solid border-[1rpx] border-repeat-79 text-[24rpx]" @tap="cancel">
+    <view class="flex justify-between mt-[106rpx] p-4">
+      <view class="w-[288rpx] h-[88rpx]">
+        <button class="rounded-[44rpx] bg-[#F5F5F5] text-[32rpx] leading-[88rpx]" @tap="cancel">
           取消
         </button>
       </view>
-      <view class="w-28">
-        <button class="rounded-[0rpx] bg-white border-solid border-[1rpx] border-repeat-79 text-[24rpx]" @tap="submit">
+      <view class="w-[288rpx] h-[88rpx]">
+        <button class="rounded-[44rpx] bg-[#92003F] text-white text-[32rpx] leading-[88rpx]" @tap="submit">
           确定
         </button>
       </view>
@@ -126,4 +125,29 @@ const submit = () => {
 
 </script>
 
-<style scoped></style>
+<style lang="scss">
+page {
+  background: #fff;
+}
+
+.placeholder,
+::v-deep .search-combox__input-plac,
+::v-deep .search-combox .uni-icons,
+::v-deep .uni-select__input-placeholder,
+::v-deep .uni-select .uni-icons {
+  color: #AFAFAF !important;
+}
+
+::v-deep .search-combox {
+  padding: 0 !important;
+}
+
+::v-deep .uni-select {
+  border: 0 !important;
+  padding: 0 !important;
+}
+
+::v-deep .uni-select__input-text {
+  font-size: 28rpx !important;
+}
+</style>

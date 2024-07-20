@@ -1,134 +1,144 @@
 <template>
   <view class="text-sm overflow-x-auto">
     <!-- 日期选项 -->
-    <view class="p-4 pb-2">
-      <slider-tab v-model="curValue" :tabs="tabs" @change="onChange">
-        <template #="{ active, tab, index }">
-          <view :class="['h-10 text-base flex items-center', {
-        'font-bold': active,
-        'mr-4': index !== tabs?.length - 1
-      }]">
-            {{ tab?.year }}年{{ tab?.month }}月
+    <view class="bg-white m-[30rpx] pb-[72rpx] rounded-[16rpx]">
+      <view class="p-4">
+        <slider-tab v-model="curValue" :tabs="tabs" @change="onChange">
+          <template #="{ active, tab, index }">
+            <view :class="['h-10 text-[26rpx] text-[#666] flex items-center relative justify-center', {
+              'font-bold': active,
+              'text-[30rpx]': active,
+              'text-[#000]': active,
+              'mr-4': index !== tabs?.length - 1
+            }]">
+              {{ tab?.year }}年{{ tab?.month }}月
+              <view v-if="active" class="bg-[#92003F] w-[30rpx] h-[6rpx] absolute bottom-1"></view>
+            </view>
+          </template>
+        </slider-tab>
+      </view>
+
+      <!-- 内容区域 -->
+      <view>
+        <view class="flex mt-4">
+          <view class="flex-1 text-center">
+            <view class="text-[30rpx] text-[#92003F] font-bold">{{ monthData?.recommendNum }}</view>
+            <view class="mt-1 text-[24rpx] text-[#333]">给出引荐</view>
           </view>
-        </template>
-      </slider-tab>
-    </view>
-
-    <!-- 内容区域 -->
-    <view>
-      <view class="flex">
-        <view class="flex-1 text-center">
-          <view class="mt-2">{{ monthData?.recommendNum }}</view>
-          <view class="mt-2">给出引荐</view>
-        </view>
-        <view class="flex-1 text-center">
-          <view class="mt-2">{{ monthData?.outRecommendNum }}</view>
-          <view class="mt-2">给出外部引荐</view>
-        </view>
-        <view class="flex-1 text-center">
-          <view class="mt-2">{{ monthData?.innerRecommendNum }}</view>
-          <view class="mt-2">给出内部引荐</view>
-        </view>
-      </view>
-    </view>
-    <view class="flex">
-      <view class="flex-1 text-center">
-        <view class="mt-2">{{ monthData?.submitMoneySum }}</view>
-        <view class="mt-2">给出成交金额</view>
-      </view>
-      <view class="flex-1 text-center">
-        <view class="mt-2">{{ monthData?.harvestMoneySum }}</view>
-        <view class="mt-2">收到成交金额</view>
-      </view>
-      <view class="flex-1 text-center">
-        <view class="mt-2">{{ monthData?.guestNum }}</view>
-        <view class="mt-2">嘉宾数</view>
-      </view>
-    </view>
-    <view class="mx-4 mt-4 border-solid border-b-[1rpx] border-repeat-79"></view>
-
-    <!-- 日期选项 -->
-    <view v-if="tabs1" class="p-4 pb-2">
-      <slider-tab v-model="curValue1" :tabs="tabs1" @change="onChange1">
-
-        <template #="{ active, tab, index }">
-          <view :class="['h-10 text-base flex items-center', {
-        'font-bold': active,
-        'mr-4': index !== tabs.length - 1
-      }]">
-            第{{ tab?.session }}届
+          <view class="flex-1 text-center">
+            <view class="text-[30rpx] text-[#92003F] font-bold">{{ monthData?.outRecommendNum }}</view>
+            <view class="mt-1 text-[24rpx] text-[#333]">给出外部引荐</view>
           </view>
-        </template>
-      </slider-tab>
+          <view class="flex-1 text-center">
+            <view class="text-[30rpx] text-[#92003F] font-bold">{{ monthData?.innerRecommendNum }}</view>
+            <view class="mt-1 text-[24rpx] text-[#333]">给出内部引荐</view>
+          </view>
+        </view>
+      </view>
+      <view class="flex mt-8">
+        <view class="flex-1 text-center">
+          <view class="text-[30rpx] text-[#92003F] font-bold">{{ monthData?.submitMoneySum }}</view>
+          <view class="mt-1 text-[24rpx] text-[#333]">给出成交金额</view>
+        </view>
+        <view class="flex-1 text-center">
+          <view class="text-[30rpx] text-[#92003F] font-bold">{{ monthData?.harvestMoneySum }}</view>
+          <view class="mt-1 text-[24rpx] text-[#333]">收到成交金额</view>
+        </view>
+        <view class="flex-1 text-center">
+          <view class="text-[30rpx] text-[#92003F] font-bold">{{ monthData?.guestNum }}</view>
+          <view class="mt-1 text-[24rpx] text-[#333]">嘉宾数</view>
+        </view>
+      </view>
     </view>
 
-    <!-- 内容区域 -->
-    <view v-if="tabs1">
-      <view class="flex">
-        <view class="flex-1 text-center">
-          <view class="mt-2">{{ sessionData?.recommendNum }}</view>
-          <view class="mt-2">给出引荐</view>
-        </view>
-        <view class="flex-1 text-center">
-          <view class="mt-2">{{ sessionData?.outRecommendNum }}</view>
-          <view class="mt-2">给出外部引荐</view>
-        </view>
-        <view class="flex-1 text-center">
-          <view class="mt-2">{{ sessionData?.innerRecommendNum }}</view>
-          <view class="mt-2">给出内部引荐</view>
-        </view>
-      </view>
-    </view>
-    <view v-if="tabs1" class="flex mt-2">
-      <view class="flex-1 text-center">
-        <view class="mt-2">{{ sessionData?.submitMoneySum }}</view>
-        <view class="mt-2">给出成交金额</view>
-      </view>
-      <view class="flex-1 text-center">
-        <view class="mt-2">{{ sessionData?.harvestMoneySum }}</view>
-        <view class="mt-2">收到成交金额</view>
-      </view>
-      <view class="flex-1 text-center">
-        <view class="mt-2">{{ sessionData?.guestNum }}</view>
-        <view class="mt-2">嘉宾数</view>
-      </view>
-    </view>
-    <view v-if="tabs1" class="mx-4 mt-4 border-solid border-b-[1rpx] border-repeat-79"></view>
+    <!-- 第几届选项 -->
+    <view class="bg-white m-[30rpx] pb-[72rpx] rounded-[16rpx]">
+      <view v-if="tabs1" class="p-4">
+        <slider-tab v-model="curValue1" :tabs="tabs1" @change="onChange1">
 
-    <!-- 日期选项 -->
-    <view class="p-4 pb-2 ">
-      <view class="text-base h-10 font-bold flex items-center">创会累计</view>
+          <template #="{ active, tab, index }">
+            <view :class="['h-10 text-[26rpx] text-[#666] flex items-center relative justify-center', {
+              'font-bold': active,
+              'text-[30rpx]': active,
+              'text-[#000]': active,
+              'mr-4': index !== tabs.length - 1
+            }]">
+              第{{ tab?.session }}届
+              <view v-if="active" class="bg-[#92003F] w-[30rpx] h-[6rpx] absolute bottom-1"></view>
+            </view>
+          </template>
+        </slider-tab>
+      </view>
+
+      <!-- 内容区域 -->
+      <view v-if="tabs1">
+        <view class="flex mt-4">
+          <view class="flex-1 text-center">
+            <view class="text-[30rpx] text-[#92003F] font-bold">{{ sessionData?.recommendNum }}</view>
+            <view class="mt-1 text-[24rpx] text-[#333]">给出引荐</view>
+          </view>
+          <view class="flex-1 text-center">
+            <view class="text-[30rpx] text-[#92003F] font-bold">{{ sessionData?.outRecommendNum }}</view>
+            <view class="mt-1 text-[24rpx] text-[#333]">给出外部引荐</view>
+          </view>
+          <view class="flex-1 text-center">
+            <view class="text-[30rpx] text-[#92003F] font-bold">{{ sessionData?.innerRecommendNum }}</view>
+            <view class="mt-1 text-[24rpx] text-[#333]">给出内部引荐</view>
+          </view>
+        </view>
+      </view>
+      <view v-if="tabs1" class="flex mt-8">
+        <view class="flex-1 text-center">
+          <view class="text-[30rpx] text-[#92003F] font-bold">{{ sessionData?.submitMoneySum }}</view>
+          <view class="mt-1 text-[24rpx] text-[#333]">给出成交金额</view>
+        </view>
+        <view class="flex-1 text-center">
+          <view class="text-[30rpx] text-[#92003F] font-bold">{{ sessionData?.harvestMoneySum }}</view>
+          <view class="mt-1 text-[24rpx] text-[#333]">收到成交金额</view>
+        </view>
+        <view class="flex-1 text-center">
+          <view class="text-[30rpx] text-[#92003F] font-bold">{{ sessionData?.guestNum }}</view>
+          <view class="mt-1 text-[24rpx] text-[#333]">嘉宾数</view>
+        </view>
+      </view>
     </view>
 
-    <!-- 内容区域 -->
-    <view>
-      <view class="flex">
-        <view class="flex-1 text-center">
-          <view class="mt-2">{{ totalData?.recommendNum }}</view>
-          <view class="mt-2">给出引荐</view>
-        </view>
-        <view class="flex-1 text-center">
-          <view class="mt-2">{{ totalData?.outRecommendNum }}</view>
-          <view class="mt-2">给出外部引荐</view>
-        </view>
-        <view class="flex-1 text-center">
-          <view class="mt-2">{{ totalData?.innerRecommendNum }}</view>
-          <view class="mt-2">给出内部引荐</view>
+    <!-- 累计 -->
+    <view class="bg-white m-[30rpx] pb-[72rpx] rounded-[16rpx]">
+      <view class="p-4">
+        <view class="text-[30rpx] font-bold">创会累计</view>
+      </view>
+
+      <!-- 内容区域 -->
+      <view>
+        <view class="flex mt-4">
+          <view class="flex-1 text-center">
+            <view class="text-[30rpx] text-[#92003F] font-bold">{{ totalData?.recommendNum }}</view>
+            <view class="mt-1 text-[24rpx] text-[#333]">给出引荐</view>
+          </view>
+          <view class="flex-1 text-center">
+            <view class="text-[30rpx] text-[#92003F] font-bold">{{ totalData?.outRecommendNum }}</view>
+            <view class="mt-1 text-[24rpx] text-[#333]">给出外部引荐</view>
+          </view>
+          <view class="flex-1 text-center">
+            <view class="text-[30rpx] text-[#92003F] font-bold">{{ totalData?.innerRecommendNum }}</view>
+            <view class="mt-1 text-[24rpx] text-[#333]">给出内部引荐</view>
+          </view>
         </view>
       </view>
-    </view>
-    <view class="flex mt-2 mb-10">
-      <view class="flex-1 text-center">
-        <view class="mt-2">{{ totalData?.submitMoneySum }}</view>
-        <view class="mt-2">给出成交金额</view>
-      </view>
-      <view class="flex-1 text-center">
-        <view class="mt-2">{{ totalData?.harvestMoneySum }}</view>
-        <view class="mt-2">收到成交金额</view>
-      </view>
-      <view class="flex-1 text-center">
-        <view class="mt-2">{{ totalData?.guestNum }}</view>
-        <view class="mt-2">嘉宾数</view>
+      <view class="flex mt-8">
+        <view class="flex-1 text-center">
+          <view class="text-[30rpx] text-[#92003F] font-bold">{{ totalData?.submitMoneySum }}</view>
+          <view class="mt-1 text-[24rpx] text-[#333]">给出成交金额</view>
+        </view>
+        <view class="flex-1 text-center">
+          <view class="text-[30rpx] text-[#92003F] font-bold">{{ totalData?.harvestMoneySum }}</view>
+          <view class="mt-1 text-[24rpx] text-[#333]">收到成交金额</view>
+        </view>
+        <view class="flex-1 text-center">
+          <view class="text-[30rpx] text-[#92003F] font-bold">{{ totalData?.guestNum }}</view>
+          <view class="mt-1 text-[24rpx] text-[#333]">嘉宾数</view>
+        </view>
       </view>
     </view>
   </view>

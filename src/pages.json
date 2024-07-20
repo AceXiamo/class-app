@@ -26,7 +26,8 @@
     {
       "path": "pages/honor/index",
       "style": {
-        "navigationBarTitleText": "荣誉榜"
+        "navigationBarTitleText": "荣誉榜",
+        "navigationStyle": "custom"
       }
     },
     {

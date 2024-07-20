@@ -1,48 +1,65 @@
 <template>
   <view class="overflow-auto p-4 text-sm h-full space-y-4">
-
-    <view>我的走访列表</view>
-
-    <view class="relative border-solid border-[1rpx] border-repeat-79 p-2 space-y-2">
-      <view>总走访数：{{ visit?.visitNum }}</view>
-      <view>点对点走访数：{{ visit?.p2pVisitNum }}</view>
-      <view>参与集体走访数：{{ visit?.groupVisitNum }}</view>
-
-      <uni-data-select class="absolute right-2 top-2  w-16" :clear="false" v-model="value" :localdata="range"
-        @change="onChange"></uni-data-select>
-    </view>
-
-    <view>走访列表</view>
-
-    <view>
-
-      <view class="flex mr-6 text-center mb-2">
-        <view class="flex-1">日期</view>
-        <view class="flex-1">被走访人</view>
-        <view class="flex-1">走访类型</view>
+    <view class="rounded-[16rpx] bg-white w-full">
+      <view class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative">
+        <view class="w-0.75 h-[28rpx] bg-[#92003F] mr-2"></view>
+        <view class="text-base">我的走访列表</view>
+        <view class="w-[122rpx] h-[42rpx] rounded-full absolute right-[30rpx]">
+          <uni-data-select class="w-16" :clear="false" v-model="value" :localdata="range"
+            @change="onChange"></uni-data-select>
+        </view>
       </view>
 
-      <view class="mr-[-8rpx]">
-        <uni-collapse ref="collapse">
-          <uni-collapse-item class="py-2" v-for="(item, index) in visit?.visitVOS" :key="index" titleBorder="none"
-            :border="false" :open="false">
-            <template v-slot:title>
-              <view class="flex text-center items-center">
-                <view class="flex-1">{{ formatDate(item.visitTime) }}</view>
-                <view class="flex-1">{{ item.visitedName }}</view>
-                <view class="flex-1">{{ item.type == 0 ? '点对点走访' : '集体走访' }}</view>
+      <view class="flex item-center pt-6 pb-6">
+        <view class="flex-1 text-center">
+          <view>总走访数</view>
+          <view class="text-[40rpx] text-[#92003F] font-bold mt-1">{{ visit?.visitNum }}</view>
+        </view>
+        <view class="flex-1 text-center">
+          <view>点对点走访数</view>
+          <view class="text-[40rpx] text-[#92003F] font-bold mt-1">{{ visit?.p2pVisitNum }}</view>
+        </view>
+        <view class="flex-1 text-center">
+          <view>参与集体走访数</view>
+          <view class="text-[40rpx] text-[#92003F] font-bold mt-1">{{ visit?.groupVisitNum }}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="rounded-[16rpx] bg-white w-full overflow-hidden">
+      <view class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative">
+        <view class="w-0.75 h-[28rpx] bg-[#92003F] mr-2"></view>
+        <view class="text-base">走访列表</view>
+      </view>
+      <view>
+        <view class="flex text-center mt-[30rpx] mb-[14rpx] leading-[44rpx] pr-6">
+          <view class="flex-1">日期</view>
+          <view class="flex-1">被走访人</view>
+          <view class="flex-1">走访类型</view>
+        </view>
+
+        <view>
+          <uni-collapse ref="collapse">
+            <uni-collapse-item v-for="(item, index) in visit?.visitVOS" :key="index" titleBorder="none" :border="false"
+              :open="false">
+              <template v-slot:title>
+                <view class="flex text-center items-center text-[#333] leading-[44rpx] pt-3 pb-3">
+                  <view class="flex-1">{{ formatDate(item.visitTime) }}</view>
+                  <view class="flex-1">{{ item.visitedName }}</view>
+                  <view class="flex-1">{{ item.type == 0 ? '点对点走访' : '集体走访' }}</view>
+                </view>
+              </template>
+              <view class="mx-4 mt-1 p-1 flex flex-col text-[#999]">
+                <view v-if="item.content">
+                  走访事由：{{ item.content }}
+                </view>
+                <view v-if="item.comment">
+                  走访情况：{{ item.comment }}
+                </view>
               </view>
-            </template>
-            <view class="mx-4 mt-1 p-1 flex flex-col border-solid border-t-[1rpx] border-repeat-79">
-              <view v-if="item.content">
-                走访事由：{{ item.content }}
-              </view>
-              <view v-if="item.comment">
-                走访情况：{{ item.comment }}
-              </view>
-            </view>
-          </uni-collapse-item>
-        </uni-collapse>
+            </uni-collapse-item>
+          </uni-collapse>
+        </view>
       </view>
     </view>
   </view>
@@ -79,4 +96,26 @@ const onChange = async (e: any) => {
 }
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+::v-deep .uni-select {
+  border-radius: 9999rpx !important;
+  background-color: #fff5f9 !important;
+  height: 44rpx !important;
+  font-size: 24rpx !important;
+  display: flex !important;
+  align-items: center !important;
+  border: 0 !important;
+}
+
+::v-deep .uni-select__input-text {
+  color: #92003f !important;
+}
+
+::v-deep .uni-icons {
+  color: #92003f !important;
+}
+
+::v-deep .uni-collapse-item__title {
+  border-bottom: 2rpx solid #F8F8F8;
+}
+</style>

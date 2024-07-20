@@ -6,19 +6,11 @@
     </view>
 
     <view class="h-12.5 flex justify-between text-xl px-10 font-medium bg-white">
-      <view
-        @tap="check(index)"
-        v-for="(item, index) in options"
-        :class="{ 'text-[#92003F]': index === i }"
-        :key="index"
-        class="flex items-center justify-center w-full"
-      >
+      <view @tap="check(index)" v-for="(item, index) in options" :class="{ 'text-[#92003F]': index === i }" :key="index"
+        class="flex items-center justify-center w-full">
         <view class="relative flex justify-center px-0.5">
           {{ item }}
-          <view
-            class="w-full h-1.5 bg-[#92003F] opacity-10 rounded-full absolute bottom-0.5"
-            v-if="index === i"
-          ></view>
+          <view class="w-full h-1.5 bg-[#92003F] opacity-10 rounded-full absolute bottom-0.5" v-if="index === i"></view>
         </view>
       </view>
     </view>
@@ -26,19 +18,17 @@
     <view class="bg-white h-12.5 flex items-center">
       <slider-tab v-model="curValue" :tabs="tabs" @change="onChange">
         <template #="{ active, tab, index }">
-          <view
-            :class="[
-              'text-[26rpx] h-12.5 flex items-center text-repeat-66 relative justify-center',
-              {
-                'text-repeat-33': active,
-                'font-bold': active,
-                'ml-6': index == 0,
-                'mx-3': index !== tabs.length - 1,
-                'ml-3': index == tabs.length - 1,
-                'mr-6': index == tabs.length - 1,
-              },
-            ]"
-          >
+          <view :class="[
+            'text-[26rpx] h-12.5 flex items-center text-repeat-66 relative justify-center',
+            {
+              'text-repeat-33': active,
+              'font-bold': active,
+              'ml-6': index == 0,
+              'mx-3': index !== tabs.length - 1,
+              'ml-3': index == tabs.length - 1,
+              'mr-6': index == tabs.length - 1,
+            },
+          ]">
             {{ tab.title }}
             <view v-if="active" class="bg-[#92003F] w-[30rpx] h-0.75 absolute bottom-2"></view>
           </view>
@@ -48,30 +38,19 @@
 
     <view class="flex justify-center" style="height: calc(100% - 296rpx)">
       <od-list class="w-full" :total="total" :load-more="more" @on-load-more="lowerBottom">
-        <view
-          v-for="(item, index) in list"
-          :key="index"
-          class="m-[30rpx] rounded-[16rpx] bg-white overflow-hidden"
-        >
+        <view v-for="(item, index) in list" :key="index" class="m-[30rpx] rounded-[16rpx] bg-white overflow-hidden">
           <view @tap="toDetail(item?.id)" class="flex m-[-1rpx] pt-[30rpx] pb-[28rpx]">
             <view class="rounded-[8rpx] relative pl-[28rpx] pr-4.5">
-              <image
-                mode="aspectFill"
-                class="w-[172rpx] h-[172rpx] rounded-[8rpx] bg-black"
-                :src="
-                  !memberStore.profile ||
+              <image mode="aspectFill" class="w-[172rpx] h-[172rpx] rounded-[8rpx] bg-black" :src="!memberStore.profile ||
                   memberStore.profile?.userInfo?.status == 0 ||
                   memberStore.profile?.userInfo?.status == 1 ||
                   memberStore.profile?.userInfo?.status == 2
-                    ? ''
-                    : item?.avatar
-                "
-              >
+                  ? ''
+                  : item?.avatar
+                ">
               </image>
-              <view
-                v-if="item?.leadership_position && item?.leadership_position != ''"
-                class="absolute bottom-0 bg-[rgba(0,0,0,0.5)] rounded-b-[8rpx] w-full h-5 flex items-center justify-center text-white text-xs"
-              >
+              <view v-if="item?.leadership_position && item?.leadership_position != ''"
+                class="absolute bottom-0 bg-[rgba(0,0,0,0.5)] rounded-b-[8rpx] w-full h-5 flex items-center justify-center text-white text-xs">
                 {{ item?.leadership_position }}
               </view>
             </view>
@@ -87,31 +66,27 @@
               </view>
 
               <view class="w-full flex text-repeat-33 text-[26rpx] h-5.5 items-center">
-                <view
-                  >{{
-                    !memberStore.profile ||
-                    memberStore.profile?.userInfo?.status == 0 ||
-                    memberStore.profile?.userInfo?.status == 1 ||
-                    memberStore.profile?.userInfo?.status == 2
-                      ? ''
-                      : item?.company
-                  }}
+                <view>{{
+                  !memberStore.profile ||
+                  memberStore.profile?.userInfo?.status == 0 ||
+                  memberStore.profile?.userInfo?.status == 1 ||
+                  memberStore.profile?.userInfo?.status == 2
+                  ? ''
+                  : item?.company
+                }}
                 </view>
-                <view class="ml-3"
-                  >{{
-                    !memberStore.profile ||
-                    memberStore.profile?.userInfo?.status == 0 ||
-                    memberStore.profile?.userInfo?.status == 1 ||
-                    memberStore.profile?.userInfo?.status == 2
-                      ? ''
-                      : item?.position
-                  }}
+                <view class="ml-3">{{
+                  !memberStore.profile ||
+                  memberStore.profile?.userInfo?.status == 0 ||
+                  memberStore.profile?.userInfo?.status == 1 ||
+                  memberStore.profile?.userInfo?.status == 2
+                  ? ''
+                  : item?.position
+                }}
                 </view>
               </view>
 
-              <view
-                class="w-full flex items-center relative mt-[6rpx] h-5.5 text-repeat-99 text-xs"
-              >
+              <view class="w-full flex items-center relative mt-[6rpx] h-5.5 text-repeat-99 text-xs">
                 <text class="w-full break-all line-clamp-1 pr-10">
                   {{
                     !memberStore.profile ||
@@ -119,39 +94,22 @@
                     memberStore.profile?.userInfo?.status == 1 ||
                     memberStore.profile?.userInfo?.status == 2 ||
                     memberStore.profile?.userInfo?.status == 3
-                      ? ''
-                      : item?.companyAddress
+                    ? ''
+                    : item?.companyAddress
                   }}
                 </text>
-                <image
-                  mode="aspectFill"
-                  class="w-[30rpx] h-[30rpx] absolute right-3"
-                  src="@/static/images/navigation.png"
-                >
+                <image mode="aspectFill" class="w-[30rpx] h-[30rpx] absolute right-3"
+                  src="@/static/images/navigation.png">
                 </image>
               </view>
             </view>
           </view>
 
-          <view
-            v-if="item?.tags"
-            class="border-0 border-t-[1rpx] border-solid border-[#F8F8F8] pl-[28rpx]"
-          >
+          <view v-if="item?.tags" class="border-0 border-t-[1rpx] border-solid border-[#F8F8F8] pl-[28rpx]">
             <!-- 折叠组件 -->
-            <collapse
-              :width="600"
-              :px="16"
-              :my="20"
-              :height="44"
-              :textColor="'#FF7A33'"
-              :borderColor="'rgba(0,0,0,0)'"
-              :borderRadius="9999"
-              :borderWidth="1"
-              :fontSize="24"
-              :marginRight="18"
-              :dataSource="item?.tags"
-              :bgColor="'#FFEFE1'"
-            />
+            <collapse :width="600" :px="16" :my="20" :height="44" :textColor="'#FF7A33'" :borderColor="'rgba(0,0,0,0)'"
+              :borderRadius="9999" :borderWidth="1" :fontSize="24" :marginRight="18" :dataSource="item?.tags"
+              :bgColor="'#FFEFE1'" />
           </view>
         </view>
 
