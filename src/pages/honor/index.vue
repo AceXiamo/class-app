@@ -160,9 +160,7 @@
         </view>
 
         <!-- 综合得分榜 -->
-        <view
-          v-if="memberStore.profile && memberStore.profile.userInfo.status != 0 && memberStore.profile.userInfo.status != 1 && memberStore.profile.userInfo.status != 2 && memberStore.profile.userInfo.status != 3"
-          class="p-4 border-solid border-t-[1rpx] border-[#F8F8F8]">
+        <view class="p-4 border-solid border-t-[1rpx] border-[#F8F8F8]" v-if="memberStore.profile && memberStore.profile.userInfo.status != 0 && memberStore.profile.userInfo.status != 1 && memberStore.profile.userInfo.status != 2 && memberStore.profile.userInfo.status != 3">
           <view class="relative flex items-center pl-[22rpx]">
             <view class="bg-[#92003F] w-0.75 h-4 absolute left-0"></view>
             <view class="text-[#92003F] text-[40rpx]">综合得分榜</view>
@@ -187,12 +185,24 @@
 
           <view class="flex mt-3 mb-2 text-center">
             <view class="w-16">姓名</view>
-            <view class="flex-1" @tap="averageBoardSort(1)" :class="{ 'font-bold': sort1 == 1 }">总分↓</view>
-            <view class="flex-1" @tap="averageBoardSort(2)" :class="{ 'font-bold': sort1 == 2 }">引荐↓</view>
-            <view class="flex-1" @tap="averageBoardSort(3)" :class="{ 'font-bold': sort1 == 3 }">嘉宾↓</view>
-            <view class="flex-1" @tap="averageBoardSort(4)" :class="{ 'font-bold': sort1 == 4 }">走访↓</view>
-            <view class="flex-1" @tap="averageBoardSort(5)" :class="{ 'font-bold': sort1 == 5 }">出勤↓</view>
-            <view class="flex-1" @tap="averageBoardSort(6)" :class="{ 'font-bold': sort1 == 6 }">金额↓</view>
+            <view class="flex-1" @tap="averageBoardSort(sort1 == 1 ? -1 : 1)" :class="{ 'font-bold': sort1 == 1 || sort1 == -1 }">
+              总分<text class="sort_icon" :class="{ 'sort_desc': sort1 == 1, 'sort_asc': sort1 == -1 }"></text>
+            </view>
+            <view class="flex-1" @tap="averageBoardSort(sort1 == 2 ? -2 : 2)" :class="{ 'font-bold': sort1 == 2 || sort1 == -2 }">
+              引荐<text class="sort_icon" :class="{ 'sort_desc': sort1 == 2, 'sort_asc': sort1 == -2 }"></text>
+            </view>
+            <view class="flex-1" @tap="averageBoardSort(sort1 == 3 ? -3 : 3)" :class="{ 'font-bold': sort1 == 3 || sort1 == -3 }">
+              嘉宾<text class="sort_icon" :class="{ 'sort_desc': sort1 == 3, 'sort_asc': sort1 == -3 }"></text>
+            </view>
+            <view class="flex-1" @tap="averageBoardSort(sort1 == 4 ? -4 : 4)" :class="{ 'font-bold': sort1 == 4 || sort1 == -4}">
+              走访<text class="sort_icon" :class="{ 'sort_desc': sort1 == 4, 'sort_asc': sort1 == -4 }"></text>
+            </view>
+            <view class="flex-1" @tap="averageBoardSort(sort1 == 5 ? -5 : 5)" :class="{ 'font-bold': sort1 == 5 || sort1 == -5}">
+              出勤<text class="sort_icon" :class="{ 'sort_desc': sort1 == 5, 'sort_asc': sort1 == -5 }"></text>
+            </view>
+            <view class="flex-1" @tap="averageBoardSort(sort1 == 6 ? -6 : 6)" :class="{ 'font-bold': sort1 == 6 || sort1 == -6}">
+              金额<text class="sort_icon" :class="{ 'sort_desc': sort1 == 6, 'sort_asc': sort1 == -6 }"></text>
+            </view>
           </view>
           <view class="text-xs" :class="{ 'overflow-hidden max-h-40': hide }">
             <view class="h-8 flex text-center items-center text-[#666]" v-for="(item, index) in averageBoard"
@@ -232,11 +242,17 @@
             <uni-data-select :clear="false" v-model="value1" :localdata="range1" @change="onChange2"></uni-data-select>
           </view>
 
-          <view class="text-xs flex mt-3 mb-2 text-center">
+          <view class="flex mt-3 mb-2 text-center">
             <view class="w-16">姓名</view>
-            <view class="flex-1" @tap="recommandBoardSort(1)" :class="{ 'font-bold': sort2 == 1 }">总引荐↓</view>
-            <view class="flex-1" @tap="recommandBoardSort(2)" :class="{ 'font-bold': sort2 == 2 }">外部引荐数↓</view>
-            <view class="flex-1" @tap="recommandBoardSort(3)" :class="{ 'font-bold': sort2 == 3 }">内部引荐数↓</view>
+            <view class="flex-1" @tap="recommandBoardSort(sort2 == 1 ? -1 : 1)" :class="{ 'font-bold': sort2 == 1 || sort2 == -1 }">
+              总引荐<text class="sort_icon" :class="{ 'sort_desc': sort2 == 1, 'sort_asc': sort2 == -1 }"></text>
+            </view>
+            <view class="flex-1" @tap="recommandBoardSort(sort2 == 2 ? -2 : 2)" :class="{ 'font-bold': sort2 == 2 || sort2 == -2 }">
+              外部引荐数<text class="sort_icon" :class="{ 'sort_desc': sort2 == 2, 'sort_asc': sort2 == -2 }"></text>
+            </view>
+            <view class="flex-1" @tap="recommandBoardSort(sort2 == 3 ? -3 : 3)" :class="{ 'font-bold': sort2 == 3 || sort2 == -3 }">
+              内部引荐数<text class="sort_icon" :class="{ 'sort_desc': sort2 == 3, 'sort_asc': sort2 == -3 }"></text>
+            </view>
           </view>
           <view class="text-xs" :class="{ 'overflow-hidden max-h-40': hide1 }">
             <view class="h-8 flex text-center items-center text-[#666]" v-for="(item, index) in recommandBoard"
@@ -266,16 +282,22 @@
             <view class="text-[#92003F] text-[40rpx] flex-1">给出引荐金额实时排行榜</view>
             <uni-data-select :clear="false" v-model="value2" :localdata="range1" @change="onChange3"></uni-data-select>
           </view>
-          <view class="text-xs flex mt-3 mb-2 text-center">
-            <view class="w-16">姓名</view>
-            <view class="flex-1" @tap="recommandMoneyBoardSort(1)" :class="{ 'font-bold': sort3 == 1 }">总成交金额↓</view>
-            <view class="flex-1" @tap="recommandMoneyBoardSort(2)" :class="{ 'font-bold': sort3 == 2 }">外部成交金额↓</view>
-            <view class="flex-1" @tap="recommandMoneyBoardSort(3)" :class="{ 'font-bold': sort3 == 3 }">内部成交金额↓</view>
+          <view class="flex mt-3 mb-2 text-center">
+            <view class="w-12">姓名</view>
+            <view class="flex-1" @tap="recommandMoneyBoardSort(sort3 == 1 ? -1 : 1)" :class="{ 'font-bold': sort3 == 1 || sort3 == -1 }">
+              总成交金额<text class="sort_icon" :class="{ 'sort_desc': sort3 == 1, 'sort_asc': sort3 == -1 }"></text>
+            </view>
+            <view class="flex-1" @tap="recommandMoneyBoardSort(sort3 == 2 ? -2 : 2)" :class="{ 'font-bold': sort3 == 2 || sort3 == -2 }">
+              外部成交金额<text class="sort_icon" :class="{ 'sort_desc': sort3 == 2, 'sort_asc': sort3 == -2 }"></text>
+            </view>
+            <view class="flex-1" @tap="recommandMoneyBoardSort(sort3 == 3 ? -3 : 3)" :class="{ 'font-bold': sort3 == 3 || sort3 == -3}">
+              内部成交金额<text class="sort_icon" :class="{ 'sort_desc': sort3 == 3, 'sort_asc': sort3 == -3 }"></text>
+            </view>
           </view>
           <view class="text-xs" :class="{ 'overflow-hidden max-h-40': hide2 }">
             <view class="h-8 flex text-center items-center text-[#666]" v-for="(item, index) in recommandMoneyBoard"
               :key="index">
-              <view class="w-16">
+              <view class="w-12">
                 {{ item?.name }}
               </view>
               <view class="flex-1">
@@ -299,7 +321,7 @@
             <view class="text-[#92003F] text-[40rpx] flex-1">邀约嘉宾排行榜</view>
             <uni-data-select :clear="false" v-model="value3" :localdata="range1" @change="onChange4"></uni-data-select>
           </view>
-          <view class="text-xs flex mt-3 mb-2 text-center">
+          <view class="flex mt-3 mb-2 text-center">
             <view class="w-16">姓名</view>
             <view class="w-16 ml-12">嘉宾数</view>
           </view>
@@ -324,11 +346,17 @@
             <view class="text-[#92003F] text-[40rpx] flex-1">走访实时排行榜</view>
             <uni-data-select :clear="false" v-model="value4" :localdata="range1" @change="onChange5"></uni-data-select>
           </view>
-          <view class="text-xs flex mt-3 mb-2 text-center">
+          <view class="flex mt-3 mb-2 text-center">
             <view class="w-16">姓名</view>
-            <view class="flex-1" @tap="visitBoardSort(1)" :class="{ 'font-bold': sort4 == 1 }">总走访↓</view>
-            <view class="flex-1" @tap="visitBoardSort(2)" :class="{ 'font-bold': sort4 == 2 }">点对点走访↓</view>
-            <view class="flex-1" @tap="visitBoardSort(3)" :class="{ 'font-bold': sort4 == 3 }">内组织走访↓</view>
+            <view class="flex-1" @tap="visitBoardSort(sort4 == 1 ? -1 : 1)" :class="{ 'font-bold': sort4 == 1 || sort4 == -1 }">
+              总走访<text class="sort_icon" :class="{ 'sort_desc': sort4 == 1, 'sort_asc': sort4 == -1 }"></text>
+            </view>
+            <view class="flex-1" @tap="visitBoardSort(sort4 == 2 ? -2 : 2)" :class="{ 'font-bold': sort4 == 2 || sort4 == -2 }">
+              点对点走访<text class="sort_icon" :class="{ 'sort_desc': sort4 == 2, 'sort_asc': sort4 == -2 }"></text>
+            </view>
+            <view class="flex-1" @tap="visitBoardSort(sort4 == 3 ? -3 : 3)" :class="{ 'font-bold': sort4 == 3 || sort4 == -3 }">
+              内组织走访<text class="sort_icon" :class="{ 'sort_desc': sort4 == 3, 'sort_asc': sort4 == -3 }"></text>
+            </view>
           </view>
           <view class="text-xs" :class="{ 'overflow-hidden max-h-40': hide4 }">
             <view class="h-8 flex text-center items-center text-[#666]" v-for="(item, index) in visitBoard" :key="index">
@@ -438,20 +466,32 @@ let hide5 = ref(true);
 //得分榜排序
 let sort1 = ref(1)
 const averageBoardSort = (s: number) => {
-  sort1.value = s
+  sort1.value = s // 正数降序 负数升序
   if (averageBoard.value && averageBoard.value.length > 0) {
     if (sort1.value == 1) {
       averageBoard.value.sort((a: any, b: any) => b.score - a.score)
+    } else if (sort1.value == -1) {
+      averageBoard.value.sort((a: any, b: any) => a.score - b.score)
     } else if (sort1.value == 2) {
       averageBoard.value.sort((a: any, b: any) => b.recommenderNum - a.recommenderNum)
+    } else if (sort1.value == -2) {
+      averageBoard.value.sort((a: any, b: any) => a.recommenderNum - b.recommenderNum)
     } else if (sort1.value == 3) {
       averageBoard.value.sort((a: any, b: any) => b.guestNum - a.guestNum)
+    } else if (sort1.value == -3) {
+      averageBoard.value.sort((a: any, b: any) => a.guestNum - b.guestNum)
     } else if (sort1.value == 4) {
       averageBoard.value.sort((a: any, b: any) => b.visitNum - a.visitNum)
+    } else if (sort1.value == -4) {
+      averageBoard.value.sort((a: any, b: any) => a.visitNum - b.visitNum)
     } else if (sort1.value == 5) {
       averageBoard.value.sort((a: any, b: any) => b.presentNum - a.presentNum)
-    } else {
+    } else if (sort1.value == -5) {
+      averageBoard.value.sort((a: any, b: any) => a.presentNum - b.presentNum)
+    } else if (sort1.value == 6) {
       averageBoard.value.sort((a: any, b: any) => b.money - a.money)
+    } else {
+      averageBoard.value.sort((a: any, b: any) => a.money - b.money)
     }
   }
 }
@@ -463,10 +503,16 @@ const recommandBoardSort = (s: number) => {
   if (recommandBoard.value && recommandBoard.value.length > 0) {
     if (sort2.value == 1) {
       recommandBoard.value.sort((a: any, b: any) => b.recommendNum - a.recommendNum)
+    } else if (sort2.value == -1) {
+      recommandBoard.value.sort((a: any, b: any) => a.recommendNum - b.recommendNum)
     } else if (sort2.value == 2) {
       recommandBoard.value.sort((a: any, b: any) => b.outerRecommendNum - a.outerRecommendNum)
-    } else {
+    } else if (sort2.value == -2) {
+      recommandBoard.value.sort((a: any, b: any) => a.outerRecommendNum - b.outerRecommendNum)
+    } else if (sort2.value == 3) {
       recommandBoard.value.sort((a: any, b: any) => b.innerRecommendNum - a.innerRecommendNum)
+    } else {
+      recommandBoard.value.sort((a: any, b: any) => a.innerRecommendNum - b.innerRecommendNum)
     }
   }
 }
@@ -478,10 +524,16 @@ const recommandMoneyBoardSort = (s: number) => {
   if (recommandMoneyBoard.value && recommandMoneyBoard.value.length > 0) {
     if (sort3.value == 1) {
       recommandMoneyBoard.value.sort((a: any, b: any) => b.harvestedMoney - a.harvestedMoney)
+    } else if (sort3.value == -1) {
+      recommandMoneyBoard.value.sort((a: any, b: any) => a.harvestedMoney - b.harvestedMoney)
     } else if (sort3.value == 2) {
       recommandMoneyBoard.value.sort((a: any, b: any) => b.outerHarvestedMoney - a.outerHarvestedMoney)
-    } else {
+    } else if (sort3.value == -2) {
+      recommandMoneyBoard.value.sort((a: any, b: any) => a.outerHarvestedMoney - b.outerHarvestedMoney)
+    } else if (sort3.value == 3) {
       recommandMoneyBoard.value.sort((a: any, b: any) => b.innerHarvestedMoney - a.innerHarvestedMoney)
+    } else {
+      recommandMoneyBoard.value.sort((a: any, b: any) => a.innerHarvestedMoney - b.innerHarvestedMoney)
     }
   }
 }
@@ -493,10 +545,16 @@ const visitBoardSort = (s: number) => {
   if (visitBoard.value && visitBoard.value.length > 0) {
     if (sort4.value == 1) {
       visitBoard.value.sort((a: any, b: any) => b.visitNum - a.visitNum)
+    } else if (sort4.value == -1) {
+      visitBoard.value.sort((a: any, b: any) => a.visitNum - b.visitNum)
     } else if (sort4.value == 2) {
       visitBoard.value.sort((a: any, b: any) => b.pointToPointNum - a.pointToPointNum)
-    } else {
+    } else if (sort4.value == -2) {
+      visitBoard.value.sort((a: any, b: any) => a.pointToPointNum - b.pointToPointNum)
+    } else if (sort4.value == 3) {
       visitBoard.value.sort((a: any, b: any) => b.organizeNum - a.organizeNum)
+    } else {
+      visitBoard.value.sort((a: any, b: any) => a.organizeNum - b.organizeNum)
     }
   }
 }
@@ -650,5 +708,50 @@ onShow(() => {
 
 ::v-deep .uni-collapse-item__title {
   border-bottom: 2rpx solid #F8F8F8;
+}
+
+.sort_icon {
+  position: relative;
+  margin-left: 4rpx;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    border: 8rpx solid;
+    border-color: #D8D8D8;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    border: 8rpx solid;
+    border-color: #D8D8D8;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+  }
+}
+
+.sort_desc {
+  &:after {
+    border-color: #8C8C8C;
+    border-bottom-color: transparent !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+  }
+}
+
+.sort_asc {
+  &:before {
+    border-color: #8C8C8C;
+    border-top-color: transparent !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+  }
 }
 </style>
