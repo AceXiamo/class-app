@@ -160,8 +160,7 @@
         </view>
 
         <!-- 综合得分榜 -->
-        <!-- v-if="memberStore.profile && memberStore.profile.userInfo.status != 0 && memberStore.profile.userInfo.status != 1 && memberStore.profile.userInfo.status != 2 && memberStore.profile.userInfo.status != 3" -->
-        <view class="p-4 border-solid border-t-[1rpx] border-[#F8F8F8]">
+        <view class="p-4 border-solid border-t-[1rpx] border-[#F8F8F8]" v-if="memberStore.profile && memberStore.profile.userInfo.status != 0 && memberStore.profile.userInfo.status != 1 && memberStore.profile.userInfo.status != 2 && memberStore.profile.userInfo.status != 3">
           <view class="relative flex items-center pl-[22rpx]">
             <view class="bg-[#92003F] w-0.75 h-4 absolute left-0"></view>
             <view class="text-[#92003F] text-[40rpx]">综合得分榜</view>
