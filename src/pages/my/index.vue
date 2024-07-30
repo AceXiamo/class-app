@@ -301,7 +301,7 @@ import collapse from '@/components/collapse/index.vue'
 import { formatNumber } from '@/utils/tools'
 
 const { statusBar, customBar } = storeToRefs(SystemStore())
-console.log(statusBar)
+// console.log(statusBar)
 
 let memberStore = useMemberStore()
 let profile = ref<any>(null)

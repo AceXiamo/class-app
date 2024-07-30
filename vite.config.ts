@@ -33,13 +33,16 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       emptyOutDir: true,
       sourcemap: true,
       minify: 'terser',
-      terserOptions: {
-        compress: {
-          drop_debugger: true,
-          // 发布时删除 console
-          drop_console: true,
-        },
-      },
+      terserOptions:
+        mode === 'production'
+          ? {
+              compress: {
+                drop_debugger: true,
+                // 发布时删除 console
+                drop_console: true,
+              },
+            }
+          : {},
     },
     plugins: [uni(), WeappTailwindcssDisabled ? undefined : uvtw()],
     resolve: {
