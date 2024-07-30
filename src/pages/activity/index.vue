@@ -45,16 +45,7 @@
       <od-list class="w-full" :total="total" :load-more="more" @on-load-more="lowerBottom">
         <view
           v-if="option == 0"
-          v-for="(item, index) in [
-            {
-              id: 1,
-              theme: 'test',
-              eventTime: '2023-03-01',
-              eventLocation: 'test',
-              mainImg: '/static/images/icon-event.png',
-              isEnroll: true,
-            },
-          ]"
+          v-for="(item, index) in list"
           :key="index"
           @tap="toEvent(item.id)"
           class="flex items-center px-[28rpx] pt-[30rpx] pb-[34rpx] m-[30rpx] rounded-[16rpx] bg-white text-repeat-33"

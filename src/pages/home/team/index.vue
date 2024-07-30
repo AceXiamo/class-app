@@ -15,7 +15,7 @@
           <view class="relative w-[172rpx] h-[172rpx] mr-4.5">
             <image
               class="w-[172rpx] h-[172rpx] rounded-[8rpx]"
-              :src="member?.mainImg"
+              :src="member?.avatar"
               mode="scaleToFill"
             ></image>
             <view
