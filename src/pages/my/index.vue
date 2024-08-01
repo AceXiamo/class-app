@@ -111,13 +111,13 @@
           <view class="flex-1">
             <view>累计给出引荐</view>
             <view class="h-[50rpx] mt-1.25 text-[#92003F] text-xl font-bold">{{
-              formatNumber(myData?.recommendNum)
+              formatNumber(myData?.recommendNum || 0)
             }}</view>
           </view>
           <view class="flex-1">
             <view>给出引荐成交金额</view>
             <view class="h-[50rpx] mt-1.25 text-[#92003F] text-xl font-bold"
-              >￥{{ formatNumber(myData?.submitMoneySum) }}
+              >￥{{ formatNumber(myData?.submitMoneySum || 0) }}
             </view>
           </view>
         </view>
@@ -125,13 +125,13 @@
           <view class="flex-1">
             <view>累计收到引荐</view>
             <view class="h-[50rpx] mt-1.25 text-[#92003F] text-xl font-bold">{{
-              formatNumber(myData?.receiveRecommendNum)
+              formatNumber(myData?.receiveRecommendNum || 0)
             }}</view>
           </view>
           <view class="flex-1">
             <view>收到引荐成交金额</view>
             <view class="h-[50rpx] mt-1.25 text-[#92003F] text-xl font-bold"
-              >￥{{ formatNumber(myData?.harvestMoneySum) }}
+              >￥{{ formatNumber(myData?.harvestMoneySum || 0) }}
             </view>
           </view>
         </view>
@@ -141,19 +141,19 @@
           <view class="flex-1">
             <view>走访数量</view>
             <view class="mt-1.25 text-[#92003F] text-xl font-bold">{{
-              formatNumber(myData?.visitNum)
+              formatNumber(myData?.visitNum || 0)
             }}</view>
           </view>
           <view class="flex-1">
             <view>嘉宾数量</view>
             <view class="mt-1.25 text-[#92003F] text-xl font-bold">{{
-              formatNumber(myData?.guestNum)
+              formatNumber(myData?.guestNum || 0)
             }}</view>
           </view>
           <view class="flex-1">
             <view>全勤月数</view>
             <view class="mt-1.25 text-[#92003F] text-xl font-bold"
-              >{{ myData?.fullAttendanceMonth }}/{{ myData?.monthNum }}</view
+              >{{ myData?.fullAttendanceMonth || 0 }}/{{ myData?.monthNum || 0 }}</view
             >
           </view>
         </view>
