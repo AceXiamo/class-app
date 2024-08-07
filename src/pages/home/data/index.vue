@@ -185,7 +185,8 @@ import { onLoad } from '@dcloudio/uni-app'
 import * as homeApi from '@/api/app/home'
 
 let curValue = ref(1)
-let tabs: any = ref(getTabs(new Date(2023, 3)))
+// let tabs: any = ref(getTabs(new Date(2023, 3)))
+let tabs: any = ref(getTabs(new Date()))
 
 let monthData: any = ref()
 

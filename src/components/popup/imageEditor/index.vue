@@ -1,22 +1,38 @@
 <template>
-  <od-popup v-model="show" :mask-close="false" content-class="absolute left-0 bottom-0 right-0" @close="onClose">
-    <image-cropper :src="src" :width="screenWidth" :height="screenHeight" :cut-width="cutWidth" :cut-height="cutHeight"
-      :cut-ratio="cutRatio" :keep-ratio="keepRatio" :hide-cropper="true" :reset-cut="true" :image-center="true"
-      :cropper-svg-img="cropperSvgImg" @cropped="onCropped" :disableTranslate="false" :disableCtrl="true" :minZoom="1"
-      v-if="show" />
+  <od-popup
+    v-model="show"
+    :mask-close="false"
+    content-class="absolute left-0 bottom-0 right-0"
+    @close="onClose"
+  >
+    <image-cropper
+      :src="src"
+      :width="screenWidth"
+      :height="screenHeight"
+      :cut-width="cutWidth"
+      :cut-height="cutHeight"
+      :cut-ratio="cutRatio"
+      :keep-ratio="keepRatio"
+      :hide-cropper="true"
+      :reset-cut="true"
+      :image-center="true"
+      :cropper-svg-img="cropperSvgImg"
+      @cropped="onCropped"
+      :disableTranslate="false"
+      :disableCtrl="true"
+      :minZoom="1"
+      :bound-detect="boundDetect"
+      v-if="show"
+    />
     <view class="absolute w-full px-2 bottom-0 ios-bottom flex justify-between items-center">
       <view class="h-8 w-20">
         <button type="default" @tap="onClose">
-          <text>
-            取消
-          </text>
+          <text> 取消 </text>
         </button>
       </view>
       <view class="h-8 w-20">
         <button type="default" @tap="onConfirm">
-          <text>
-            确定
-          </text>
+          <text> 确定 </text>
         </button>
       </view>
     </view>
@@ -30,23 +46,24 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia';
-import { ref, watch } from 'vue';
+import { storeToRefs } from 'pinia'
+import { ref, watch } from 'vue'
 
-import store from '@/utils/uniapp/system';
+import store from '@/utils/uniapp/system'
 
-import OdPopup from '../default/index.vue';
-import ImageCropper from '../image-cropper/index.vue';
+import OdPopup from '../default/index.vue'
+import ImageCropper from '../image-cropper/index.vue'
 
 interface IProps {
-  src: string;
-  modelValue: boolean;
-  cutWidth?: string | number;
-  cutHeight?: string | number;
-  cutRatio?: number;
-  keepRatio?: boolean;
-  cropperSvgImg?: string;
-  hideCropper?: boolean;
+  src: string
+  modelValue: boolean
+  cutWidth?: string | number
+  cutHeight?: string | number
+  cutRatio?: number
+  keepRatio?: boolean
+  cropperSvgImg?: string
+  hideCropper?: boolean
+  boundDetect?: boolean
 }
 
 const props = withDefaults(defineProps<IProps>(), {
@@ -56,32 +73,33 @@ const props = withDefaults(defineProps<IProps>(), {
   keepRatio: false,
   cropperSvgImg: undefined,
   hideCropper: false,
-});
+  boundDetect: false,
+})
 
-const emits = defineEmits(['update:modelValue', 'update:src', 'change', 'close']);
-const {
-  screenWidth,
-  screenHeight
-} = storeToRefs(store());
+const emits = defineEmits(['update:modelValue', 'update:src', 'change', 'close'])
+const { screenWidth, screenHeight } = storeToRefs(store())
 
-const show = ref(props.modelValue);
-const result = ref('');
-watch(() => props.modelValue, (val) => {
-  show.value = val;
-});
+const show = ref(props.modelValue)
+const result = ref('')
+watch(
+  () => props.modelValue,
+  (val) => {
+    show.value = val
+  },
+)
 
 const onCropped = (imageUrl: string) => {
-  result.value = imageUrl;
+  result.value = imageUrl
 }
 
 const onClose = () => {
-  emits('update:modelValue', false);
+  emits('update:modelValue', false)
   emits('close')
 }
 
 const onConfirm = async () => {
-  emits('update:src', result.value);
-  emits('change', result.value);
-  onClose();
+  emits('update:src', result.value)
+  emits('change', result.value)
+  onClose()
 }
 </script>

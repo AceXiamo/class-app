@@ -1,16 +1,30 @@
 <template>
   <view>
-    <view v-if="showButton" class="flex flex-wrap relative" :style="{ width: `${size}rpx`, height: `${size}rpx` }">
-      <view v-for="(url, index) in curUrl" :key="`gallery-${index}`"
+    <view
+      v-if="showButton"
+      class="flex flex-wrap relative"
+      :style="{ width: `${size}rpx`, height: `${size}rpx` }"
+    >
+      <view
+        v-for="(url, index) in curUrl"
+        :key="`gallery-${index}`"
         class="relative flex items-center justify-center bg-repeat-ef"
-        :style="{ width: `${size}rpx`, height: `${size}rpx` }">
-        <image :src="url" mode="scaleToFill" :style="{ width: `${size}rpx`, height: `${size}rpx` }" @tap="uploadImage" />
+        :style="{ width: `${size}rpx`, height: `${size}rpx` }"
+      >
+        <image
+          :src="url"
+          mode="scaleToFill"
+          :style="{ width: `${size}rpx`, height: `${size}rpx` }"
+          @tap="uploadImage"
+        />
       </view>
       <view v-if="curUrl.length < limit">
         <view @tap="uploadImage">
           <slot>
-            <view class="bg-repeat-f5 flex flex-col items-center justify-center text-xs rounded-[16rpx]"
-              :style="{ width: `${size}rpx`, height: `${size}rpx` }">
+            <view
+              class="bg-repeat-f5 flex flex-col items-center justify-center text-xs rounded-[16rpx]"
+              :style="{ width: `${size}rpx`, height: `${size}rpx` }"
+            >
               <!-- <view class="font-bold text-base"> + </view> -->
               <uni-icons type="plusempty" :size="size / 4" color="#D8D8D8"></uni-icons>
               <view>{{ title }}</view>
@@ -18,13 +32,26 @@
           </slot>
         </view>
       </view>
-      <image v-else src="@/static/images/img-close.png" class="w-4 h-4 absolute top-[-16rpx] right-[-16rpx]"
-        @tap="onDelete()" />
+      <image
+        v-else
+        src="@/static/images/img-close.png"
+        class="w-4 h-4 absolute top-[-16rpx] right-[-16rpx]"
+        @tap="onDelete()"
+      />
     </view>
 
-    <popup-image-editor v-model="show" v-model:src="src" :cut-width="cutWidth" :cut-height="cutHeight"
-      :cut-ratio="cutRatio" :keep-ratio="keepRatio" :cropper-svg-img="cropperSvgImg" :hide-cropper="hideCropper"
-      @change="onFinishCropper" />
+    <popup-image-editor
+      v-model="show"
+      v-model:src="src"
+      :cut-width="cutWidth"
+      :cut-height="cutHeight"
+      :cut-ratio="cutRatio"
+      :keep-ratio="keepRatio"
+      :cropper-svg-img="cropperSvgImg"
+      :hide-cropper="hideCropper"
+      :bound-detect="boundDetect"
+      @change="onFinishCropper"
+    />
   </view>
 </template>
 
@@ -55,6 +82,7 @@ interface IProps {
   buttonSize?: number | string
   title?: string
   size?: number
+  boundDetect?: boolean
 }
 
 const props = withDefaults(defineProps<IProps>(), {
@@ -71,6 +99,7 @@ const props = withDefaults(defineProps<IProps>(), {
   buttonSize: 60,
   title: undefined,
   size: 200,
+  boundDetect: true,
 })
 
 const emits = defineEmits(['update:modelValue', 'uploading', 'finish', 'change'])
