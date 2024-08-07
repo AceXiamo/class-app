@@ -2,7 +2,11 @@
   <view class="h-full bg-white flex flex-col items-center justify-center">
     <view class="h-min">
       <image class="h-20 mb-10" src="@/static/images/logo_icon.png" mode="aspectFit"></image>
-      <button class="bg-black rounded-full text-white" open-type="getPhoneNumber" @getphonenumber="onGetphonenumber">
+      <button
+        class="bg-black rounded-full text-white"
+        open-type="getPhoneNumber"
+        @getphonenumber="onGetphonenumber"
+      >
         <text class="icon-phone"></text>
         手机号快捷登录
       </button>

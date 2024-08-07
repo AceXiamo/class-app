@@ -100,7 +100,6 @@
       v-if="profile && profile?.userInfo.status == 4"
       class="px-4 mt-6 text-repeat-33 text-[30rpx]"
     >
-      >
       <!-- <view v-if="profile" class="px-4 mt-6 text-repeat-33 text-[30rpx]"> -->
       <view class="font-medium text-base mb-2.5 flex items-center">
         <image src="/static/images/icon-data.png" class="w-4.5 h-4.5 mr-2" />
@@ -293,7 +292,7 @@
 <script setup lang="ts">
 import { useMemberStore } from '@/stores'
 import { onShow } from '@dcloudio/uni-app'
-import { ref } from 'vue'
+import { ref, toRefs } from 'vue'
 import { getMyData, getInfo_1 } from '@/api/app/my'
 import SystemStore from '@/utils/uniapp/system'
 import { storeToRefs } from 'pinia'
@@ -303,13 +302,13 @@ import { formatNumber } from '@/utils/tools'
 const { statusBar, customBar } = storeToRefs(SystemStore())
 // console.log(statusBar)
 
-let memberStore = useMemberStore()
-let profile = ref<any>(null)
+const { profile } = toRefs(useMemberStore())
+// let profile = ref<any>(null)
 let myData: any = ref({})
 let info = ref()
 
 onShow(async () => {
-  profile.value = memberStore.profile
+  // profile.value = memberStore.profile
   // console.log('profile', profile.value)
   if (profile.value) {
     const result = await getInfo_1()
