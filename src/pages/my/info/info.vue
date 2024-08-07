@@ -118,7 +118,7 @@
           placeholder="请输入"
           placeholder-class="placeholder"
         />
-        <view @tap="getLocation" class="text-[#92003F]">选择地址</view>
+        <!-- <view @tap="getLocation" class="text-[#92003F]">选择地址</view> -->
       </view>
     </view>
 

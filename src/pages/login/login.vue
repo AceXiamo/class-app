@@ -1,9 +1,27 @@
 <template>
-  <view class="h-full bg-white flex flex-col items-center justify-center">
-    <view class="h-min">
-      <image class="h-20 mb-10" src="@/static/images/logo_icon.png" mode="aspectFit"></image>
+  <view class="h-full bg-white flex flex-col items-center justify-center relative">
+    <image
+      class="w-full absolute top-0"
+      src="@/static/images/logo_icon.png"
+      mode="aspectFit"
+    ></image>
+    <view class="h-min flex flex-col items-center justify-center">
+      <!-- <image
+        class="h-20 w-20 rounded-full bg-[#90003c] mb-10"
+        src="@/static/images/logo_icon.png"
+        mode="aspectFit"
+      ></image> -->
       <button
-        class="bg-black rounded-full text-white"
+        v-if="!isAgreePrivacy"
+        class="bg-[#90003c] rounded-full text-white"
+        @click="checkedAgreePrivacy"
+      >
+        <text class="icon-phone"></text>
+        手机号快捷登录
+      </button>
+      <button
+        v-else
+        class="bg-[#90003c] rounded-full text-white"
         open-type="getPhoneNumber"
         @getphonenumber="onGetphonenumber"
       >
@@ -11,18 +29,22 @@
         手机号快捷登录
       </button>
     </view>
-    <view class="absolute bottom-8 flex" :class="{ animate__shakeY: isAgreePrivacyShakeY }">
+    <view class="absolute bottom-8 flex px-8" :class="{ animate__shakeY: isAgreePrivacyShakeY }">
       <label @tap="isAgreePrivacy = !isAgreePrivacy">
-        <radio color="#000" :checked="isAgreePrivacy" />
+        <radio color="#90003c" :checked="isAgreePrivacy" />
       </label>
 
-      <view>
-        <view>登录/注册即视为你同意品挚</view>
-        <view class="flex">
+      <view class="text-[#90003c]">
+        <view
+          >登录/注册即视为你同意深大校友商务对接平台<text class="link" @tap="onOpenPrivacyContract"
+            >《隐私协议》</text
+          ></view
+        >
+        <!-- <view class="flex">
           <navigator class="link" hover-class="none" url="./protocal">《服务条款》</navigator>
           和
           <view class="link" @tap="onOpenPrivacyContract">《隐私协议》</view>
-        </view>
+        </view> -->
       </view>
     </view>
   </view>
@@ -48,6 +70,10 @@ onLoad(async () => {
 // 获取用户手机号码
 const onGetphonenumber: UniHelper.ButtonOnGetphonenumber = async (ev) => {
   await checkedAgreePrivacy()
+  console.log(ev)
+  if (ev.detail.errMsg == 'getPhoneNumber:fail user deny') {
+    return
+  }
   const { encryptedData, iv } = ev.detail
   // console.log('encryptedData:', encryptedData, 'iv:', iv)
   const res = await postLoginWxMinAPI({ code, encryptedData, iv })

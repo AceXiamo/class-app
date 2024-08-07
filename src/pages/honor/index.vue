@@ -710,6 +710,10 @@ onShow(() => {
   border-bottom: 2rpx solid #F8F8F8;
 }
 
+::v-deep .uni-select__selector-item {
+  font-size: 24rpx !important;
+}
+
 .sort_icon {
   position: relative;
   margin-left: 4rpx;

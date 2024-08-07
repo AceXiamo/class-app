@@ -50,7 +50,7 @@
           <view class="font-medium text-xl h-[44rpx]">{{ info?.name }}</view>
 
           <view>
-            <view class="w-full break-all line-clamp-1 mt-2 h-[44rpx]"
+            <view v-if="info?.industry" class="w-full break-all line-clamp-1 mt-2 h-[44rpx]"
               >行业：{{ info?.industry }}
             </view>
           </view>
