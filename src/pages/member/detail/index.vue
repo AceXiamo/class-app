@@ -165,13 +165,13 @@
       class="font-medium text-sm px-[30rpx] pt-5 pb-5.5 border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75"
     >
       <view class="flex">
-        <view class="flex-1 flex items-center">
+        <view class="flex items-center">
           <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
           性别：<text class="font-normal text-repeat-66">{{ info?.sex == 0 ? '男' : '女' }}</text>
         </view>
-        <view class="flex-1 flex items-center">
+        <view class="ml-8 flex items-center">
           <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
-          <view class="w-15">家乡：</view
+          <view class="">家乡：</view
           ><text class="font-normal text-repeat-66">{{ info?.homeplace }}</text>
         </view>
       </view>

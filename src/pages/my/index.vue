@@ -56,8 +56,8 @@
           </view>
 
           <view class="w-full flex h-[44rpx]">
-            <view class="">{{ info?.company }}</view>
-            <view class="ml-3">{{ info?.position }}</view>
+            <view class="flex-2 break-all line-clamp-1">{{ info?.company }}</view>
+            <view class="ml-3 flex-1 break-all line-clamp-1">{{ info?.position }}</view>
           </view>
 
           <view class="w-full flex items-center h-[44rpx] mt-1">

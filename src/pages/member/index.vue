@@ -87,7 +87,7 @@
               </view>
 
               <view class="w-full flex text-repeat-33 text-[26rpx] h-5.5 items-center">
-                <view
+                <view class="flex-2 break-all line-clamp-1"
                   >{{
                     !memberStore.profile ||
                     memberStore.profile?.userInfo?.status == 0 ||
@@ -97,7 +97,7 @@
                       : item?.company
                   }}
                 </view>
-                <view class="ml-3"
+                <view class="ml-3 flex-1 break-all line-clamp-1"
                   >{{
                     !memberStore.profile ||
                     memberStore.profile?.userInfo?.status == 0 ||
