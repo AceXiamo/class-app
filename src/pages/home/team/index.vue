@@ -11,6 +11,7 @@
           }"
           v-for="(member, index1) in team?.pzLeaderVOS"
           :key="index1"
+          @click="goDetail(member?.userId)"
         >
           <view class="relative w-[172rpx] h-[172rpx] mr-4.5">
             <image
@@ -30,7 +31,8 @@
             </view>
             <view class="mt-1 h-5.5 flex items-center">行业：{{ member?.industry }}</view>
             <view class="h-5.5 flex items-center aaaa"
-              >{{ member?.company }}<text class="ml-3">{{ member?.position }}</text>
+              ><text class="flex-2 break-all line-clamp-1">{{ member?.company }}</text
+              ><text class="ml-3 flex-1 break-all line-clamp-1">{{ member?.position }}</text>
             </view>
           </view>
         </view>
@@ -55,6 +57,10 @@ onLoad(async () => {
     leaderList.value.sort((a: { session: number }, b: { session: number }) => b.session - a.session)
   }
 })
+
+const goDetail = (id: number) => {
+  uni.navigateTo({ url: '/pages/member/detail/index?id=' + id })
+}
 
 const teams = ref([
   {

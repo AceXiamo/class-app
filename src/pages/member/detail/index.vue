@@ -114,7 +114,7 @@
     </view>
 
     <view
-      v-if="memberStore?.profile && memberStore?.profile?.userInfo?.status == 4"
+      v-if="info?.status == 4"
       class="px-[30rpx] py-6 text-sm flex border-solid border-[#EDEDED] border-0 border-t-[1rpx] text-white gap-2.5"
     >
       <view
@@ -136,6 +136,7 @@
     </view>
 
     <view
+      v-if="info?.status == 4"
       class="font-medium text-sm px-[30rpx] pt-5 pb-5.5 border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75"
     >
       <view class="flex items-center">

@@ -653,6 +653,7 @@ const getHonorAndAverage = async () => {
       value: value,
       text: `第${value}届`,
     }));
+    value.value = range.value[0].value
     const result1 = await databoard.AppDateBoard({ session: range.value[0].value })
     if (result1.data && result1.data.length > 0) {
       tabs.value = result1.data.reverse().map((value, index) => ({
