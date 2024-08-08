@@ -1,9 +1,8 @@
 <template>
   <view class="overflow-y-auto overflow-x-hidden text-sm">
     <!-- 头像 -->
-    <view class="w-full h-[360rpx]">
-      <image mode="aspectFill" class="w-full h-full" :src="info?.avatar" @click="previewImage">
-      </image>
+    <view class="w-full">
+      <image mode="widthFix" class="w-full" :src="info?.avatar" @click="previewImage"> </image>
     </view>
 
     <!-- 基本信息 -->
@@ -11,11 +10,11 @@
       <view class="flex font-medium items-center h-[50rpx]">
         <view class="flex-1 text-xl">{{ info?.name }}</view>
         <view
-          v-if="info?.leadershio_position"
+          v-if="info?.leadership_position"
           style="background: linear-gradient(135deg, #f5cd71 0%, #cf9219 100%)"
           class="flex items-center h-[50rpx] px-[28rpx] rounded-full text-white text-sm font-medium"
         >
-          {{ info?.leadershio_position }}
+          {{ info?.leadership_position }}
         </view>
       </view>
       <view class="mt-2 h-5.5 flex items-center text-[26rpx] text-repeat-33"

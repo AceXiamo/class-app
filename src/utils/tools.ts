@@ -87,7 +87,11 @@ export function getTabs(startDate: Date): Tab[] {
 
 export function dateFormatYearAndMonth(date: string) {
   const currentDate = new Date(date)
-  return currentDate.toLocaleString('zh-CN', { year: 'numeric', month: 'numeric' })
+  // return currentDate.toLocaleString('zh-CN', { year: 'numeric', month: 'numeric' })
+  const year = currentDate.getFullYear()
+  const month = currentDate.getMonth() + 1 // 月份是从0开始的，所以加1
+  const formattedMonth = month < 10 ? `0${month}` : `${month}`
+  return `${year}年${formattedMonth}月`
 }
 
 export function formatNumber(num: number): string {
