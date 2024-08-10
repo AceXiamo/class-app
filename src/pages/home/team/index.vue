@@ -6,9 +6,9 @@
         <view class="flex py-[30rpx]" :class="{
           'border-solid border-0 border-b-[1rpx] border-[#F8F8F8]':
             index1 !== team?.pzLeaderVOS.length - 1,
-        }" v-for="(member, index1) in team?.pzLeaderVOS" :key="index1">
+        }" v-for="(member, index1) in team?.pzLeaderVOS" :key="index1" @click="goDetail(member?.userId)">
           <view class="relative w-[172rpx] h-[172rpx] mr-4.5">
-            <image class="w-[172rpx] h-[172rpx] rounded-[8rpx]" :src="member?.mainImg" mode="scaleToFill"></image>
+            <image class="w-[172rpx] h-[172rpx] rounded-[8rpx]" :src="member?.avatar" mode="scaleToFill"></image>
             <view
               class="w-full absolute bottom-0 text-center text-xs text-white h-5 flex items-center justify-center bg-[rgba(0,0,0,0.5)] rounded-b-[8rpx]">
               {{ member?.leadership_position }}
@@ -19,9 +19,10 @@
               {{ member?.name }}
             </view>
             <view class="mt-1 h-5.5 flex items-center text-[#333]">行业：{{ member?.industry }}</view>
-            <view class="w-[420rpx] h-5.5 block text-[#333] truncate">{{ member?.company }}<text class="ml-3">{{
-              member?.position
-            }}</text>
+            <view class="w-[420rpx] h-5.5 block text-[#333] truncate"><text class="flex-2 break-all line-clamp-1">{{
+              member?.company }}</text><text class="ml-3 flex-1 break-all line-clamp-1">{{
+    member?.position
+  }}</text>
             </view>
           </view>
         </view>
@@ -46,6 +47,10 @@ onLoad(async () => {
     leaderList.value.sort((a: { session: number }, b: { session: number }) => b.session - a.session)
   }
 })
+
+const goDetail = (id: number) => {
+  uni.navigateTo({ url: '/pages/member/detail/index?id=' + id })
+}
 
 const teams = ref([
   {

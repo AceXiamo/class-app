@@ -16,27 +16,37 @@
         </view>
         <view class="flex-1 text-center">
           <view class="text-[#333] text-[30rpx] mb-1">成交金额</view>
-          <view class="text-[#92003F] text-[40rpx] font-bold">{{ myRecommend?.recommendAmount }}</view>
+          <view class="text-[#92003F] text-[40rpx] font-bold">{{
+            myRecommend?.recommendAmount
+          }}</view>
         </view>
       </view>
       <view class="flex pt-4 pb-4">
         <view class="flex-1 text-center">
           <view class="text-[#333] text-[30rpx] mb-1">内部引荐数</view>
-          <view class="text-[#92003F] text-[40rpx] font-bold">{{ myRecommend?.innerRecommendNum }}</view>
+          <view class="text-[#92003F] text-[40rpx] font-bold">{{
+            myRecommend?.innerRecommendNum
+          }}</view>
         </view>
         <view class="flex-1 text-center">
           <view class="text-[#333] text-[30rpx] mb-1">内部引荐成交金额</view>
-          <view class="text-[#92003F] text-[40rpx] font-bold">{{ myRecommend?.innerRecommendAmount }}</view>
+          <view class="text-[#92003F] text-[40rpx] font-bold">{{
+            myRecommend?.innerRecommendAmount
+          }}</view>
         </view>
       </view>
       <view class="flex pt-4 pb-4">
         <view class="flex-1 text-center">
           <view class="text-[#333] text-[30rpx] mb-1">外部引荐数</view>
-          <view class="text-[#92003F] text-[40rpx] font-bold">{{ myRecommend?.outRecommendNum }}</view>
+          <view class="text-[#92003F] text-[40rpx] font-bold">{{
+            myRecommend?.outRecommendNum
+          }}</view>
         </view>
         <view class="flex-1 text-center">
           <view class="text-[#333] text-[30rpx] mb-1">外部引荐成交金额</view>
-          <view class="text-[#92003F] text-[40rpx] font-bold">{{ myRecommend?.outerRecommendAmount }}</view>
+          <view class="text-[#92003F] text-[40rpx] font-bold">{{
+            myRecommend?.outerRecommendAmount
+          }}</view>
         </view>
       </view>
     </view>
@@ -49,7 +59,7 @@
       <view>
         <view class="flex text-center mt-[30rpx] mb-[14rpx] leading-[44rpx] font-bold pr-6 ">
           <view class="flex-1">日期</view>
-          <view class="flex-1">引荐人</view>
+          <view class="flex-1">被引荐人</view>
           <view class="flex-1">类型</view>
           <view class="flex-1">成交金额</view>
         </view>
@@ -134,6 +144,6 @@ const onChange = async (e: any) => {
 }
 
 ::v-deep .uni-collapse-item__title {
-  border-bottom: 2rpx solid #F8F8F8;
+  border-bottom: 2rpx solid #f8f8f8;
 }
 </style>

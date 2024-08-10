@@ -88,7 +88,7 @@
             </view>
           </view>
         </view>
-        <view class="mt-7">
+        <view v-if="total?.sessionRecommendNum != null" class="mt-7">
           <view class="pl-[22rpx] text-black text-xl font-bold flex items-center">
             <view class="bg-[#92003F] w-0.75 h-4 absolute left-0"></view>
             本届

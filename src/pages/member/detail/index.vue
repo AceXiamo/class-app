@@ -1,18 +1,17 @@
 <template>
   <view class="overflow-y-auto overflow-x-hidden text-sm">
     <!-- 头像 -->
-    <view class="w-full h-[360rpx]">
-      <image mode="aspectFill" class="w-full h-full" :src="info?.avatar" @click="previewImage">
-      </image>
+    <view class="w-full">
+      <image mode="widthFix" class="w-full" :src="info?.avatar" @click="previewImage"> </image>
     </view>
 
     <!-- 基本信息 -->
     <view class="px-[30rpx] pt-4.5 pb-2 flex flex-col bg-white">
       <view class="flex font-bold items-center h-[50rpx]">
         <view class="flex-1 text-xl">{{ info?.name }}</view>
-        <view v-if="info?.leadershio_position" style="background: linear-gradient(135deg, #f5cd71 0%, #cf9219 100%)"
+        <view v-if="info?.leadership_position" style="background: linear-gradient(135deg, #f5cd71 0%, #cf9219 100%)"
           class="flex items-center h-[50rpx] px-[28rpx] rounded-full text-white text-sm font-bold">
-          {{ info?.leadershio_position }}
+          {{ info?.leadership_position }}
         </view>
       </view>
       <view class="mt-2 h-5.5 flex items-center text-[26rpx] text-repeat-33">行业：{{ info?.industry }}</view>
@@ -82,7 +81,7 @@
       }}</view>
     </view>
 
-    <view v-if="memberStore?.profile && memberStore?.profile?.userInfo?.status == 4"
+    <view v-if="info?.status == 4"
       class="px-[30rpx] py-6 text-sm flex border-solid border-[#EDEDED] border-0 border-t-[1rpx] text-white gap-2.5">
       <view class="flex-1 text-center rounded-[16rpx] py-4"
         style="background: linear-gradient(135deg, #d41869 0%, #92003f 100%)">
@@ -96,7 +95,7 @@
       </view>
     </view>
 
-    <view
+    <view v-if="info?.status == 4"
       class="font-bold text-sm px-[30rpx] pt-5 pb-5.5 border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75">
       <view class="flex items-center">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
@@ -128,7 +127,7 @@
         </view>
         <view class="flex-1 flex items-center flex-wrap">
           <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
-          家乡：<text class="font-normal text-repeat-66">{{ info?.homeplace }}</text>
+          <view class="">家乡：</view><text class="font-normal text-repeat-66">{{ info?.homeplace }}</text>
         </view>
       </view>
       <view class="flex items-center">
@@ -144,18 +143,21 @@
 
     <view
       class="font-bold text-sm px-[30rpx] pt-5 pb-[50rpx] border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75 bg-white">
-      <view class="flex items-center">
+      <view v-if="profile && profile?.userInfo.status == 4" class="flex items-center">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         联系电话：{{ info?.mobile }}
       </view>
-      <view class="flex items-center">
+      <view v-if="profile && (profile?.userInfo.status == 3 || profile?.userInfo.status == 4)" class="flex items-center">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>微信二维码：
       </view>
-      <view class="flex justify-center">
-        <image class="w-[308rpx] h-[308rpx]" :src="info?.wechatQrCode"></image>
+      <view v-if="profile && (profile?.userInfo.status == 3 || profile?.userInfo.status == 4)"
+        class="flex justify-center">
+        <image class="w-[308rpx] h-[308rpx]" :src="info?.wechatQrCode" :show-menu-by-longpress="true"></image>
       </view>
     </view>
 
+    <!-- <view
+      v-if="profile && profile?.userInfo.status != 4" -->
     <view
       class="pt-[68rpx] pb-[98rpx] border-solid border-[#EDEDED] border-0 border-t-[1rpx] flex justify-center bg-white">
       <view
@@ -164,6 +166,9 @@
       </view>
     </view>
   </view>
+  <uni-popup ref="popup" type="center">
+    <image mode="aspectFill" src="@/static/images/kefu.png" :show-menu-by-longpress="true" />
+  </uni-popup>
 </template>
 
 <script lang="ts"></script>
@@ -171,11 +176,25 @@
 <script lang="ts" setup>
 import { onLoad } from '@dcloudio/uni-app'
 import { getDetailInfo } from '@/api/app/userinfo'
-import { ref } from 'vue'
+import { ref, toRefs, getCurrentInstance } from 'vue'
 import { useMemberStore } from '@/stores'
 import { dateFormatYearAndMonth } from '@/utils/tools'
 import collapse from '@/components/collapse/index.vue'
 import { formatNumber } from '@/utils/tools'
+
+const { profile } = toRefs(useMemberStore())
+const _this = getCurrentInstance()
+const get = async () => {
+  if (!profile.value) {
+    uni.navigateTo({ url: '/pages/login/login' })
+    return
+  } else if (profile?.value.userInfo.status == 2) {
+    uni.navigateTo({ url: '/pages/my/info/info' })
+    return
+  } else if (profile?.value.userInfo.status == 3) {
+    _this?.refs.popup.open()
+  }
+}
 
 let memberStore = useMemberStore()
 

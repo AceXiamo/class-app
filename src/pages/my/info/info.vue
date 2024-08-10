@@ -57,7 +57,7 @@
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
       <view class="mb-1"><text class="text-[#FF4646]">*</text><text class="font-bold">行业类型：</text></view>
-      <uni-data-select class="w-full text-[#666]" :border="false" style="border: none;" :clear="false"
+      <uni-data-select class="w-full text-[#666]" :border="false" style="border: none" :clear="false"
         v-model="info.industryType" :localdata="industryTypeList" @change="onChange"></uni-data-select>
     </view>
 
@@ -76,7 +76,7 @@
       <view class="flex items-center justify-between mt-2">
         <input v-model="info.companyAddress" class="h-8 flex-1 text-[#666]" placeholder="请输入"
           placeholder-class="placeholder" />
-        <view @tap="getLocation" class="text-[#92003F]">选择地址</view>
+        <!-- <view @tap="getLocation" class="text-[#92003F]">选择地址</view> -->
       </view>
     </view>
 
@@ -136,18 +136,19 @@
 
     <view class="mt-4 pb-10 flex">
       <button class="w-[288rpx] h-[88rpx] rounded-[44rpx] bg-[#F5F5F5]">保存</button>
-      <button class="w-[288rpx] h-[88rpx] rounded-[44rpx] bg-[#92003F] text-white" @tap="commit">提交</button>
+      <button class="w-[288rpx] h-[88rpx] rounded-[44rpx] bg-[#92003F] text-white" @tap="commit">
+        提交
+      </button>
     </view>
   </view>
 </template>
 
-<script lang="ts">
-</script>
+<script lang="ts"></script>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import upload from '@/components/uploadImage/upload.vue';
-import { onLoad } from '@dcloudio/uni-app';
+import { ref } from 'vue'
+import upload from '@/components/uploadImage/upload.vue'
+import { onLoad } from '@dcloudio/uni-app'
 import * as my from '@/api/app/my'
 import { setInfo } from '@/api/my'
 
@@ -170,19 +171,21 @@ let info: any = ref({
   recommender: -1,
   recommenderId: -1,
   mobile: '',
-  wechatQrCode: ''
+  wechatQrCode: '',
 })
-let member: any = ref()
+let member: any = ref([{ value: 0, text: '平台' }])
 let industryTypeList: any = ref()
 onLoad(async () => {
   const result = await my.getAllInfo()
   info.value = result.data
 
   const { data } = await my.getMember()
-  member.value = data.map((item: any) => ({
-    value: item.id,
-    text: item.name
-  }));
+  member.value = member.value.concat(
+    data.map((item: any) => ({
+      value: item.id,
+      text: item.name,
+    })),
+  )
   const rec = member.value.find((item: any) => item.text == info.value.recommender)
   if (rec) {
     info.value.recommenderId = rec.value
@@ -191,15 +194,14 @@ onLoad(async () => {
   const result1 = await my.getIndustryTypeList()
   industryTypeList.value = result1.data.map((item: any) => ({
     value: item.id,
-    text: item.title
-  }));
+    text: item.title,
+  }))
 })
-
 
 let range = ref([
   { value: 0, text: '男' },
   { value: 1, text: '女' },
-]);
+])
 
 const sexChange = (e: any) => {
   info.value.sex = e.detail.value * 1
@@ -221,7 +223,7 @@ const getLocation = () => {
       // console.log('纬度：' + res.latitude);
       // console.log('经度：' + res.longitude);
       info.value.companyAddress = res.address
-    }
+    },
   })
 }
 
@@ -230,81 +232,80 @@ const commit = () => {
   if (info.value.avatar == '' || info.value.avatar == null) {
     uni.showToast({
       title: '请上传头像',
-      icon: 'none'
+      icon: 'none',
     })
     return
   } else if (info.value.name == '' || info.value.name == null) {
     uni.showToast({
       title: '请输入姓名',
-      icon: 'none'
+      icon: 'none',
     })
     return
   } else if (info.value.sex == -1 || info.value.sex == null) {
     uni.showToast({
       title: '请选择性别',
-      icon: 'none'
+      icon: 'none',
     })
     return
   } else if (info.value.industry == '' || info.value.industry == null) {
     uni.showToast({
       title: '请填写行业',
-      icon: 'none'
+      icon: 'none',
     })
     return
   } else if (info.value.industryType == -1 || info.value.industryType == null) {
     uni.showToast({
       title: '请选择行业类型',
-      icon: 'none'
+      icon: 'none',
     })
     return
   } else if (info.value.company == '' || info.value.company == null) {
     uni.showToast({
       title: '请填写公司',
-      icon: 'none'
+      icon: 'none',
     })
     return
   } else if (info.value.position == '' || info.value.position == null) {
     uni.showToast({
       title: '请填写职务',
-      icon: 'none'
+      icon: 'none',
     })
     return
   } else if (info.value.recommenderId == -1 || info.value.recommenderId == null) {
     uni.showToast({
       title: '请选择介绍人',
-      icon: 'none'
+      icon: 'none',
     })
     return
   } else if (info.value.mobile == '' || info.value.mobile == null) {
     uni.showToast({
       title: '请填写手机',
-      icon: 'none'
+      icon: 'none',
     })
     return
   } else if (info.value.wechatQrCode == '' || info.value.wechatQrCode == null) {
     uni.showToast({
       title: '请上传二维码',
-      icon: 'none'
+      icon: 'none',
     })
     return
   }
 
-  setInfo(info.value).then(res => {
+  setInfo(info.value).then((res) => {
     // console.log(res)
     uni.showToast({
       title: '提交成功',
       icon: 'none',
-      duration: 1000
+      duration: 1000,
     })
 
     // 返回上一页
     setTimeout(() => {
       uni.navigateBack({
-        delta: 1
+        delta: 1,
       })
     }, 1000)
   })
-
 }
 
 const onFinish = () => {
@@ -328,7 +329,6 @@ const onFinish = () => {
   // console.log(hobby.value)
   // console.log(recommender.value)
 }
-
 </script>
 
 <style lang="scss">
@@ -338,13 +338,12 @@ page {
 
 .placeholder,
 ::v-deep .uni-select__input-placeholder {
-  color: #AFAFAF !important;
+  color: #afafaf !important;
 }
 
 ::v-deep .uni-select {
   border: 0 !important;
   padding: 0 !important;
-
 }
 
 ::v-deep .uni-select__input-text {

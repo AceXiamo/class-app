@@ -26,7 +26,7 @@
 
     <popup-image-editor v-model="show" v-model:src="src" :cut-width="cutWidth" :cut-height="cutHeight"
       :cut-ratio="cutRatio" :keep-ratio="keepRatio" :cropper-svg-img="cropperSvgImg" :hide-cropper="hideCropper"
-      @change="onFinishCropper" />
+      :bound-detect="boundDetect" @change="onFinishCropper" />
   </view>
 </template>
 
@@ -57,6 +57,7 @@ interface IProps {
   buttonSize?: number | string
   title?: string
   size?: number
+  boundDetect?: boolean
 }
 
 const props = withDefaults(defineProps<IProps>(), {
@@ -73,6 +74,7 @@ const props = withDefaults(defineProps<IProps>(), {
   buttonSize: 60,
   title: undefined,
   size: 200,
+  boundDetect: true,
 })
 
 const emits = defineEmits(['update:modelValue', 'uploading', 'finish', 'change'])

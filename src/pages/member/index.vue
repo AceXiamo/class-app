@@ -43,11 +43,11 @@
           <view @tap="toDetail(item?.id)" class="flex m-[-1rpx] pt-3 pb-[28rpx]">
             <view class="rounded-[8rpx] relative pl-[28rpx] pr-4.5 mt-[6rpx]">
               <image mode="aspectFill" class="w-[172rpx] h-[172rpx] rounded-[8rpx] bg-black" :src="!memberStore.profile ||
-                memberStore.profile?.userInfo?.status == 0 ||
-                memberStore.profile?.userInfo?.status == 1 ||
-                memberStore.profile?.userInfo?.status == 2
-                ? ''
-                : item?.avatar
+                  memberStore.profile?.userInfo?.status == 0 ||
+                  memberStore.profile?.userInfo?.status == 1 ||
+                  memberStore.profile?.userInfo?.status == 2
+                  ? ''
+                  : item?.avatar
                 ">
               </image>
               <view v-if="item?.leadership_position && item?.leadership_position != ''"
@@ -67,7 +67,7 @@
               </view>
 
               <view class="w-full flex text-repeat-33 text-[26rpx] h-5.5 items-center">
-                <view>{{
+                <view class="flex-2 break-all line-clamp-1">{{
                   !memberStore.profile ||
                   memberStore.profile?.userInfo?.status == 0 ||
                   memberStore.profile?.userInfo?.status == 1 ||
@@ -76,7 +76,7 @@
                   : item?.company
                 }}
                 </view>
-                <view class="ml-3">{{
+                <view class="ml-3 flex-1 break-all line-clamp-1">{{
                   !memberStore.profile ||
                   memberStore.profile?.userInfo?.status == 0 ||
                   memberStore.profile?.userInfo?.status == 1 ||
@@ -106,7 +106,8 @@
             </view>
           </view>
 
-          <view v-if="item?.tags" class="border-0 border-t-[1rpx] border-solid border-[#F8F8F8] pl-[28rpx]">
+          <view v-if="item?.tags && item?.tags.length > 0"
+            class="border-0 border-t-[1rpx] border-solid border-[#F8F8F8] pl-[28rpx]">
             <!-- 折叠组件 -->
             <collapse :width="600" :px="16" :my="20" :height="44" :textColor="'#FF7A33'" :borderColor="'rgba(0,0,0,0)'"
               :borderRadius="9999" :borderWidth="1" :fontSize="24" :marginRight="18" :dataSource="item?.tags"

@@ -1,20 +1,25 @@
 <template>
   <view class="overflow-auto p-4 text-sm h-full space-y-4">
     <view class="rounded-[16rpx] bg-white w-full">
-      <view class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative">
+      <view
+        class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative"
+      >
         <view class="w-0.75 h-[28rpx] bg-[#92003F] mr-2"></view>
         <view class="text-base">我的出勤</view>
       </view>
 
       <view class="flex flex-col items-center justify-center p-[50rpx]">
         <view>我的全勤月数</view>
-        <view class="text-[40rpx] text-[#92003F] font-bold mt-1">{{ attend?.fullAttendanceMonth }}/{{ attend?.monthNum }}
+        <view class="text-[40rpx] text-[#92003F] font-bold mt-1"
+          >{{ attend?.fullAttendanceMonth || 0 }}/{{ attend?.monthNum || 0 }}
         </view>
       </view>
     </view>
 
     <view class="rounded-[16rpx] bg-white w-full">
-      <view class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative">
+      <view
+        class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative"
+      >
         <view class="w-0.75 h-[28rpx] bg-[#92003F] mr-2"></view>
         <view class="text-base">出勤月数</view>
       </view>
@@ -29,11 +34,18 @@
           <view class="flex-1">缺席</view>
         </view>
 
-        <view v-for="(item, index) in attend?.myAttendanceVOList" :key="index" :class="['flex text-center text-[#333] leading-[44rpx] pt-[26rpx] pb-[26rpx]', {
-          'border-solid': index !== attend?.myAttendanceVOList.length - 1,
-          'border-b-[2rpx]': index !== attend?.myAttendanceVOList.length - 1,
-          'border-[#F8F8F8]': index !== attend?.myAttendanceVOList.length - 1
-        }]">
+        <view
+          v-for="(item, index) in attend?.myAttendanceVOList"
+          :key="index"
+          :class="[
+            'flex text-center text-[#333] leading-[44rpx] pt-[26rpx] pb-[26rpx]',
+            {
+              'border-solid': index !== attend?.myAttendanceVOList.length - 1,
+              'border-b-[2rpx]': index !== attend?.myAttendanceVOList.length - 1,
+              'border-[#F8F8F8]': index !== attend?.myAttendanceVOList.length - 1,
+            },
+          ]"
+        >
           <view class="flex-1">{{ item?.month }}月</view>
           <view class="flex-1">{{ item?.present || 0 }}</view>
           <view class="flex-1">{{ item?.represent || 0 }}</view>
@@ -43,12 +55,10 @@
         </view>
       </view>
     </view>
-
   </view>
 </template>
 
-<script lang="ts">
-</script>
+<script lang="ts"></script>
 
 <script lang="ts" setup>
 import { getAttendance } from '@/api/app/my'
@@ -62,16 +72,17 @@ onLoad(async () => {
   attend.value = data
   list.value = data.myAttendanceVOList || []
   if (list.value.length > 0) {
-    list.value.sort((a: { year: number; month: number }, b: { year: number; month: number }): number => {
-      if (a.year !== b.year) {
-        return b.year - a.year;
-      } else {
-        return b.month - a.month;
-      }
-    })
+    list.value.sort(
+      (a: { year: number; month: number }, b: { year: number; month: number }): number => {
+        if (a.year !== b.year) {
+          return b.year - a.year
+        } else {
+          return b.month - a.month
+        }
+      },
+    )
   }
 })
-
 </script>
 
 <style scoped></style>
