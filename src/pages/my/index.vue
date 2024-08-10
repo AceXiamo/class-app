@@ -30,13 +30,13 @@
           <view class="font-medium text-xl h-[44rpx]">{{ info?.name }}</view>
 
           <view>
-            <view class="w-full break-all line-clamp-1 mt-2 h-[44rpx]">行业：{{ info?.industry }}
+            <view v-if="info?.industry" class="w-full break-all line-clamp-1 mt-2 h-[44rpx]">行业：{{ info?.industry }}
             </view>
           </view>
 
           <view class="w-full flex h-[44rpx]">
-            <view class="">{{ info?.company }}</view>
-            <view class="ml-3">{{ info?.position }}</view>
+            <view class="flex-2 break-all line-clamp-1">{{ info?.company }}</view>
+            <view class="ml-3 flex-1 break-all line-clamp-1">{{ info?.position }}</view>
           </view>
 
           <view class="w-full flex items-center h-[44rpx] mt-1">
@@ -61,9 +61,9 @@
     </view>
 
     <!-- 我的数据 -->
-    <!-- <view v-if="profile && profile?.userInfo.status == 4"> -->
-    <view v-if="profile" class="px-4 mt-6 text-repeat-33 text-[30rpx]">
-      <view class="font-medium text-base mb-2.5 flex items-center">
+    <view v-if="profile && profile?.userInfo.status == 4" class="px-4 mt-6 text-repeat-33 text-[30rpx]">
+      <!-- <view v-if="profile" class="px-4 mt-6 text-repeat-33 text-[30rpx]"> -->
+      <view class="font-bold text-base mb-2.5 flex items-center">
         <image src="/static/images/icon-data.png" class="w-4.5 h-4.5 mr-2" />
         <view>我的数据</view>
       </view>
@@ -72,12 +72,13 @@
           <view class="flex-1">
             <view>累计给出引荐</view>
             <view class="h-[50rpx] mt-1.25 text-[#92003F] text-xl font-bold">{{
-              formatNumber(myData?.recommendNum)
+              formatNumber(myData?.recommendNum || 0)
             }}</view>
           </view>
           <view class="flex-1">
             <view>给出引荐成交金额</view>
-            <view class="h-[50rpx] mt-1.25 text-[#92003F] text-xl font-bold">￥{{ formatNumber(myData?.submitMoneySum) }}
+            <view class="h-[50rpx] mt-1.25 text-[#92003F] text-xl font-bold">￥{{ formatNumber(myData?.submitMoneySum || 0)
+            }}
             </view>
           </view>
         </view>
@@ -85,12 +86,13 @@
           <view class="flex-1">
             <view>累计收到引荐</view>
             <view class="h-[50rpx] mt-1.25 text-[#92003F] text-xl font-bold">{{
-              formatNumber(myData?.receiveRecommendNum)
+              formatNumber(myData?.receiveRecommendNum || 0)
             }}</view>
           </view>
           <view class="flex-1">
             <view>收到引荐成交金额</view>
-            <view class="h-[50rpx] mt-1.25 text-[#92003F] text-xl font-bold">￥{{ formatNumber(myData?.harvestMoneySum) }}
+            <view class="h-[50rpx] mt-1.25 text-[#92003F] text-xl font-bold">￥{{ formatNumber(myData?.harvestMoneySum ||
+              0) }}
             </view>
           </view>
         </view>
@@ -100,28 +102,28 @@
           <view class="flex-1">
             <view>走访数量</view>
             <view class="mt-1.25 text-[#92003F] text-xl font-bold">{{
-              formatNumber(myData?.visitNum)
+              formatNumber(myData?.visitNum || 0)
             }}</view>
           </view>
           <view class="flex-1">
             <view>嘉宾数量</view>
             <view class="mt-1.25 text-[#92003F] text-xl font-bold">{{
-              formatNumber(myData?.guestNum)
+              formatNumber(myData?.guestNum || 0)
             }}</view>
           </view>
           <view class="flex-1">
             <view>全勤月数</view>
-            <view class="mt-1.25 text-[#92003F] text-xl font-bold">{{ myData?.fullAttendanceMonth }}/{{ myData?.monthNum
-            }}</view>
+            <view class="mt-1.25 text-[#92003F] text-xl font-bold">{{ myData?.fullAttendanceMonth || 0 }}/{{
+              myData?.monthNum || 0 }}</view>
           </view>
         </view>
       </view>
     </view>
 
     <!-- 我的引荐 -->
-    <!-- <view v-if="profile && profile?.userInfo.status == 4"> -->
-    <view v-if="profile" class="px-4 mt-6">
-      <view class="font-medium text-base mb-2.5 flex items-center">
+    <view v-if="profile && profile?.userInfo.status == 4" class="px-4 mt-6">
+      <!-- <view v-if="profile" class="px-4 mt-6"> -->
+      <view class="font-bold text-base mb-2.5 flex items-center">
         <image src="/static/images/icon-recommend.png" class="w-4.5 h-4.5 mr-2" />
         <view>我的引荐</view>
       </view>
@@ -150,9 +152,9 @@
     </view>
 
     <!-- 我的走访 -->
-    <!-- <view v-if="profile && profile?.userInfo.status == 4"> -->
-    <view v-if="profile" class="px-4 mt-6">
-      <view class="font-medium text-base mb-2.5 flex items-center">
+    <view v-if="profile && profile?.userInfo.status == 4" class="px-4 mt-6">
+      <!-- <view v-if="profile" class="px-4 mt-6"> -->
+      <view class="font-bold text-base mb-2.5 flex items-center">
         <image src="/static/images/icon-interview.png" class="w-4.5 h-4.5 mr-2" />
         <view>我的走访</view>
       </view>
@@ -174,9 +176,9 @@
     </view>
 
     <!-- 我的嘉宾 -->
-    <!-- <view v-if="profile && profile?.userInfo.status == 4" @tap="toGuestList"> -->
-    <view v-if="profile" class="px-4 mt-6">
-      <view class="font-medium text-base mb-2.5 flex items-center">
+    <view v-if="profile && profile?.userInfo.status == 4" @tap="toGuestList" class="px-4 mt-6">
+      <!-- <view v-if="profile" class="px-4 mt-6"> -->
+      <view class="font-bold text-base mb-2.5 flex items-center">
         <image src="/static/images/icon-activity.png" class="w-4.5 h-4.5 mr-2" />
         <view>我的嘉宾</view>
       </view>
@@ -191,9 +193,9 @@
     </view>
 
     <!-- 我的活动 -->
-    <!-- <view v-if="profile && profile?.userInfo.status == 3 || profile?.userInfo.status == 4"> -->
-    <view v-if="profile" class="px-4 mt-6">
-      <view class="font-medium text-base mb-2.5 flex items-center">
+    <view v-if="(profile && profile?.userInfo.status == 3) || profile?.userInfo.status == 4" class="px-4 mt-6">
+      <!-- <view v-if="profile" class="px-4 mt-6"> -->
+      <view class="font-bold text-base mb-2.5 flex items-center">
         <image src="/static/images/icon-activity.png" class="w-4.5 h-4.5 mr-2" />
         <view>我的活动</view>
       </view>
@@ -215,9 +217,9 @@
     </view>
 
     <!-- 我的嘉宾 -->
-    <!-- <view v-if="profile && profile?.userInfo.status == 4" @tap="toGuestList"> -->
-    <view v-if="profile" class="px-4 mt-6">
-      <view class="font-medium text-base mb-2.5 flex items-center">
+    <view v-if="profile && profile?.userInfo.status == 4" @tap="toGuestList" class="px-4 mt-6">
+      <!-- <view v-if="profile" class="px-4 mt-6"> -->
+      <view class="font-bold text-base mb-2.5 flex items-center">
         <image src="/static/images/icon-notice.png" class="w-4.5 h-4.5 mr-2" />
         <view>通知</view>
       </view>
@@ -240,7 +242,7 @@
 <script setup lang="ts">
 import { useMemberStore } from '@/stores'
 import { onShow } from '@dcloudio/uni-app'
-import { ref } from 'vue'
+import { ref, toRefs } from 'vue'
 import { getMyData, getInfo_1 } from '@/api/app/my'
 import SystemStore from '@/utils/uniapp/system'
 import { storeToRefs } from 'pinia'
@@ -248,22 +250,25 @@ import collapse from '@/components/collapse/index.vue'
 import { formatNumber } from '@/utils/tools'
 
 const { statusBar, customBar } = storeToRefs(SystemStore())
-console.log(statusBar)
+// console.log(statusBar)
 
-let memberStore = useMemberStore()
-let profile = ref(null)
+const { profile } = toRefs(useMemberStore())
+// let profile = ref<any>(null)
 let myData: any = ref({})
 let info = ref()
 
 onShow(async () => {
-  profile.value = memberStore.profile
+  // profile.value = memberStore.profile
   // console.log('profile', profile.value)
   if (profile.value) {
-    const { data } = await getMyData()
-    myData.value = data
     const result = await getInfo_1()
     info.value = result.data
+    if (profile.value.userInfo.status === 4) {
+      const { data } = await getMyData()
+      myData.value = data
+    }
   }
+
   // toPostRecommend()
 })
 

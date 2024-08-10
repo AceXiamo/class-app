@@ -1,6 +1,5 @@
 <template>
-  <scroll-view scroll-x="true" class="w-full whitespace-nowrap" :scroll-with-animation="true"
-    :scroll-into-view="scrollId">
+  <scroll-view scroll-x class="w-full whitespace-nowrap" :scroll-with-animation="true" :scroll-into-view="scrollId">
     <view v-for="(tab, index) in tabs" :id="`tab-${tab.key}`" :key="tab.key" class="inline-block text-center text-xs"
       @tap="onClickTab(tab, index)">
       <slot :active="curKey === tab.key" :tab="tab" :index="index">

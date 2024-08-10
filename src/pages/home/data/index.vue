@@ -5,10 +5,11 @@
       <view class="p-4">
         <slider-tab v-model="curValue" :tabs="tabs" @change="onChange">
           <template #="{ active, tab, index }">
-            <view :class="['h-10 text-[26rpx] text-[#666] flex items-center relative justify-center', {
+            <view :class="['h-10 text-[26rpx] flex items-center relative justify-center', {
               'font-bold': active,
               'text-[30rpx]': active,
               'text-[#000]': active,
+              'text-[#666]': !active,
               'mr-4': index !== tabs?.length - 1
             }]">
               {{ tab?.year }}年{{ tab?.month }}月
@@ -57,11 +58,12 @@
         <slider-tab v-model="curValue1" :tabs="tabs1" @change="onChange1">
 
           <template #="{ active, tab, index }">
-            <view :class="['h-10 text-[26rpx] text-[#666] flex items-center relative justify-center', {
+            <view :class="['h-10 text-[26rpx] flex items-center relative justify-center', {
               'font-bold': active,
               'text-[30rpx]': active,
               'text-[#000]': active,
-              'mr-4': index !== tabs.length - 1
+              'text-[#666]': !active,
+              'mr-8': index !== tabs.length - 1
             }]">
               第{{ tab?.session }}届
               <view v-if="active" class="bg-[#92003F] w-[30rpx] h-[6rpx] absolute bottom-1"></view>

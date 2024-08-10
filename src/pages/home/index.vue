@@ -2,15 +2,8 @@
   <view class="overflow-auto h-full text-sm">
     <!-- 轮播图 -->
     <view class="relative">
-      <swiper
-        v-if="banners.length > 0"
-        class="h-[808rpx] w-full"
-        circular
-        :indicator-dots="false"
-        :autoplay="false"
-        :interval="3000"
-        @change="onBannersSwiperChange"
-      >
+      <swiper v-if="banners.length > 0" class="h-[808rpx] w-full" circular :indicator-dots="false" :autoplay="false"
+        :interval="3000" @change="onBannersSwiperChange">
         <swiper-item v-for="(item, index) in banners" :key="index" class="h-[308rpx]">
           <image class="w-full h-full" :src="item.content" mode="scaleToFill" />>
         </swiper-item>
@@ -18,50 +11,35 @@
       <view class="flex w-full absolute bottom-[150rpx]">
         <view class="flex-1 flex justify-center mx-4.5">
           <template v-for="(item, index) in banners" :key="`dot-${index}`">
-            <view
-              :class="[
-                'w-1.5 h-1.5 mx-[7rpx] rounded-full bg-white',
-                {
-                  'opacity-50': activeBanners !== index,
-                },
-              ]"
-            />
+            <view :class="[
+              'w-1.5 h-1.5 mx-[7rpx] rounded-full bg-white',
+              {
+                'opacity-50': activeBanners !== index,
+              },
+            ]" />
           </template>
         </view>
       </view>
     </view>
 
     <!-- 广告位 -->
-    <view class="w-full h-[100rpx] relative">
-      <swiper
-        v-if="ads.length > 0"
-        class="h-[200rpx] w-full absolute top-[-108rpx]"
-        circular
-        :indicator-dots="false"
-        :autoplay="false"
-        :interval="3000"
-        @change="onAdsSwiperChange"
-      >
-        <swiper-item
-          v-for="(item, index) in ads"
-          :key="index"
-          class="h-[308rpx] box-border px-[30rpx]"
-        >
+    <view class="w-full h-[100rpx] relative" v-if="ads.length > 0">
+      <swiper class="h-[200rpx] w-full absolute top-[-108rpx]" circular :indicator-dots="false" :autoplay="false"
+        :interval="3000" @change="onAdsSwiperChange">
+        <swiper-item v-for="(item, index) in ads" :key="index" class="h-[308rpx] box-border px-[30rpx]">
           <image class="w-full h-full rounded-[16rpx]" :src="item.content" mode="scaleToFill" />>
         </swiper-item>
       </swiper>
       <view class="flex w-full absolute bottom-[14rpx]">
         <view class="flex-1 flex justify-center mx-4.5">
           <template v-for="(item, index) in ads" :key="`dot-${index}`">
-            <view
-              :class="[
-                'w-1.5 h-1.5 mx-[7rpx] rounded-full',
-                {
-                  'bg-[#92003F]': activeAds == index,
-                  'bg-black opacity-20': activeAds !== index,
-                },
-              ]"
-            />
+            <view :class="[
+              'w-1.5 h-1.5 mx-[7rpx] rounded-full',
+              {
+                'bg-[#92003F]': activeAds == index,
+                'bg-black opacity-20': activeAds !== index,
+              },
+            ]" />
           </template>
         </view>
       </view>
@@ -70,12 +48,9 @@
     <!-- 关于我们 -->
     <view class="mt-[58rpx] px-4.5">
       <view class="relative w-full flex items-center">
-        <view class="text-[40rpx] font-medium">关于我们</view>
-        <view
-          @tap="showMore"
-          class="absolute text-sm text-repeat-99 right-0 flex items-center h-full"
-          >了解更多
-          <image src="/static/images/icon-r.png" class="w-[34rpx] h-[34rpx] mb-0.75" />
+        <view class="text-[40rpx] font-bold">关于我们</view>
+        <view @tap="showMore" class="absolute text-sm text-repeat-99 right-0 flex items-center h-full">了解更多
+          <image src="/static/images/icon-r.png" mode="heightFix" class="h-[32rpx]" />
         </view>
       </view>
 
@@ -88,10 +63,10 @@
     <view class="mt-5 px-3">
       <view class="relative rounded-[16rpx] py-5 bg-white text-xs text-repeat-33">
         <view class="mt-1">
-          <view class="pl-[22rpx] text-black text-xl font-medium flex items-center">
+          <view class="pl-[22rpx] text-black text-xl font-bold flex items-center">
             <view class="bg-[#92003F] w-0.75 h-4 absolute left-0"></view>
-            本月</view
-          >
+            本月
+          </view>
           <view class="flex mt-[30rpx]">
             <view class="flex-1 text-center">
               <view class="text-[30rpx] text-[#92003F] font-bold">{{
@@ -114,7 +89,7 @@
           </view>
         </view>
         <view class="mt-7">
-          <view class="pl-[22rpx] text-black text-xl font-medium flex items-center">
+          <view class="pl-[22rpx] text-black text-xl font-bold flex items-center">
             <view class="bg-[#92003F] w-0.75 h-4 absolute left-0"></view>
             本届
           </view>
@@ -140,7 +115,7 @@
           </view>
         </view>
         <view class="mt-7 mb-7">
-          <view class="pl-[22rpx] text-black text-xl font-medium flex items-center">
+          <view class="pl-[22rpx] text-black text-xl font-bold flex items-center">
             <view class="bg-[#92003F] w-0.75 h-4 absolute left-0"></view>
             创会累计
           </view>
@@ -169,7 +144,7 @@
         <view class="w-full flex justify-center text-xs text-repeat-33">
           <view @tap="showMoreData" class="flex items-center">
             更多数据
-            <image src="/static/images/icon-r.png" class="w-[34rpx] h-[34rpx] mb-0.75" />
+            <image src="/static/images/icon-r.png" mode="heightFix" class="h-[32rpx]" />
           </view>
         </view>
       </view>
@@ -178,36 +153,26 @@
     <!-- 领导团队 -->
     <view class="mt-8 px-[30rpx]">
       <view class="relative w-full flex items-center mb-[30rpx]">
-        <view class="text-[40rpx] font-medium">领导团队</view>
-        <view
-          @tap="showMoreTeam"
-          class="absolute text-sm text-repeat-99 right-0 flex items-center h-full"
-          >查看更多
-          <image src="/static/images/icon-r.png" class="w-[34rpx] h-[34rpx] mb-0.75" />
+        <view class="text-[40rpx] font-bold">领导团队</view>
+        <view @tap="showMoreTeam" class="absolute text-sm text-repeat-99 right-0 flex items-center h-full">查看更多
+          <image src="/static/images/icon-r.png" mode="heightFix" class="h-[32rpx]" />
         </view>
       </view>
 
       <view class="bg-white rounded-[16rpx] py-[30rpx] px-4 flex flex-col justify-center">
         <view class="grid grid-cols-3 gap-[26rpx]">
-          <view
-            v-for="(item, index) in team"
-            :key="index"
-            class="aspect-square relative rounded-[16rpx] overflow-hidden"
-          >
-            <image mode="aspectFit" class="w-full h-full" :src="item.avatar"> </image>
+          <view v-for="(item, index) in team" :key="index" class="aspect-square relative rounded-[16rpx] overflow-hidden">
+            <image mode="aspectFill" class="w-full h-full" :src="item.avatar"> </image>
             <view
-              class="text-center absolute bottom-0 h-[49rpx] opacity-50 bg-black w-full text-white flex items-center justify-center text-xs"
-              >{{ item.leadership_position }}</view
-            >
+              class="absolute bottom-0 bg-[rgba(0,0,0,0.5)] w-full h-[49rpx] text-center text-white flex items-center justify-center text-xs">
+              {{ item.leadership_position }}</view>
           </view>
         </view>
 
         <!-- 申请加入 -->
         <view>
-          <button
-            class="font-medium text-white font-base bg-[#92003F] rounded-full w-[376rpx] mt-[66rpx] mb-[46rpx]"
-            @tap="join"
-          >
+          <button class="font-medium text-white font-base bg-[#92003F] rounded-full w-[376rpx] mt-[66rpx] mb-[46rpx]"
+            @tap="join">
             申请加入
           </button>
         </view>

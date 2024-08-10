@@ -5,7 +5,7 @@
       <search-bar :placeholder="''" @search="search" />
     </view>
 
-    <view class="h-12.5 flex justify-between text-xl px-10 font-medium bg-white">
+    <view class="h-12.5 flex justify-between text-xl px-10 font-bold bg-white">
       <view @tap="check(index)" v-for="(item, index) in options" :class="{ 'text-[#92003F]': index === i }" :key="index"
         class="flex items-center justify-center w-full">
         <view class="relative flex justify-center px-0.5">
@@ -15,13 +15,14 @@
       </view>
     </view>
 
-    <view class="bg-white h-12.5 flex items-center">
+    <view class="bg-white h-12.5 flex items-center overflow-x-auto">
       <slider-tab v-model="curValue" :tabs="tabs" @change="onChange">
         <template #="{ active, tab, index }">
           <view :class="[
-            'text-[26rpx] h-12.5 flex items-center text-repeat-66 relative justify-center',
+            'text-[26rpx] h-12.5 flex items-center relative justify-center',
             {
               'text-repeat-33': active,
+              'text-repeat-66': !active,
               'font-bold': active,
               'ml-6': index == 0,
               'mx-3': index !== tabs.length - 1,
@@ -39,14 +40,14 @@
     <view class="flex justify-center" style="height: calc(100% - 296rpx)">
       <od-list class="w-full" :total="total" :load-more="more" @on-load-more="lowerBottom">
         <view v-for="(item, index) in list" :key="index" class="m-[30rpx] rounded-[16rpx] bg-white overflow-hidden">
-          <view @tap="toDetail(item?.id)" class="flex m-[-1rpx] pt-[30rpx] pb-[28rpx]">
-            <view class="rounded-[8rpx] relative pl-[28rpx] pr-4.5">
+          <view @tap="toDetail(item?.id)" class="flex m-[-1rpx] pt-3 pb-[28rpx]">
+            <view class="rounded-[8rpx] relative pl-[28rpx] pr-4.5 mt-[6rpx]">
               <image mode="aspectFill" class="w-[172rpx] h-[172rpx] rounded-[8rpx] bg-black" :src="!memberStore.profile ||
-                  memberStore.profile?.userInfo?.status == 0 ||
-                  memberStore.profile?.userInfo?.status == 1 ||
-                  memberStore.profile?.userInfo?.status == 2
-                  ? ''
-                  : item?.avatar
+                memberStore.profile?.userInfo?.status == 0 ||
+                memberStore.profile?.userInfo?.status == 1 ||
+                memberStore.profile?.userInfo?.status == 2
+                ? ''
+                : item?.avatar
                 ">
               </image>
               <view v-if="item?.leadership_position && item?.leadership_position != ''"
@@ -55,7 +56,7 @@
               </view>
             </view>
             <view class="w-full text-xs flex flex-col">
-              <view class="font-medium text-[30rpx] text-black h-5.5 flex items-center">
+              <view class="font-bold text-[30rpx] text-black h-5.5 flex items-center">
                 {{ item?.name }}
               </view>
 

@@ -6,127 +6,131 @@
 
     <view class="flex items-center pb-2 border-b-[1rpx] border-[#F0F0F0]">
       <view class="flex-1">
-        <view><text class="text-[#FF4646]">*</text>头像</view>
-        <view class="placeholder mt-1">请上传图片</view>
+        <view class="h-6"><text class="text-[#FF4646]">*</text><text class="font-bold">头像：</text></view>
+        <view class="text-[#666] h-6 mt-1.25" v-if="info.avatar">已上传</view>
+        <view class="placeholder h-6 mt-1.25" v-else>请上传图片</view>
       </view>
       <upload v-model="info.avatar" :size="96" :show-button="true" :cropper="true" @finish="onFinish" />
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view><text class="text-[#FF4646]">*</text>姓名：</view>
-      <input v-model="info.name" class="h-6 mt-1" placeholder="请输入" placeholder-class="placeholder" />
+      <view><text class="text-[#FF4646]">*</text><text class="font-bold">姓名：</text></view>
+      <input v-model="info.name" class="h-8 mt-2 text-[#666]" placeholder="请输入" placeholder-class="placeholder" />
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view><text class="text-[#FF4646]">*</text>性别：</view>
+      <view><text class="text-[#FF4646]">*</text><text class="font-bold">性别：</text></view>
       <!-- <input v-model="gender" class="h-8 border-solid border-repeat-79 border-[1rpx] px-1" /> -->
       <!-- <uni-data-select class="w-40" :clear="false" v-model="info.sex" :localdata="range"
         @change="onChange"></uni-data-select> -->
-      <view class="mt-2 ml-2">
-        <radio-group class="flex" @change="sexChange">
-          <label class="flex-1" v-for="(item, index) in range" :key="item.value">
-            <radio :value="item.value + ''" :checked="info.sex == item.value" color="#92003F" />
-            <text class="ml-1">{{ item.text }}</text>
-          </label>
-        </radio-group>
-      </view>
+      <radio-group class="h-8 mt-2 ml-2 flex items-center" @change="sexChange">
+        <label class="flex-1" v-for="(item, index) in range" :key="item.value">
+          <radio :value="item.value + ''" :checked="info.sex == item.value" color="#92003F" />
+          <text class="ml-1 text-[#666]">{{ item.text }}</text>
+        </label>
+      </radio-group>
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view class="min-w-max">家乡：省/市/县：</view>
-      <picker mode="region" @change="regionChange">
-        <view class="placeholder mt-1 flex justify-between">
-          <text>{{ info.homeplace || '请选择' }}</text>
-          <uni-icons type="bottom" size="16" color="#AFAFAF"></uni-icons>
-        </view>
-      </picker>
+      <view class="min-w-max font-bold">家乡：</view>
+      <view class="h-8 mt-2 flex items-center">
+        <picker class="flex-1" mode="region" @change="regionChange">
+          <view :class="['flex justify-between', info.homeplace ? 'text-[#666]' : 'placeholder']">
+            <text>{{ info.homeplace || '请选择' }}</text>
+            <uni-icons type="bottom" size="16" color="#AFAFAF"></uni-icons>
+          </view>
+        </picker>
+      </view>
+
       <!-- <input v-model="info.homeplace" class="h-8 border-solid border-repeat-79 border-[1rpx] w-full px-1" /> -->
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view>大学/年级/专业：</view>
-      <input v-model="info.college" class="h-6 mt-1" placeholder="请输入" placeholder-class="placeholder" />
+      <view class="font-bold">大学/年级/专业：</view>
+      <input v-model="info.college" class="h-8 mt-2 text-[#666]" placeholder="请输入" placeholder-class="placeholder" />
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view><text class="text-[#FF4646]">*</text>行业：</view>
-      <input v-model="info.industry" class="h-6 mt-1" placeholder="请输入" placeholder-class="placeholder" />
+      <view><text class="text-[#FF4646]">*</text><text class="font-bold">行业：</text></view>
+      <input v-model="info.industry" class="h-8 mt-2 text-[#666]" placeholder="请输入" placeholder-class="placeholder" />
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view><text class="text-[#FF4646]">*</text>行业类型：</view>
-      <uni-data-select class="w-full" :border="false" style="border: none;" :clear="false" v-model="info.industryType"
-        :localdata="industryTypeList" @change="onChange"></uni-data-select>
+      <view class="mb-1"><text class="text-[#FF4646]">*</text><text class="font-bold">行业类型：</text></view>
+      <uni-data-select class="w-full text-[#666]" :border="false" style="border: none;" :clear="false"
+        v-model="info.industryType" :localdata="industryTypeList" @change="onChange"></uni-data-select>
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view><text class="text-[#FF4646]">*</text>公司：</view>
-      <input v-model="info.company" class="h-6 mt-1" placeholder="请输入" placeholder-class="placeholder" />
+      <view><text class="text-[#FF4646]">*</text><text class="font-bold">公司：</text></view>
+      <input v-model="info.company" class="h-8 mt-2 text-[#666]" placeholder="请输入" placeholder-class="placeholder" />
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view><text class="text-[#FF4646]">*</text>职务：</view>
-      <input v-model="info.position" class="h-6 mt-1" placeholder="请输入" placeholder-class="placeholder" />
+      <view><text class="text-[#FF4646]">*</text><text class="font-bold">职务：</text></view>
+      <input v-model="info.position" class="h-8 mt-2 text-[#666]" placeholder="请输入" placeholder-class="placeholder" />
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view>公司地址：</view>
-      <view class="flex items-center justify-between mt-1">
-        <input v-model="info.companyAddress" class="h-6 flex-1" placeholder="请输入" placeholder-class="placeholder" />
+      <view class="font-bold">公司地址：</view>
+      <view class="flex items-center justify-between mt-2">
+        <input v-model="info.companyAddress" class="h-8 flex-1 text-[#666]" placeholder="请输入"
+          placeholder-class="placeholder" />
         <view @tap="getLocation" class="text-[#92003F]">选择地址</view>
       </view>
     </view>
 
-    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view class="mb-1">主营：</view>
-      <textarea v-model="info.bussiness" :maxlength="-1" class="w-full mt-1" auto-height placeholder="请输入"
+    <view class="pb-4 border-b-[1rpx] border-[#F0F0F0]">
+      <view class="mb-4 font-bold">主营：</view>
+      <textarea v-model="info.bussiness" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
+        placeholder-class="placeholder">
+      </textarea>
+    </view>
+
+    <view class="pb-4 border-b-[1rpx] border-[#F0F0F0]">
+      <view class="mb-4 font-bold">公司优势：</view>
+      <textarea v-model="info.advantage" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
+        placeholder-class="placeholder">
+      </textarea>
+    </view>
+
+    <view class="pb-4 border-b-[1rpx] border-[#F0F0F0]">
+      <view class="mb-4 font-bold">需要引荐资源：</view>
+      <textarea v-model="info.resourcesNeed" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
+        placeholder-class="placeholder">
+      </textarea>
+    </view>
+
+    <view class="pb-4 border-b-[1rpx] border-[#F0F0F0]">
+      <view class="mb-4 font-bold">我能提供资源：</view>
+      <textarea v-model="info.resourcesProvide" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
         placeholder-class="placeholder">
       </textarea>
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view class="mb-1">公司优势：</view>
-      <textarea v-model="info.advantage" :maxlength="-1" class="w-full mt-1" auto-height placeholder="请输入"
+      <view class="mb-4 font-bold">兴趣爱好：</view>
+      <textarea v-model="info.hobby" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
         placeholder-class="placeholder">
       </textarea>
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view class="mb-1">需要引荐资源：</view>
-      <textarea v-model="info.resourcesNeed" :maxlength="-1" class="w-full mt-1" auto-height placeholder="请输入"
-        placeholder-class="placeholder">
-      </textarea>
-    </view>
-
-    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view class="mb-1">我能提供资源：</view>
-      <textarea v-model="info.resourcesProvide" :maxlength="-1" class="w-full mt-1" auto-height placeholder="请输入"
-        placeholder-class="placeholder">
-      </textarea>
-    </view>
-
-    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view class="mb-1">兴趣爱好：</view>
-      <textarea v-model="info.hobby" :maxlength="-1" class="w-full mt-1" auto-height placeholder="请输入"
-        placeholder-class="placeholder">
-      </textarea>
-    </view>
-
-    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view class="mb-2"><text class="text-[#FF4646]">*</text>介绍人（如无会员引荐请选择“平台”）：</view>
-      <uni-data-select class="w-full" :clear="false" v-model="info.recommenderId" :localdata="member"
+      <view class="mb-1"><text class="text-[#FF4646]">*</text><text class="font-bold">介绍人（如无会员引荐请选择“平台”）：</text></view>
+      <uni-data-select class="w-full text-[#666]" :clear="false" v-model="info.recommenderId" :localdata="member"
         @change="onChange"></uni-data-select>
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view><text class="text-[#FF4646]">*</text>手机：</view>
-      <input type="number" v-model="info.mobile" class="h-6 mt-1" placeholder="请输入" placeholder-class="placeholder" />
+      <view><text class="text-[#FF4646]">*</text><text class="font-bold">手机：</text></view>
+      <input type="number" v-model="info.mobile" class="h-8 mt-2 text-[#666]" placeholder="请输入"
+        placeholder-class="placeholder" />
     </view>
 
     <view>
-      <view class="mb-4"><text class="text-[#FF4646]">*</text>个人微信二维码：</view>
+      <view class="mb-4"><text class="text-[#FF4646]">*</text><text class="font-bold">个人微信二维码：</text></view>
       <view class="flex justify-center">
-        <upload v-model="info.wechatQrCode" :size="96" :show-button="true" :cropper="true" @finish="onFinish" />
+        <upload v-model="info.wechatQrCode" :size="308" :show-button="true" :cropper="true" @finish="onFinish" />
       </view>
     </view>
 

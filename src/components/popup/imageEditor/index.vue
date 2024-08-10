@@ -4,7 +4,7 @@
       :cut-ratio="cutRatio" :keep-ratio="keepRatio" :hide-cropper="true" :reset-cut="true" :image-center="true"
       :cropper-svg-img="cropperSvgImg" @cropped="onCropped" :disableTranslate="false" :disableCtrl="true" :minZoom="1"
       v-if="show" />
-    <view class="absolute w-full px-2 bottom-0 ios-bottom flex justify-between items-center">
+    <view class="absolute w-full px-4 bottom-4 ios-bottom flex justify-between items-center">
       <view class="h-8 w-20">
         <button type="default" @tap="onClose">
           <text>
@@ -13,7 +13,7 @@
         </button>
       </view>
       <view class="h-8 w-20">
-        <button type="default" @tap="onConfirm">
+        <button type="primary" @tap="onConfirm">
           <text>
             确定
           </text>

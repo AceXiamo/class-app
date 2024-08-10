@@ -8,7 +8,7 @@
         </view>
       </view>
       <view class="flex items-center mt-2 h-[100rpx]">
-        <view class="flex-1 text-white text-[60rpx]">荣誉榜</view>
+        <view class="flex-1 text-white text-[60rpx] font-bold">荣誉榜</view>
         <uni-data-select :clear="false" v-model="value" :localdata="range" @change="change"></uni-data-select>
       </view>
       <view class="my-2">
@@ -32,7 +32,8 @@
         <!-- 荣誉榜 -->
         <view class="p-4">
           <view class="grid grid-cols-2 gap-[24rpx]">
-            <view v-if="honorBoard?.kingOfRecommender" class="w-full mr-4 king-item">
+            <!-- v-if="honorBoard?.kingOfRecommender" -->
+            <view class="w-full mr-4 king-item">
               <view class="font-bold text-white text-base text-center h-[62rpx] leading-[62rpx] relative">
                 <text class="absolute title">引荐王</text>
                 <image src="/static/images/bg-king-title.jpg" class="absolute w-full left-0" mode="widthFix" />
@@ -42,12 +43,15 @@
                 <image mode="aspectFill" class="w-10.5 h-10.5 rounded-1/2" :src="honorBoard.kingOfRecommender?.mainImg">
                 </image>
                 <view class="ml-2 flex flex-col">
-                  <view class="flex-1">{{ honorBoard.kingOfRecommender?.name }}</view>
-                  <view class="flex-1 text-xs">引荐数量：{{ honorBoard.kingOfRecommender?.recommendNum }}</view>
+                  <view class="flex-1">{{ honorBoard?.kingOfRecommender ? honorBoard.kingOfRecommender?.name : '虚位以待' }}
+                  </view>
+                  <view v-if="honorBoard?.kingOfRecommender" class="flex-1 text-xs break-all">引荐数量：{{
+                    honorBoard.kingOfRecommender?.recommendNum }}</view>
                 </view>
               </view>
             </view>
-            <view v-if="honorBoard?.kingOfRecommendMoney" class="w-full mr-4 king-item">
+            <!-- v-if="honorBoard?.kingOfRecommendMoney" -->
+            <view class="w-full mr-4 king-item">
               <view class="font-bold text-white text-base text-center h-[62rpx] leading-[62rpx] relative">
                 <text class="absolute title">成交金额王</text>
                 <image src="/static/images/bg-king-title.jpg" class="absolute w-full left-0" mode="widthFix" />
@@ -57,12 +61,15 @@
                   :src="honorBoard.kingOfRecommendMoney?.mainImg">
                 </image>
                 <view class="ml-2 flex flex-col">
-                  <view class="flex-1">{{ honorBoard.kingOfRecommendMoney?.name }}</view>
-                  <view class="flex-1 text-xs ">引荐金额：{{ honorBoard.kingOfRecommendMoney?.harvestedMoney }}</view>
+                  <view class="flex-1">{{ honorBoard?.kingOfRecommendMoney ? honorBoard.kingOfRecommendMoney?.name :
+                    '虚位以待' }}</view>
+                  <view v-if="honorBoard?.kingOfRecommendMoney" class="flex-1 text-xs break-all">引荐金额：{{
+                    honorBoard.kingOfRecommendMoney?.harvestedMoney }}</view>
                 </view>
               </view>
             </view>
-            <view v-if="honorBoard?.kingOfGuest" class="w-full mr-4 king-item">
+            <!-- v-if="honorBoard?.kingOfGuest" -->
+            <view class="w-full mr-4 king-item">
               <view class="font-bold text-white text-base text-center h-[62rpx] leading-[62rpx] relative">
                 <text class="absolute title">嘉宾王</text>
                 <image src="/static/images/bg-king-title.jpg" class="absolute w-full left-0" mode="widthFix" />
@@ -71,12 +78,14 @@
                 <image mode="aspectFill" class="w-10.5 h-10.5 rounded-1/2" :src="honorBoard.kingOfGuest?.mainImg">
                 </image>
                 <view class="ml-2 flex flex-col">
-                  <view class="flex-1">{{ honorBoard.kingOfGuest?.name }}</view>
-                  <view class="flex-1 text-xs">邀约嘉宾：{{ honorBoard.kingOfGuest?.guestNum }}</view>
+                  <view class="flex-1">{{ honorBoard?.kingOfGuest ? honorBoard.kingOfGuest?.name : '虚位以待' }}</view>
+                  <view v-if="honorBoard?.kingOfGuest" class="flex-1 text-xs break-all">邀约嘉宾：{{
+                    honorBoard.kingOfGuest?.guestNum }}</view>
                 </view>
               </view>
             </view>
-            <view v-if="honorBoard?.kingOfVisit" class="w-full mr-4 king-item">
+            <!-- v-if="honorBoard?.kingOfVisit" -->
+            <view class="w-full mr-4 king-item">
               <view class="font-bold text-white text-base text-center h-[62rpx] leading-[62rpx] relative">
                 <text class="absolute title">走访王</text>
                 <image src="/static/images/bg-king-title.jpg" class="absolute w-full left-0" mode="widthFix" />
@@ -85,8 +94,9 @@
                 <image mode="aspectFill" class="w-10.5 h-10.5 rounded-1/2" :src="honorBoard.kingOfVisit?.mainImg">
                 </image>
                 <view class="ml-2 flex flex-col">
-                  <view class="flex-1">{{ honorBoard.kingOfVisit?.name }}</view>
-                  <view class="flex-1 text-xs">走访数量：{{ honorBoard.kingOfVisit?.visitNum }}</view>
+                  <view class="flex-1">{{ honorBoard?.kingOfVisit ? honorBoard.kingOfVisit?.name : '虚位以待' }}</view>
+                  <view v-if="honorBoard?.kingOfVisit" class="flex-1 text-xs break-all">走访数量：{{
+                    honorBoard.kingOfVisit?.visitNum }}</view>
                 </view>
               </view>
             </view>
@@ -96,38 +106,42 @@
             v-if="!honorBoard?.kingOfRecommender && !honorBoard?.kingOfRecommendMoney && !honorBoard?.kingOfGuest && !honorBoard?.kingOfVisit"
             class="text-center text-repeat-79">
             暂无数据</view>
-          <view v-if="presentPerson?.goldenList && presentPerson?.goldenList.length > 0" class="mt-6 flex item-center">
+          <view v-if="presentPerson?.goldenList && presentPerson?.goldenList.length > 0"
+            class="mt-[52rpx] flex item-center">
             <image class="w-6" src="/static/images/icon-gold.png" mode="widthFix" />
-            <view class="flex-1 pl-2 rounded-[54rpx] leading-[54rpx] text-[#D39822]"
+            <view class="flex-1 pl-2 rounded-[54rpx] leading-[54rpx] text-[#D39822] text-base font-bold"
               style="background: linear-gradient(-90deg, rgba(244,204,110,0), rgba(208,147,27,0.15));">全勤金奖</view>
           </view>
-          <view class="flex flex-wrap">
-            <view v-for="(item, index) in presentPerson?.goldenList" :key="index" class="flex items-center mt-2 mr-3">
+          <view class="flex flex-wrap ml-2.75">
+            <view v-for="(item, index) in presentPerson?.goldenList" :key="index"
+              class="flex items-center mt-[30rpx] w-[33.33%]">
               <image mode="aspectFill" class="w-[68rpx] h-[68rpx] rounded-1/2" :src="item?.avatar">
               </image>
               <view class="ml-2">{{ item?.name }}</view>
             </view>
           </view>
-          <view v-if="presentPerson?.silverList && presentPerson?.silverList.length > 0" class="mt-4 flex item-center">
+          <view v-if="presentPerson?.silverList && presentPerson?.silverList.length > 0" class="mt-6 flex item-center">
             <image class="w-6" src="/static/images/icon-silver.png" mode="widthFix" />
-            <view class="flex-1 pl-2 rounded-[54rpx] leading-[54rpx] text-[#9E9E9E]"
+            <view class="flex-1 pl-2 rounded-[54rpx] leading-[54rpx] text-[#9E9E9E] text-base font-bold"
               style="background: linear-gradient(-90deg, rgba(186,186,186,0), rgba(157,157,157,0.15));">全勤银奖
             </view>
           </view>
-          <view class="flex flex-wrap">
-            <view v-for="(item, index) in presentPerson?.silverList" :key="index" class="flex items-center mt-2 mr-3">
+          <view class="flex flex-wrap ml-2.75">
+            <view v-for="(item, index) in presentPerson?.silverList" :key="index"
+              class="flex items-center mt-[30rpx] w-[33.33%]">
               <image mode="aspectFill" class="w-[68rpx] h-[68rpx] rounded-1/2" :src="item?.avatar">
               </image>
               <view class="ml-2">{{ item?.name }}</view>
             </view>
           </view>
-          <view v-if="presentPerson?.gronzeList && presentPerson?.gronzeList.length > 0" class="mt-4 flex item-center">
+          <view v-if="presentPerson?.gronzeList && presentPerson?.gronzeList.length > 0" class="mt-6 flex item-center">
             <image class="w-6" src="/static/images/icon-bronze.png" mode="widthFix" />
-            <view class="flex-1 pl-2 rounded-[54rpx] leading-[54rpx] text-[#8A5D46]"
+            <view class="flex-1 pl-2 rounded-[54rpx] leading-[54rpx] text-[#8A5D46] text-base font-bold"
               style="background: linear-gradient(-90deg, rgba(178,129,115,0), rgba(138,93,69,0.15));">全勤铜奖</view>
           </view>
-          <view class="flex flex-wrap">
-            <view v-for="(item, index) in presentPerson?.gronzeList" :key="index" class="flex items-center mt-2 mr-3">
+          <view class="flex flex-wrap ml-2.75">
+            <view v-for="(item, index) in presentPerson?.gronzeList" :key="index"
+              class="flex items-center mt-[30rpx] w-[33.33%]">
               <image mode="aspectFill" class="w-[68rpx] h-[68rpx] rounded-1/2" :src="item?.avatar">
               </image>
               <view class="ml-2">{{ item?.name }}</view>
@@ -139,10 +153,10 @@
         <view class="p-4 border-solid border-t-[1rpx] border-[#F8F8F8]">
           <view class="relative flex items-center pl-[22rpx]">
             <view class="bg-[#92003F] w-0.75 h-4 absolute left-0"></view>
-            <view class="text-[#92003F] text-[40rpx]">功勋会员榜</view>
+            <view class="text-[#92003F] text-[40rpx] font-bold">功勋会员榜</view>
           </view>
 
-          <view class="flex mt-3 text-center">
+          <view class="flex mt-3 text-center font-bold">
             <view class="ml-12 w-20">会员姓名</view>
             <view class="ml-8 w-32">介绍入会人数</view>
           </view>
@@ -155,15 +169,16 @@
               <view class="w-32 ml-8 text-[#666]">{{ item?.invitePersonNum }}</view>
             </view>
           </view>
-          <view v-if="nvitePersonBoard && nvitePersonBoard?.length > 5" class="text-center my-2" @tap="hide5 = !hide5">
+          <view v-if="nvitePersonBoard && nvitePersonBoard?.length > 5" class="text-center py-2" @tap="hide5 = !hide5">
             {{ hide5 ? '展开全部 ∨' : "收起全部 ∧" }}</view>
         </view>
 
         <!-- 综合得分榜 -->
-        <view class="p-4 border-solid border-t-[1rpx] border-[#F8F8F8]" v-if="memberStore.profile && memberStore.profile.userInfo.status != 0 && memberStore.profile.userInfo.status != 1 && memberStore.profile.userInfo.status != 2 && memberStore.profile.userInfo.status != 3">
-          <view class="relative flex items-center pl-[22rpx]">
+        <view class="p-4 border-solid border-t-[1rpx] border-[#F8F8F8]"
+          v-if="memberStore.profile && memberStore.profile.userInfo.status != 0 && memberStore.profile.userInfo.status != 1 && memberStore.profile.userInfo.status != 2 && memberStore.profile.userInfo.status != 3">
+          <view class="relative flex items-center pl-[22rpx] mt-6">
             <view class="bg-[#92003F] w-0.75 h-4 absolute left-0"></view>
-            <view class="text-[#92003F] text-[40rpx]">综合得分榜</view>
+            <view class="text-[#92003F] text-[40rpx] font-bold">综合得分榜</view>
           </view>
 
           <view class="my-2">
@@ -183,31 +198,31 @@
             </slider-tab>
           </view>
 
-          <view class="flex mt-3 mb-2 text-center">
-            <view class="w-16">姓名</view>
-            <view class="flex-1" @tap="averageBoardSort(sort1 == 1 ? -1 : 1)" :class="{ 'font-bold': sort1 == 1 || sort1 == -1 }">
+          <view class="flex mt-3 mb-2 text-center font-bold">
+            <view class="w-10">姓名</view>
+            <view class="flex-1" @tap="averageBoardSort(sort1 == 1 ? -1 : 1)">
               总分<text class="sort_icon" :class="{ 'sort_desc': sort1 == 1, 'sort_asc': sort1 == -1 }"></text>
             </view>
-            <view class="flex-1" @tap="averageBoardSort(sort1 == 2 ? -2 : 2)" :class="{ 'font-bold': sort1 == 2 || sort1 == -2 }">
+            <view class="flex-1" @tap="averageBoardSort(sort1 == 2 ? -2 : 2)">
               引荐<text class="sort_icon" :class="{ 'sort_desc': sort1 == 2, 'sort_asc': sort1 == -2 }"></text>
             </view>
-            <view class="flex-1" @tap="averageBoardSort(sort1 == 3 ? -3 : 3)" :class="{ 'font-bold': sort1 == 3 || sort1 == -3 }">
+            <view class="flex-1" @tap="averageBoardSort(sort1 == 3 ? -3 : 3)">
               嘉宾<text class="sort_icon" :class="{ 'sort_desc': sort1 == 3, 'sort_asc': sort1 == -3 }"></text>
             </view>
-            <view class="flex-1" @tap="averageBoardSort(sort1 == 4 ? -4 : 4)" :class="{ 'font-bold': sort1 == 4 || sort1 == -4}">
+            <view class="flex-1" @tap="averageBoardSort(sort1 == 4 ? -4 : 4)">
               走访<text class="sort_icon" :class="{ 'sort_desc': sort1 == 4, 'sort_asc': sort1 == -4 }"></text>
             </view>
-            <view class="flex-1" @tap="averageBoardSort(sort1 == 5 ? -5 : 5)" :class="{ 'font-bold': sort1 == 5 || sort1 == -5}">
+            <view class="flex-1" @tap="averageBoardSort(sort1 == 5 ? -5 : 5)">
               出勤<text class="sort_icon" :class="{ 'sort_desc': sort1 == 5, 'sort_asc': sort1 == -5 }"></text>
             </view>
-            <view class="flex-1" @tap="averageBoardSort(sort1 == 6 ? -6 : 6)" :class="{ 'font-bold': sort1 == 6 || sort1 == -6}">
+            <view class="flex-1" @tap="averageBoardSort(sort1 == 6 ? -6 : 6)">
               金额<text class="sort_icon" :class="{ 'sort_desc': sort1 == 6, 'sort_asc': sort1 == -6 }"></text>
             </view>
           </view>
           <view class="text-xs" :class="{ 'overflow-hidden max-h-40': hide }">
             <view class="h-8 flex text-center items-center text-[#666]" v-for="(item, index) in averageBoard"
               :key="index">
-              <view class="w-16">
+              <view class="w-10 text-justify font-bold">
                 {{ item?.name }}
               </view>
               <view class="flex-1">
@@ -230,34 +245,37 @@
               </view>
             </view>
           </view>
-          <view v-if="averageBoard && averageBoard?.length > 5" class="text-center text-xs text-[#333] my-2"
+          <view v-if="averageBoard && averageBoard?.length > 5" class="text-center text-xs text-[#333] py-2"
             @tap="hide = !hide">
             {{ hide ? '展开全部' : "收起全部" }}<uni-icons :type="hide ? 'bottom' : 'top'" color="#999"></uni-icons>
           </view>
 
           <!-- 给出引荐数量实时排行榜 -->
-          <view class="relative flex items-center pl-[22rpx] mt-4">
+          <view class="relative flex items-center pl-[22rpx] mt-6 mb-7">
             <view class="bg-[#92003F] w-0.75 h-4 absolute left-0"></view>
-            <view class="text-[#92003F] text-[40rpx] flex-1">给出引荐数量实时排行榜</view>
+            <view class="text-[#92003F] text-[40rpx] flex-1 font-bold">给出引荐数量实时排行榜</view>
             <uni-data-select :clear="false" v-model="value1" :localdata="range1" @change="onChange2"></uni-data-select>
           </view>
 
-          <view class="flex mt-3 mb-2 text-center">
-            <view class="w-16">姓名</view>
-            <view class="flex-1" @tap="recommandBoardSort(sort2 == 1 ? -1 : 1)" :class="{ 'font-bold': sort2 == 1 || sort2 == -1 }">
+          <view class="flex mb-2 text-center">
+            <view class="w-10">姓名</view>
+            <view class="flex-1" @tap="recommandBoardSort(sort2 == 1 ? -1 : 1)"
+              :class="{ 'font-bold': sort2 == 1 || sort2 == -1 }">
               总引荐<text class="sort_icon" :class="{ 'sort_desc': sort2 == 1, 'sort_asc': sort2 == -1 }"></text>
             </view>
-            <view class="flex-1" @tap="recommandBoardSort(sort2 == 2 ? -2 : 2)" :class="{ 'font-bold': sort2 == 2 || sort2 == -2 }">
+            <view class="flex-1" @tap="recommandBoardSort(sort2 == 2 ? -2 : 2)"
+              :class="{ 'font-bold': sort2 == 2 || sort2 == -2 }">
               外部引荐数<text class="sort_icon" :class="{ 'sort_desc': sort2 == 2, 'sort_asc': sort2 == -2 }"></text>
             </view>
-            <view class="flex-1" @tap="recommandBoardSort(sort2 == 3 ? -3 : 3)" :class="{ 'font-bold': sort2 == 3 || sort2 == -3 }">
+            <view class="flex-1" @tap="recommandBoardSort(sort2 == 3 ? -3 : 3)"
+              :class="{ 'font-bold': sort2 == 3 || sort2 == -3 }">
               内部引荐数<text class="sort_icon" :class="{ 'sort_desc': sort2 == 3, 'sort_asc': sort2 == -3 }"></text>
             </view>
           </view>
           <view class="text-xs" :class="{ 'overflow-hidden max-h-40': hide1 }">
             <view class="h-8 flex text-center items-center text-[#666]" v-for="(item, index) in recommandBoard"
               :key="index">
-              <view class="w-16">
+              <view class="w-10 text-justify font-bold">
                 {{ item?.name }}
               </view>
               <view class="flex-1">
@@ -271,33 +289,36 @@
               </view>
             </view>
           </view>
-          <view v-if="recommandBoard && recommandBoard?.length > 5" class="text-center text-xs text-[#333] my-2"
+          <view v-if="recommandBoard && recommandBoard?.length > 5" class="text-center text-xs text-[#333] py-2"
             @tap="hide1 = !hide1">
             {{ hide1 ? '展开全部' : "收起全部" }}<uni-icons :type="hide1 ? 'bottom' : 'top'" color="#999"></uni-icons>
           </view>
 
           <!-- 给出引荐金额实时排行榜 -->
-          <view class="relative flex items-center pl-[22rpx] mt-4">
+          <view class="relative flex items-center pl-[22rpx] mt-6 mb-7">
             <view class="bg-[#92003F] w-0.75 h-4 absolute left-0"></view>
-            <view class="text-[#92003F] text-[40rpx] flex-1">给出引荐金额实时排行榜</view>
+            <view class="text-[#92003F] text-[40rpx] flex-1 font-bold">给出引荐金额实时排行榜</view>
             <uni-data-select :clear="false" v-model="value2" :localdata="range1" @change="onChange3"></uni-data-select>
           </view>
-          <view class="flex mt-3 mb-2 text-center">
-            <view class="w-12">姓名</view>
-            <view class="flex-1" @tap="recommandMoneyBoardSort(sort3 == 1 ? -1 : 1)" :class="{ 'font-bold': sort3 == 1 || sort3 == -1 }">
+          <view class="flex mb-2 text-center">
+            <view class="w-10">姓名</view>
+            <view class="flex-1" @tap="recommandMoneyBoardSort(sort3 == 1 ? -1 : 1)"
+              :class="{ 'font-bold': sort3 == 1 || sort3 == -1 }">
               总成交金额<text class="sort_icon" :class="{ 'sort_desc': sort3 == 1, 'sort_asc': sort3 == -1 }"></text>
             </view>
-            <view class="flex-1" @tap="recommandMoneyBoardSort(sort3 == 2 ? -2 : 2)" :class="{ 'font-bold': sort3 == 2 || sort3 == -2 }">
+            <view class="flex-1" @tap="recommandMoneyBoardSort(sort3 == 2 ? -2 : 2)"
+              :class="{ 'font-bold': sort3 == 2 || sort3 == -2 }">
               外部成交金额<text class="sort_icon" :class="{ 'sort_desc': sort3 == 2, 'sort_asc': sort3 == -2 }"></text>
             </view>
-            <view class="flex-1" @tap="recommandMoneyBoardSort(sort3 == 3 ? -3 : 3)" :class="{ 'font-bold': sort3 == 3 || sort3 == -3}">
+            <view class="flex-1" @tap="recommandMoneyBoardSort(sort3 == 3 ? -3 : 3)"
+              :class="{ 'font-bold': sort3 == 3 || sort3 == -3 }">
               内部成交金额<text class="sort_icon" :class="{ 'sort_desc': sort3 == 3, 'sort_asc': sort3 == -3 }"></text>
             </view>
           </view>
           <view class="text-xs" :class="{ 'overflow-hidden max-h-40': hide2 }">
             <view class="h-8 flex text-center items-center text-[#666]" v-for="(item, index) in recommandMoneyBoard"
               :key="index">
-              <view class="w-12">
+              <view class="w-10 text-justify font-bold">
                 {{ item?.name }}
               </view>
               <view class="flex-1">
@@ -311,24 +332,24 @@
               </view>
             </view>
           </view>
-          <view v-if="recommandMoneyBoard && recommandMoneyBoard?.length > 5" class="text-center text-xs text-[#333] my-2"
+          <view v-if="recommandMoneyBoard && recommandMoneyBoard?.length > 5" class="text-center text-xs text-[#333] py-2"
             @tap="hide2 = !hide2">
             {{ hide2 ? '展开全部' : "收起全部" }}<uni-icons :type="hide2 ? 'bottom' : 'top'" color="#999"></uni-icons></view>
 
           <!-- 邀约嘉宾排行榜 -->
-          <view class="relative flex items-center pl-[22rpx] mt-4">
+          <view class="relative flex items-center pl-[22rpx] mt-6 mb-7">
             <view class="bg-[#92003F] w-0.75 h-4 absolute left-0"></view>
-            <view class="text-[#92003F] text-[40rpx] flex-1">邀约嘉宾排行榜</view>
+            <view class="text-[#92003F] text-[40rpx] flex-1 font-bold">邀约嘉宾排行榜</view>
             <uni-data-select :clear="false" v-model="value3" :localdata="range1" @change="onChange4"></uni-data-select>
           </view>
-          <view class="flex mt-3 mb-2 text-center">
-            <view class="w-16">姓名</view>
+          <view class="flex mb-2 text-center">
+            <view class="w-10">姓名</view>
             <view class="w-16 ml-12">嘉宾数</view>
           </view>
           <view class="text-xs" :class="{ 'overflow-hidden max-h-40': hide3 }">
             <view class="h-8 flex text-center items-center text-[#666]" v-for="(item, index) in inviteGuestBoard"
               :key="index">
-              <view class="w-16">
+              <view class="w-10 text-justify font-bold">
                 {{ item?.name }}
               </view>
               <view class="w-16 ml-12">
@@ -336,31 +357,34 @@
               </view>
             </view>
           </view>
-          <view v-if="inviteGuestBoard && inviteGuestBoard?.length > 5" class="text-center text-xs text-[#333] my-2"
+          <view v-if="inviteGuestBoard && inviteGuestBoard?.length > 5" class="text-center text-xs text-[#333] py-2"
             @tap="hide3 = !hide3">
             {{ hide3 ? '展开全部' : "收起全部" }}<uni-icons :type="hide3 ? 'bottom' : 'top'" color="#999"></uni-icons></view>
 
           <!-- 走访实时排行榜 -->
-          <view class="relative flex items-center pl-[22rpx] mt-4">
+          <view class="relative flex items-center pl-[22rpx] mt-6 mb-7">
             <view class="bg-[#92003F] w-0.75 h-4 absolute left-0"></view>
-            <view class="text-[#92003F] text-[40rpx] flex-1">走访实时排行榜</view>
+            <view class="text-[#92003F] text-[40rpx] flex-1 font-bold">走访实时排行榜</view>
             <uni-data-select :clear="false" v-model="value4" :localdata="range1" @change="onChange5"></uni-data-select>
           </view>
-          <view class="flex mt-3 mb-2 text-center">
-            <view class="w-16">姓名</view>
-            <view class="flex-1" @tap="visitBoardSort(sort4 == 1 ? -1 : 1)" :class="{ 'font-bold': sort4 == 1 || sort4 == -1 }">
+          <view class="flex mb-2 text-center">
+            <view class="w-10">姓名</view>
+            <view class="flex-1" @tap="visitBoardSort(sort4 == 1 ? -1 : 1)"
+              :class="{ 'font-bold': sort4 == 1 || sort4 == -1 }">
               总走访<text class="sort_icon" :class="{ 'sort_desc': sort4 == 1, 'sort_asc': sort4 == -1 }"></text>
             </view>
-            <view class="flex-1" @tap="visitBoardSort(sort4 == 2 ? -2 : 2)" :class="{ 'font-bold': sort4 == 2 || sort4 == -2 }">
+            <view class="flex-1" @tap="visitBoardSort(sort4 == 2 ? -2 : 2)"
+              :class="{ 'font-bold': sort4 == 2 || sort4 == -2 }">
               点对点走访<text class="sort_icon" :class="{ 'sort_desc': sort4 == 2, 'sort_asc': sort4 == -2 }"></text>
             </view>
-            <view class="flex-1" @tap="visitBoardSort(sort4 == 3 ? -3 : 3)" :class="{ 'font-bold': sort4 == 3 || sort4 == -3 }">
+            <view class="flex-1" @tap="visitBoardSort(sort4 == 3 ? -3 : 3)"
+              :class="{ 'font-bold': sort4 == 3 || sort4 == -3 }">
               内组织走访<text class="sort_icon" :class="{ 'sort_desc': sort4 == 3, 'sort_asc': sort4 == -3 }"></text>
             </view>
           </view>
           <view class="text-xs" :class="{ 'overflow-hidden max-h-40': hide4 }">
             <view class="h-8 flex text-center items-center text-[#666]" v-for="(item, index) in visitBoard" :key="index">
-              <view class="w-16">
+              <view class="w-10 text-justify font-bold">
                 {{ item?.name }}
               </view>
               <view class="flex-1">
@@ -374,7 +398,7 @@
               </view>
             </view>
           </view>
-          <view v-if="visitBoard && visitBoard?.length > 5" class="text-center text-xs text-[#333] my-2"
+          <view v-if="visitBoard && visitBoard?.length > 5" class="text-center text-xs text-[#333] py-2"
             @tap="hide4 = !hide4">
             {{ hide4 ? '展开全部' : "收起全部" }}<uni-icons :type="hide4 ? 'bottom' : 'top'" color="#999"></uni-icons></view>
         </view>
@@ -679,7 +703,7 @@ onShow(() => {
 
 <style lang="scss">
 .king-item {
-  background: linear-gradient(135deg, #FFFCF0, #FFF4DE, #FFD8A8);
+  background: linear-gradient(135deg, #FFFCF0, #FFF4DE);
   border-radius: 16rpx;
   color: #5C3B12;
   overflow: hidden;
@@ -717,7 +741,7 @@ onShow(() => {
   &:before {
     content: "";
     position: absolute;
-    top: 0;
+    top: 6rpx;
     border: 8rpx solid;
     border-color: #D8D8D8;
     border-top-color: transparent;
@@ -728,7 +752,7 @@ onShow(() => {
   &:after {
     content: "";
     position: absolute;
-    bottom: 0;
+    bottom: 2rpx;
     border: 8rpx solid;
     border-color: #D8D8D8;
     border-bottom-color: transparent;

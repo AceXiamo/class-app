@@ -1,72 +1,31 @@
 <template>
   <view class="h-full text-sm overflow-hidden">
-    <view class="h-[60rpx] flex justify-between py-[20rpx] bg-white">
-      <view
-        @tap="check(index)"
-        v-for="(item, index) in options"
-        :class="{
-          'text-[#92003F]': index === option,
-          'text-black': index !== option,
-          'border-0 border-r-[#F8F8F8] border-solid border-r-[1rpx]': index == 0,
-        }"
-        :key="index"
-        class="text-base flex items-center justify-center w-full font-medium relative"
-      >
-        <image
-          v-show="0 === option && index === 0"
-          src="/static/images/icon-event-selected.png"
-          class="w-4.5 h-4.5 mr-[10rpx]"
-        />
-        <image
-          v-show="1 === option && index === 0"
-          src="/static/images/icon-event.png"
-          class="w-4.5 h-4.5 mr-[10rpx]"
-        />
-        <image
-          v-show="1 === option && index === 1"
-          src="/static/images/icon-news-selected.png"
-          class="w-4.5 h-4.5 mr-[10rpx]"
-        />
-        <image
-          v-show="0 === option && index === 1"
-          src="/static/images/icon-news.png"
-          class="w-4.5 h-4.5 mr-[10rpx]"
-        />
+    <view class="h-12.5 flex justify-between py-[20rpx] bg-white">
+      <view @tap="check(index)" v-for="(item, index) in options" :class="{
+        'text-[#92003F]': index === option,
+        'text-black': index !== option,
+        'border-0 border-r-[#F8F8F8] border-solid border-r-[1rpx]': index == 0,
+      }" :key="index" class="text-base flex items-center justify-center w-full font-bold relative">
+        <image v-show="0 === option && index === 0" src="/static/images/icon-event-selected.png"
+          class="w-4.5 h-4.5 mr-[10rpx]" />
+        <image v-show="1 === option && index === 0" src="/static/images/icon-event.png" class="w-4.5 h-4.5 mr-[10rpx]" />
+        <image v-show="1 === option && index === 1" src="/static/images/icon-news-selected.png"
+          class="w-4.5 h-4.5 mr-[10rpx]" />
+        <image v-show="0 === option && index === 1" src="/static/images/icon-news.png" class="w-4.5 h-4.5 mr-[10rpx]" />
         {{ item }}
-        <view
-          v-if="index === option"
-          class="bg-[#92003F] w-[124rpx] h-0.75 absolute bottom-[-20rpx]"
-        ></view>
+        <view v-if="index === option" class="bg-[#92003F] w-[124rpx] h-0.75 absolute bottom-[-20rpx]"></view>
       </view>
     </view>
 
     <!-- 组织活动 -->
     <view class="flex justify-center" style="height: calc(100% - 100rpx)">
       <od-list class="w-full" :total="total" :load-more="more" @on-load-more="lowerBottom">
-        <view
-          v-if="option == 0"
-          v-for="(item, index) in [
-            {
-              id: 1,
-              theme: 'test',
-              eventTime: '2023-03-01',
-              eventLocation: 'test',
-              mainImg: '/static/images/icon-event.png',
-              isEnroll: true,
-            },
-          ]"
-          :key="index"
-          @tap="toEvent(item.id)"
-          class="flex items-center px-[28rpx] pt-[30rpx] pb-[34rpx] m-[30rpx] rounded-[16rpx] bg-white text-repeat-33"
-        >
+        <view v-if="option == 0" v-for="(item, index) in list" :key="index" @tap="toEvent(item.id)"
+          class="flex px-[28rpx] pt-[30rpx] pb-[34rpx] m-[30rpx] rounded-[16rpx] bg-white text-repeat-33">
           <view class="h-full text-[26rpx] flex-1 flex flex-col">
-            <view
-              class="font-medium break-all line-clamp-2 text-[30rpx] h-[92rpx] flex items-center text-black"
-              >{{ item?.theme }}</view
-            >
-            <view class="mt-1 flex items-center h-5.5"
-              >活动时间：{{ dateFormat(item?.eventTime) }}</view
-            >
+            <view class="font-bold break-all line-clamp-2 w-full text-[30rpx] h-[92rpx] leading-[44rpx] text-black">{{
+              item?.theme }}</view>
+            <view class="mt-1 flex items-center h-5.5">活动时间：{{ dateFormat(item?.eventTime) }}</view>
             <view class="break-all line-clamp-1 flex w-full">
               <view class="w-[190rpx]">活动地点：</view>
               <view class="break-all line-clamp-2 w-full h-[78rpx]">
@@ -75,44 +34,25 @@
             </view>
           </view>
           <view class="ml-4 flex flex-col items-end">
-            <image
-              mode="aspectFill"
-              class="w-[172rpx] h-[172rpx] rounded-[8rpx]"
-              :src="item?.mainImg"
-            >
+            <image mode="aspectFill" class="w-[172rpx] h-[172rpx] rounded-[8rpx]" :src="item?.mainImg">
             </image>
             <view
-              class="mt-[34rpx] rounded-full w-[166rpx] h-[52rpx] flex items-center justify-center text-white text-sm font-medium"
-              :class="item?.isEnroll ? 'bg-[#CFCFCF]' : ' bg-[#92003F]'"
-            >
-              {{ item?.isEnroll ? '已报名' : '报名' }}</view
-            >
+              class="mt-[34rpx] rounded-full w-[166rpx] h-[52rpx] flex items-center justify-center text-white text-sm font-bold"
+              :class="item?.isEnroll ? 'bg-[#CFCFCF]' : ' bg-[#92003F]'">
+              {{ item?.isEnroll ? '已报名' : '报名' }}</view>
           </view>
         </view>
 
-        <view
-          v-if="option == 1"
-          v-for="(item, index) in list"
-          :key="index"
-          @tap="toNews(item.id)"
-          class="flex items-center px-[28rpx] pt-[30rpx] pb-[34rpx] m-[30rpx] rounded-[16rpx] bg-white text-repeat-33"
-        >
+        <view v-if="option == 1" v-for="(item, index) in list" :key="index" @tap="toNews(item.id)"
+          class="flex px-[28rpx] pt-[30rpx] pb-[34rpx] m-[30rpx] rounded-[16rpx] bg-white text-repeat-33">
           <view class="h-full text-[26rpx] flex-1 flex flex-col">
-            <view
-              class="font-medium break-all line-clamp-2 text-[30rpx] h-[92rpx] flex items-center text-black"
-              >{{ item?.title }}</view
-            >
-            <view class="mt-1 flex items-center h-5.5"
-              >发布时间：{{ dateFormat(item?.publishTime) }}</view
-            >
+            <view class="font-bold break-all line-clamp-2 w-full text-[30rpx] h-[92rpx] leading-[44rpx] text-black">{{
+              item?.title }}</view>
+            <view class="mt-1 flex items-center h-5.5">发布时间：{{ dateFormat(item?.publishTime) }}</view>
             <view class="break-all line-clamp-1 h-5.5">来源：{{ item?.origin }}</view>
           </view>
           <view class="ml-4">
-            <image
-              mode="aspectFill"
-              class="w-[172rpx] h-[172rpx] rounded-[8rpx]"
-              :src="item?.image"
-            >
+            <image mode="aspectFill" class="w-[172rpx] h-[172rpx] rounded-[8rpx]" :src="item?.image">
             </image>
           </view>
         </view>

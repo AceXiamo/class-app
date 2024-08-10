@@ -8,103 +8,71 @@
 
     <!-- 基本信息 -->
     <view class="px-[30rpx] pt-4.5 pb-2 flex flex-col bg-white">
-      <view class="flex font-medium items-center h-[50rpx]">
+      <view class="flex font-bold items-center h-[50rpx]">
         <view class="flex-1 text-xl">{{ info?.name }}</view>
-        <view
-          v-if="info?.leadershio_position"
-          style="background: linear-gradient(135deg, #f5cd71 0%, #cf9219 100%)"
-          class="flex items-center h-[50rpx] px-[28rpx] rounded-full text-white text-sm font-medium"
-        >
+        <view v-if="info?.leadershio_position" style="background: linear-gradient(135deg, #f5cd71 0%, #cf9219 100%)"
+          class="flex items-center h-[50rpx] px-[28rpx] rounded-full text-white text-sm font-bold">
           {{ info?.leadershio_position }}
         </view>
       </view>
-      <view class="mt-2 h-5.5 flex items-center text-[26rpx] text-repeat-33"
-        >行业：{{ info?.industry }}</view
-      >
-      <view class="h-5.5 flex items-center text-[26rpx] text-repeat-33"
-        >入会时间：{{ dateFormatYearAndMonth(info?.createTime.toString()) }}</view
-      >
+      <view class="mt-2 h-5.5 flex items-center text-[26rpx] text-repeat-33">行业：{{ info?.industry }}</view>
+      <view class="h-5.5 flex items-center text-[26rpx] text-repeat-33">入会时间：{{
+        dateFormatYearAndMonth(info?.createTime.toString()) }}</view>
     </view>
 
     <!-- 标签 -->
-    <view
-      v-if="info?.tags && info?.tags.length > 0"
-      class="border-0 border-t-[1rpx] border-solid border-[#F8F8F8] pl-[28rpx] bg-white"
-    >
+    <view v-if="info?.tags && info?.tags.length > 0"
+      class="border-0 border-t-[1rpx] border-solid border-[#F8F8F8] pl-[28rpx] bg-white">
       <!-- 折叠组件 -->
-      <collapse
-        :width="600"
-        :px="16"
-        :my="20"
-        :height="44"
-        :textColor="'#FF7A33'"
-        :borderColor="'rgba(0,0,0,0)'"
-        :borderRadius="9999"
-        :borderWidth="1"
-        :fontSize="24"
-        :marginRight="18"
-        :dataSource="info?.tags"
-        :bgColor="'#FFEFE1'"
-      />
+      <collapse :width="600" :px="16" :my="20" :height="44" :textColor="'#FF7A33'" :borderColor="'rgba(0,0,0,0)'"
+        :borderRadius="9999" :borderWidth="1" :fontSize="24" :marginRight="18" :dataSource="info?.tags"
+        :bgColor="'#FFEFE1'" />
     </view>
 
     <view
-      class="text-sm px-[30rpx] pt-[28rpx] pb-6 flex flex-col border-0 border-t-[1rpx] border-solid border-[#F8F8F8] bg-white space-y-2.75"
-    >
-      <view class="flex items-center font-medium">
+      class="text-sm px-[30rpx] pt-[28rpx] pb-6 flex flex-col border-0 border-t-[1rpx] border-solid border-[#F8F8F8] bg-white space-y-2.75">
+      <view class="flex items-center font-bold">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         公司：<text class="font-normal text-repeat-66">{{ info?.company }}</text>
       </view>
-      <view class="flex items-center font-medium">
+      <view class="flex items-center font-bold">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         职位：<text class="font-normal text-repeat-66">{{ info?.position }}</text>
       </view>
-      <view class="flex items-center font-medium">
+      <view class="flex items-center font-bold">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         公司主营：
       </view>
-      <view class="flex items-center text-repeat-66 break-all text-justify ml-[18rpx]"
-        >{{ info?.bussiness }}
+      <view class="flex items-center text-repeat-66 break-all text-justify ml-[18rpx]">{{ info?.bussiness }}
       </view>
-      <view class="flex items-center font-medium">
+      <view class="flex items-center font-bold">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         公司优势：
       </view>
       <view class="flex items-center text-repeat-66 break-all text-justify ml-[18rpx]">
         {{ info?.advantage }}
       </view>
-      <view
-        v-if="memberStore?.profile && memberStore?.profile?.userInfo?.status === 4"
-        class="flex items-center font-medium"
-      >
+      <view v-if="memberStore?.profile && memberStore?.profile?.userInfo?.status === 4"
+        class="flex items-center font-bold">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         公司地址：
       </view>
-      <view
-        v-if="memberStore?.profile && memberStore?.profile?.userInfo?.status === 4"
-        class="font-normal flex text-repeat-66 break-all text-justify ml-[18rpx]"
-      >
+      <view v-if="memberStore?.profile && memberStore?.profile?.userInfo?.status === 4"
+        class="font-normal flex text-repeat-66 break-all text-justify ml-[18rpx]">
         <view class="flex-1 break-all">{{ info?.companyAddress }}</view>
-        <image
-          @tap="navigation"
-          mode="aspectFill"
-          class="w-4 h-4 ml-4 mr-[38rpx]"
-          src="@/static/images/navigation.png"
-        >
+        <image @tap="navigation" mode="aspectFill" class="w-4 h-4 ml-4 mr-[38rpx]" src="@/static/images/navigation.png">
         </image>
       </view>
     </view>
 
     <view
-      class="font-medium text-sm space-y-2.75 px-[30rpx] pt-4.5 pb-[50rpx] flex flex-col border-solid border-[#EDEDED] border-0 border-t-[1rpx]"
-    >
+      class="font-bold text-sm space-y-2.75 px-[30rpx] pt-4.5 pb-[50rpx] flex flex-col border-solid border-[#EDEDED] border-0 border-t-[1rpx]">
       <view class="flex items-center">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         需要引荐资源：
       </view>
       <view class="font-normal flex text-repeat-66 break-all text-justify ml-[18rpx]">
-        {{ info?.resourcesNeed }}</view
-      >
+        {{ info?.resourcesNeed }}</view>
       <view class="flex items-center">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         能提供的资源：
@@ -114,31 +82,22 @@
       }}</view>
     </view>
 
-    <view
-      v-if="memberStore?.profile && memberStore?.profile?.userInfo?.status == 4"
-      class="px-[30rpx] py-6 text-sm flex border-solid border-[#EDEDED] border-0 border-t-[1rpx] text-white gap-2.5"
-    >
-      <view
-        class="flex-1 text-center rounded-[16rpx] py-4"
-        style="background: linear-gradient(135deg, #d41869 0%, #92003f 100%)"
-      >
+    <view v-if="memberStore?.profile && memberStore?.profile?.userInfo?.status == 4"
+      class="px-[30rpx] py-6 text-sm flex border-solid border-[#EDEDED] border-0 border-t-[1rpx] text-white gap-2.5">
+      <view class="flex-1 text-center rounded-[16rpx] py-4"
+        style="background: linear-gradient(135deg, #d41869 0%, #92003f 100%)">
         <view>给出引荐数</view>
         <view class="mt-1.25 text-xl font-bold">{{ info?.recommendNumProvide || 0 }}</view>
       </view>
-      <view
-        class="flex-1 text-center rounded-[16rpx] py-4"
-        style="background: linear-gradient(135deg, #d41869 0%, #92003f 100%)"
-      >
+      <view class="flex-1 text-center rounded-[16rpx] py-4"
+        style="background: linear-gradient(135deg, #d41869 0%, #92003f 100%)">
         <view>给出引荐成交金额</view>
-        <view class="mt-1.25 text-xl font-bold"
-          >￥{{ formatNumber(info?.recommendMoneyProvide) }}</view
-        >
+        <view class="mt-1.25 text-xl font-bold">￥{{ formatNumber(info?.recommendMoneyProvide) }}</view>
       </view>
     </view>
 
     <view
-      class="font-medium text-sm px-[30rpx] pt-5 pb-5.5 border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75"
-    >
+      class="font-bold text-sm px-[30rpx] pt-5 pb-5.5 border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75">
       <view class="flex items-center">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         累计邀约嘉宾数量：{{ info?.inviteNum || 0 }}
@@ -153,9 +112,7 @@
       </view>
     </view>
 
-    <view
-      class="font-medium px-[30rpx] py-5 border-solid border-[#EDEDED] border-0 border-t-[1rpx]"
-    >
+    <view class="font-bold px-[30rpx] py-5 border-solid border-[#EDEDED] border-0 border-t-[1rpx]">
       <view class="flex items-center">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         介绍人：{{ info?.recommenderName }}
@@ -163,14 +120,13 @@
     </view>
 
     <view
-      class="font-medium text-sm px-[30rpx] pt-5 pb-5.5 border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75"
-    >
+      class="font-bold text-sm px-[30rpx] pt-5 pb-5.5 border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75">
       <view class="flex">
-        <view class="flex-1 flex items-center">
+        <view class="w-[170rpx] flex items-center">
           <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
           性别：<text class="font-normal text-repeat-66">{{ info?.sex == 0 ? '男' : '女' }}</text>
         </view>
-        <view class="flex-1 flex items-center">
+        <view class="flex-1 flex items-center flex-wrap">
           <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
           家乡：<text class="font-normal text-repeat-66">{{ info?.homeplace }}</text>
         </view>
@@ -181,15 +137,13 @@
       </view>
       <view class="flex">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75 mt-1.25"></view>
-        <view class="break-all text-justify w-full"
-          >爱好：<text class="font-normal text-repeat-66">{{ info?.hobby }} </text>
+        <view class="break-all text-justify w-full">爱好：<text class="font-normal text-repeat-66">{{ info?.hobby }} </text>
         </view>
       </view>
     </view>
 
     <view
-      class="font-medium text-sm px-[30rpx] pt-5 pb-[50rpx] border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75 bg-white"
-    >
+      class="font-bold text-sm px-[30rpx] pt-5 pb-[50rpx] border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75 bg-white">
       <view class="flex items-center">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         联系电话：{{ info?.mobile }}
@@ -203,11 +157,9 @@
     </view>
 
     <view
-      class="pt-[68rpx] pb-[98rpx] border-solid border-[#EDEDED] border-0 border-t-[1rpx] flex justify-center bg-white"
-    >
+      class="pt-[68rpx] pb-[98rpx] border-solid border-[#EDEDED] border-0 border-t-[1rpx] flex justify-center bg-white">
       <view
-        class="font-medium rounded-full w-[376rpx] h-11 flex items-center justify-center text-base text-white bg-[#92003F] active:opacity-70"
-      >
+        class="font-bold rounded-full w-[376rpx] h-11 flex items-center justify-center text-base text-white bg-[#92003F] active:opacity-70">
         获取联系方式
       </view>
     </view>
@@ -274,7 +226,7 @@ onLoad((options: any) => {
   })
 })
 
-const onChange = () => {}
+const onChange = () => { }
 </script>
 
 <style scoped></style>

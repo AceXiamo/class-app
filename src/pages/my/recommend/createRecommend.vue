@@ -1,11 +1,11 @@
 <template>
   <view class="overflow-auto h-full p-4 text-sm">
-    <view class="text-[40rpx] leading-[92rpx]">
+    <view class="text-[40rpx] leading-[92rpx] font-bold">
       创建一个引荐
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0] mt-3">
-      <view class="text-[#333] mb-1">引荐给</view>
+      <view class="text-[#333] font-bold mb-2">引荐给</view>
       <!-- <uni-data-select class="w-40" :clear="false" v-model="value" :localdata="range"
         @change="onChange"></uni-data-select>       -->
       <searchCombox :candidates="member" :isJSON="true" keyName="name" placeholder="请选择" v-model="value" @select="select">
@@ -13,14 +13,14 @@
     </view>
 
     <view class="border-b-[1rpx] border-[#F0F0F0] mt-3">
-      <view class="text-[#333]">引荐类型</view>
+      <view class="text-[#333] font-bold">引荐类型</view>
       <uni-data-select class="w-40" :clear="false" v-model="value1" :localdata="range1"
         @change="onChange1"></uni-data-select>
     </view>
 
-    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0] mt-3">
-      <view class="text-[#333] mb-1">引荐内容</view>
-      <textarea v-model="content" :maxlength="-1" class="w-full mt-1" auto-height placeholder="请输入"
+    <view class="pb-3 border-b-[1rpx] border-[#F0F0F0] mt-3">
+      <view class="text-[#333] font-bold mb-3">引荐内容</view>
+      <textarea v-model="content" :maxlength="-1" class="w-full" auto-height placeholder="请输入"
         placeholder-class="placeholder"></textarea>
     </view>
 
@@ -138,11 +138,18 @@ page {
   color: #AFAFAF !important;
 }
 
+::v-deep .search-combox__input {
+  font-size: 28rpx !important;
+  height: 48rpx !important;
+  line-height: 48rpx !important;
+}
+
 ::v-deep .search-combox {
   padding: 0 !important;
 }
 
 ::v-deep .uni-select {
+  height: 80rpx !important;
   border: 0 !important;
   padding: 0 !important;
 }

@@ -4,16 +4,18 @@
       <view v-for="(url, index) in curUrl" :key="`gallery-${index}`"
         class="relative flex items-center justify-center bg-repeat-ef"
         :style="{ width: `${size}rpx`, height: `${size}rpx` }">
-        <image :src="url" mode="scaleToFill" :style="{ width: `${size}rpx`, height: `${size}rpx` }" @tap="uploadImage" />
+        <image class="rounded-[16rpx]" :src="url" mode="scaleToFill"
+          :style="{ width: `${size}rpx`, height: `${size}rpx` }" @tap="uploadImage" />
       </view>
       <view v-if="curUrl.length < limit">
         <view @tap="uploadImage">
           <slot>
-            <view class="bg-repeat-f5 flex flex-col items-center justify-center text-xs rounded-[16rpx]"
+            <view class="bg-repeat-f5 flex flex-col items-center justify-center rounded-[16rpx]"
               :style="{ width: `${size}rpx`, height: `${size}rpx` }">
               <!-- <view class="font-bold text-base"> + </view> -->
-              <uni-icons type="plusempty" :size="size / 4" color="#D8D8D8"></uni-icons>
-              <view>{{ title }}</view>
+              <uni-icons type="plusempty" :size="size / 4" color="#D8D8D8"
+                :style="{ height: `${size / 4}px`, lineHeight: `${size / 4}px` }"></uni-icons>
+              <view v-if="title" class="text-xs">{{ title }}</view>
             </view>
           </slot>
         </view>

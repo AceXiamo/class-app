@@ -1,23 +1,17 @@
 <template>
-  <view class="flex h-8 w-full flex-row items-center rounded-3xl bg-[#eef1f4]" @tap="onTap">
-    <view class="ml-2.5 flex items-center">
-      <image src="@/static/images/icon-search.png" class="w-6 h-6" />
+  <view class="flex h-8 w-full flex-row items-center rounded-3xl bg-[#F8F8F8]" @tap="onTap">
+    <view class="ml-3 flex items-center">
+      <image src="@/static/images/icon-search.png" mode="widthFix" class="w-3.75" />
     </view>
-    <view class="w-full ml-2.75">
+    <view class="w-full ml-1.75">
       <view v-if="!inputAble" class="w-full text-xs">
         {{ placeholder }}
       </view>
-      <input
-        v-else
-        v-model="searchKey"
-        class="w-full text-xs"
-        :placeholder="placeholder"
-        :focus="autoFocus"
-        @input="onChangeSearch"
-      />
+      <input v-else v-model="searchKey" class="w-full text-xs" :placeholder="placeholder" placeholder-style="color:#999"
+        :focus="autoFocus" @input="onChangeSearch" />
     </view>
     <view class="text-sm w-12 mx-2.5 text-repeat-33" @click="onSearch">
-      <text>{{ text }}</text>
+      <text class="text-[#333]">{{ text }}</text>
     </view>
   </view>
 </template>
