@@ -32,29 +32,23 @@
         <!-- 荣誉榜 -->
         <view class="p-4">
           <view class="grid grid-cols-2 gap-[24rpx]">
-            <!--            <!-- v-if="honorBoard?.kingOfRecommender" -->
-            <view class="w-full mr-4 king-item">-->
               <view class="w-full mr-4 king-item">
                 <view class="font-bold text-white text-base text-center h-[62rpx] leading-[62rpx] relative">
                   <text class="absolute title">引荐王</text>
                   <image src="/static/images/bg-king-title.jpg" class="absolute w-full left-0" mode="widthFix" />
                 </view>
-
                 <view class="p-2 flex item-center">
                   <image mode="aspectFill" class="w-10.5 h-10.5 rounded-1/2" :src="honorBoard.kingOfRecommender?.mainImg">
                   </image>
                   <view class="ml-2 flex flex-col">
-                    <view class="flex-1">{{ honorBoard?.kingOfRecommender ? honorBoard?.kingOfRecommender ?
-                      honorBoard.kingOfRecommender?.name : '虚位以待' : '虚位以待' }}
+                    <view class="flex-1">{{ honorBoard?.kingOfRecommender ? honorBoard?.kingOfRecommender : '虚位以待' }}
                     </view>
-                    <view v-if="honorBoard?.kingOfRecommender" v-if="honorBoard?.kingOfRecommender"
-                      class="flex-1 text-xs break-all break-all">引荐数量：{{
+                    <view v-if="honorBoard?.kingOfRecommender"
+                      class="flex-1 text-xs break-all">引荐数量：{{
                         honorBoard.kingOfRecommender?.recommendNum }}</view>
                   </view>
                 </view>
               </view>
-              <!--            <!-- v-if="honorBoard?.kingOfRecommendMoney" -->
-              <view class="w-full mr-4 king-item">-->
                 <view class="w-full mr-4 king-item">
                   <view class="font-bold text-white text-base text-center h-[62rpx] leading-[62rpx] relative">
                     <text class="absolute title">成交金额王</text>
@@ -72,8 +66,6 @@
                     </view>
                   </view>
                 </view>
-                <!--            <!-- v-if="honorBoard?.kingOfGuest" -->
-                <view class="w-full mr-4 king-item">-->
                   <view class="w-full mr-4 king-item">
                     <view class="font-bold text-white text-base text-center h-[62rpx] leading-[62rpx] relative">
                       <text class="absolute title">嘉宾王</text>
@@ -85,14 +77,12 @@
                       <view class="ml-2 flex flex-col">
                         <view class="flex-1">{{ honorBoard?.kingOfGuest ? honorBoard?.kingOfGuest ?
                           honorBoard.kingOfGuest?.name : '虚位以待' : '虚位以待' }}</view>
-                        <view v-if="honorBoard?.kingOfGuest" v-if="honorBoard?.kingOfGuest"
-                          class="flex-1 text-xs break-all break-all">邀约嘉宾：{{
+                        <view v-if="honorBoard?.kingOfGuest"
+                          class="flex-1 text-xs break-all">邀约嘉宾：{{
                             honorBoard.kingOfGuest?.guestNum }}</view>
                       </view>
                     </view>
                   </view>
-                  <!--            <!-- v-if="honorBoard?.kingOfVisit" -->
-                  <view class="w-full mr-4 king-item">-->
                     <view class="w-full mr-4 king-item">
                       <view class="font-bold text-white text-base text-center h-[62rpx] leading-[62rpx] relative">
                         <text class="absolute title">走访王</text>

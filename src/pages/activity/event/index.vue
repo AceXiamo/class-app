@@ -2,7 +2,11 @@
   <view class="h-[100vh] overflow-hidden relative">
     <scroll-view class="h-[calc(100vh-144rpx)] px-[30rpx] box-border" scroll-y>
       <view class="h-full overflow-auto ios-bottom">
-        <image class="w-full bg-repeat-79 rounded-[16rpx] mt-[30rpx]" mode="aspectFill" :src="event?.mainImg">
+        <image
+          class="w-full bg-repeat-79 rounded-[16rpx] mt-[30rpx]"
+          mode="aspectFill"
+          :src="event?.mainImg"
+        >
         </image>
 
         <view class="text-[30rpx] font-bold mt-4">{{ event?.theme }}</view>
@@ -24,47 +28,59 @@
       </view>
     </scroll-view>
 
-    <view class="w-full absolute bottom-0 ios-bottom bg-white border-solid border-0 border-t-[1rpx] border-[#DFE6E1]">
+    <view
+      class="w-full absolute bottom-0 ios-bottom bg-white border-solid border-0 border-t-[1rpx] border-[#DFE6E1]"
+    >
       <view class="h-18 flex items-center text-sm">
-        <image @tap="toEnroll" v-if="list && list.length > 0" v-for="(i, index) in list" :key="index"
+        <image
+          @tap="toEnroll"
+          v-if="list && list.length > 0"
+          v-for="(i, index) in list"
+          :key="index"
           :src="i?.avatar || default_avatar"
           class="rounded-1/2 w-6.75 h-6.75 bg-repeat-ee z-10 absolute border-solid border border-white"
-          :style="{ left: `${index * 16 + 32}rpx` }">
+          :style="{ left: `${index * 16 + 32}rpx` }"
+        >
         </image>
-        <view @tap="toEnroll" v-if="list && list.length > 0"
+        <view
+          @tap="toEnroll"
+          v-if="list && list.length > 0"
           class="text-[#92003F] h-6.75 pr-3 pl-6 absolute rounded-full bg-[#FFF5F9] flex items-center text-center"
-          :style="{ left: `${(list.length >= 5 ? 5 : list.length) * 16 + 36}rpx` }">{{ list.length }}人已报名
+          :style="{ left: `${(list.length >= 5 ? 5 : list.length) * 16 + 36}rpx` }"
+          >{{ list.length }}人已报名
         </view>
-        <button open-type="share"
-          class="rounded-full text-base px-[28rpx] h-[72rpx] absolute bg-[#FFF6DE] text-[#FFC733] flex items-center text-center right-28">
+        <button
+          open-type="share"
+          class="rounded-full text-base px-[28rpx] h-[72rpx] absolute bg-[#FFF6DE] text-[#FFC733] flex items-center text-center right-28"
+        >
           分享
         </button>
 
-        <button :disabled="event?.isEnroll"
+        <button
+          :disabled="event?.isEnroll"
           class="rounded-full text-base px-[28rpx] h-[72rpx] absolute bg-[#92003F] text-[#FFFFFF] flex items-center text-center right-[30rpx]"
-          @tap="Enroll">
+          @tap="Enroll"
+        >
           我要报名
         </button>
       </view>
     </view>
   </view>
 </template>
-  
+
 <script lang="ts">
 import mpHtml from '@/components/mp-html/components/mp-html/mp-html.vue'
-import mpHtml from '@/components/mp-html/components/mp-html/mp-html.vue'
 </script>
-  
+
 <script lang="ts" setup>
 import { onLoad, onShareAppMessage } from '@dcloudio/uni-app'
-import { onLoad, onShareAppMessage } from '@dcloudio/uni-app'
 import { get_20, getEnroll } from '@/api/app/event'
-import { ref } from 'vue'
 import { ref } from 'vue'
 import { useMemberStore } from '@/stores'
 import { enroll } from '@/api/event'
 
-const default_avatar = 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132'
+const default_avatar =
+  'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132'
 
 let memberStore = useMemberStore()
 
@@ -117,9 +133,9 @@ onLoad((options: any) => {
   })
 })
 </script>
-  
+
 <style>
 page {
   background: #fff;
 }
-</style>  
+</style>
