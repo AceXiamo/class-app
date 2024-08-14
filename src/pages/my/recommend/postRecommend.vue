@@ -64,7 +64,7 @@
           <view class="flex-1">成交金额</view>
         </view>
 
-        <view v-if="myRecommendList.length">
+        <block v-if="myRecommendList.length">
           <uni-collapse ref="collapse">
             <uni-collapse-item v-for="(item, index) in myRecommendList" :key="index" titleBorder="none" :border="false"
               :open="false">
@@ -81,7 +81,7 @@
               </view>
             </uni-collapse-item>
           </uni-collapse>
-        </view>
+        </block>
         <view v-else class="text-center text-[#999] text-xs py-2">暂无信息</view>
       </view>
     </view>

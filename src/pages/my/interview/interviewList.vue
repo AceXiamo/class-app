@@ -3,8 +3,8 @@
     <view class="rounded-[16rpx] bg-white w-full">
       <view class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative">
         <view class="w-0.75 h-[28rpx] bg-[#92003F] mr-2"></view>
-        <view class="text-base">我的走访列表</view>
-        <view class="w-[122rpx] h-[42rpx] rounded-full absolute right-[30rpx]">
+        <view class="text-base font-bold">我的走访列表</view>
+        <view class="w-[108rpx] h-[42rpx] rounded-full absolute right-[30rpx]">
           <uni-data-select class="w-16" :clear="false" v-model="value" :localdata="range"
             @change="onChange"></uni-data-select>
         </view>
@@ -29,16 +29,16 @@
     <view class="rounded-[16rpx] bg-white w-full overflow-hidden">
       <view class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative">
         <view class="w-0.75 h-[28rpx] bg-[#92003F] mr-2"></view>
-        <view class="text-base">走访列表</view>
+        <view class="text-base font-bold">走访列表</view>
       </view>
       <view>
-        <view class="flex text-center mt-[30rpx] mb-[14rpx] leading-[44rpx] pr-6">
+        <view class="flex text-center mt-[30rpx] mb-[14rpx] leading-[44rpx] font-bold pr-6">
           <view class="flex-1">日期</view>
           <view class="flex-1">被走访人</view>
           <view class="flex-1">走访类型</view>
         </view>
 
-        <view>
+        <block v-if="visit?.visitVOS.length">
           <uni-collapse ref="collapse">
             <uni-collapse-item v-for="(item, index) in visit?.visitVOS" :key="index" titleBorder="none" :border="false"
               :open="false">
@@ -59,7 +59,8 @@
               </view>
             </uni-collapse-item>
           </uni-collapse>
-        </view>
+        </block>
+        <view v-else class="text-center text-[#999] text-xs py-2">暂无信息</view>
       </view>
     </view>
   </view>
@@ -109,10 +110,12 @@ const onChange = async (e: any) => {
 
 ::v-deep .uni-select__input-text {
   color: #92003f !important;
+  text-align: right !important;
 }
 
 ::v-deep .uni-icons {
   color: #92003f !important;
+  margin: 0 6rpx 0 8rpx !important;
 }
 
 ::v-deep .uni-collapse-item__title {

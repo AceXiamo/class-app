@@ -3,8 +3,8 @@
     <view class="rounded-[16rpx] bg-white w-full pb-4">
       <view class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative">
         <view class="w-0.75 h-[28rpx] bg-[#92003F] mr-2"></view>
-        <view class="text-base">我收到的引荐</view>
-        <view class="w-[122rpx] h-[42rpx] rounded-full absolute right-[30rpx]">
+        <view class="text-base font-bold">我收到的引荐</view>
+        <view class="w-[108rpx] h-[42rpx] rounded-full absolute right-[30rpx]">
           <uni-data-select class="w-16" :clear="false" v-model="value" :localdata="range"
             @change="onChange"></uni-data-select>
         </view>
@@ -44,17 +44,17 @@
     <view class="rounded-[16rpx] bg-white w-full overflow-hidden mt-[30rpx]">
       <view class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative">
         <view class="w-0.75 h-[28rpx] bg-[#92003F] mr-2"></view>
-        <view class="text-base">引荐列表</view>
+        <view class="text-base font-bold">引荐列表</view>
       </view>
       <view>
-        <view class="flex text-center mt-[30rpx] mb-[14rpx] leading-[44rpx] pr-6">
+        <view class="flex text-center mt-[30rpx] mb-[14rpx] leading-[44rpx] font-bold pr-6">
           <view class="flex-1">日期</view>
           <view class="flex-1">引荐人</view>
           <view class="flex-1">类型</view>
           <view class="flex-1">成交金额</view>
         </view>
 
-        <view>
+        <block v-if="receiveRecommendList.length">
           <uni-collapse ref="collapse">
             <uni-collapse-item v-for="(item, index) in receiveRecommendList" :key="index" titleBorder="none"
               :border="false" :open="false">
@@ -83,46 +83,55 @@
               </view>
             </uni-collapse-item>
           </uni-collapse>
-        </view>
+        </block>
+        <view v-else class="text-center text-[#999] text-xs py-2">暂无信息</view>
       </view>
     </view>
   </view>
 
   <view>
     <uni-popup :isMaskClick="false" ref="getContactInformation">
-      <view class="bg-white p-4 space-y-4">
-        <view class="relative">创建感谢函<view @tap="closePopup" class="absolute right-0 bottom-0 text-xl">×</view>
+      <view class="bg-white p-4 space-y-4 text-sm">
+        <view class="relative">
+          <view class="text-[40rpx] leading-[92rpx] font-bold">创建感谢函</view>
+          <view @tap="closePopup" class="absolute right-0 top-0 text-xl">×</view>
         </view>
 
-        <view class="flex">
-          <view class="flex-1">成交金额</view>
-          <input v-model="amount" type="number" class="h-8 border-solid border-[1rpx] border-repeat-79" />
+        <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
+          <view class="font-bold">成交金额</view>
+          <input v-model="amount" type="number" class="h-8 mt-2 text-[#666]" placeholder="请输入"
+            placeholder-class="placeholder" />
         </view>
 
-        <view class="flex-1">成交内容</view>
-        <view class="border-solid border-[1rpx] border-repeat-79">
-          <textarea v-model="content" :maxlength="-1">
-        </textarea>
+        <view class="pb-3 border-b-[1rpx] border-[#F0F0F0]">
+          <view class="mb-4 font-bold">成交内容</view>
+          <textarea v-model="content" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
+            placeholder-class="placeholder">
+          </textarea>
         </view>
 
-        <view class="flex-1">感谢语</view>
-        <view class="border-solid border-[1rpx] border-repeat-79">
-          <textarea v-model="textValue" :maxlength="-1">
-        </textarea>
+        <view class="pb-3 border-b-[1rpx] border-[#F0F0F0]">
+          <view class="mb-4 font-bold">感谢语</view>
+          <textarea v-model="textValue" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
+            placeholder-class="placeholder">
+          </textarea>
         </view>
 
-        <view class="flex items-center">
-          <view class="flex-1">是否已在群里发感谢函</view>
-          <uni-data-select class="w-16" :clear="false" v-model="value1" :localdata="range1"
-            @change="onChange1"></uni-data-select>
+        <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
+          <view class="font-bold">是否已在群里发感谢函</view>
+          <!-- <uni-data-select class="w-16" :clear="false" v-model="value1" :localdata="range1"
+            @change="onChange1"></uni-data-select> -->
+          <radio-group class="h-8 mt-2 ml-2 flex items-center" @change="onChange1">
+            <label class="flex-1" v-for="(item, index) in range1" :key="item.value">
+              <radio :value="item.value + ''" color="#92003F" />
+              <text class="ml-1 text-[#666]">{{ item.text }}</text>
+            </label>
+          </radio-group>
         </view>
 
         <view class="flex justify-end">
           <view class="w-20">
-            <button class="rounded-[0rpx] bg-white border-solid border-[1rpx] border-repeat-79 text-[24rpx]"
-              @tap="submit">
-              提交
-            </button>
+            <button class="rounded-3xl bg-[#92003F] text-white text-[24rpx]" @tap="submit">提交</button>
           </view>
         </view>
       </view>
@@ -175,6 +184,7 @@ let range1 = ref([
 ]);
 const onChange1 = (e: any) => {
   // console.log('change1事件:', e);
+  value1.value = e.detail.value * 1
 }
 
 const _this = getCurrentInstance()
@@ -218,7 +228,6 @@ const closePopup = () => {
   textValue.value = ''
   _this?.refs.getContactInformation.close()
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -234,13 +243,19 @@ const closePopup = () => {
 
 ::v-deep .uni-select__input-text {
   color: #92003f !important;
+  text-align: right !important;
 }
 
 ::v-deep .uni-icons {
   color: #92003f !important;
+  margin: 0 6rpx 0 8rpx !important;
 }
 
 ::v-deep .uni-collapse-item__title {
   border-bottom: 2rpx solid #F8F8F8;
+}
+
+.placeholder {
+  color: #afafaf !important;
 }
 </style>

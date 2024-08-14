@@ -68,7 +68,7 @@
               'text-[30rpx]': active,
               'text-[#000]': active,
               'text-[#666]': !active,
-              'mr-8': index !== tabs.length - 1
+              'ml-8': index !== tabs.length - 1
             }]">
               第{{ tab?.session }}届
               <view v-if="active" class="bg-[#92003F] w-[30rpx] h-[6rpx] absolute bottom-1"></view>

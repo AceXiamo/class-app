@@ -80,28 +80,28 @@
       </view>
     </view>
 
-    <view class="pb-4 border-b-[1rpx] border-[#F0F0F0]">
+    <view class="pb-3 border-b-[1rpx] border-[#F0F0F0]">
       <view class="mb-4 font-bold">主营：</view>
       <textarea v-model="info.bussiness" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
         placeholder-class="placeholder">
       </textarea>
     </view>
 
-    <view class="pb-4 border-b-[1rpx] border-[#F0F0F0]">
+    <view class="pb-3 border-b-[1rpx] border-[#F0F0F0]">
       <view class="mb-4 font-bold">公司优势：</view>
       <textarea v-model="info.advantage" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
         placeholder-class="placeholder">
       </textarea>
     </view>
 
-    <view class="pb-4 border-b-[1rpx] border-[#F0F0F0]">
+    <view class="pb-3 border-b-[1rpx] border-[#F0F0F0]">
       <view class="mb-4 font-bold">需要引荐资源：</view>
       <textarea v-model="info.resourcesNeed" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
         placeholder-class="placeholder">
       </textarea>
     </view>
 
-    <view class="pb-4 border-b-[1rpx] border-[#F0F0F0]">
+    <view class="pb-3 border-b-[1rpx] border-[#F0F0F0]">
       <view class="mb-4 font-bold">我能提供资源：</view>
       <textarea v-model="info.resourcesProvide" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
         placeholder-class="placeholder">

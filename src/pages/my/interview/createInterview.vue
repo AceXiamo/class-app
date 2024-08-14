@@ -1,40 +1,40 @@
 <template>
-  <view class="overflow-auto p-4 text-sm h-full">
+  <view class="overflow-auto p-4 box-border text-sm h-full space-y-4">
 
-    <view class="text-[40rpx] leading-[92rpx]">录入一个点对点走访</view>
+    <view class="text-[40rpx] leading-[92rpx] font-bold">录入一个点对点走访</view>
 
-    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0] mt-3">
-      <view class="text-[#333] mb-1">被走访人</view>
+    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
+      <view class="text-[#333] font-bold mb-2">被走访人</view>
       <!-- <uni-data-select class="w-40" :clear="false" v-model="value" :localdata="range"
         @change="onChange"></uni-data-select>       -->
       <searchCombox :candidates="member" :isJSON="true" keyName="name" placeholder="请选择" v-model="value" @select="select">
       </searchCombox>
     </view>
 
-    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0] mt-3">
-      <view class="text-[#333] mb-1">走访事由</view>
-      <input v-model="content" class="" placeholder="请输入" placeholder-class="placeholder" />
+    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
+      <view class="text-[#333] font-bold">走访事由</view>
+      <input v-model="content" class="h-8 mt-2 text-[#666]" placeholder="请输入" placeholder-class="placeholder" />
     </view>
 
-    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0] mt-3">
-      <view class="text-[#333]">走访情况</view>
-      <textarea v-model="textValue" :maxlength="-1" class="w-full mt-1" auto-height placeholder="请输入"
+    <view class="pb-3 border-b-[1rpx] border-[#F0F0F0]">
+      <view class="text-[#333] font-bold mb-4">走访情况</view>
+      <textarea v-model="textValue" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
         placeholder-class="placeholder">
           </textarea>
     </view>
 
-    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0] mt-3">
-      <view class="text-[#333] mb-1">是否已在群里宣传被走访人</view>
-      <radio-group class="flex" @change="onChange1">
+    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
+      <view class="text-[#333] font-bold">是否已在群里宣传被走访人</view>
+      <radio-group class="h-8 mt-2 ml-2 flex items-center" @change="onChange1">
         <label class="flex-1" v-for="(item, index) in range1" :key="item.value">
           <radio :value="item.value" color="#92003F" />
-          <text class="ml-1">{{ item.text }}</text>
+          <text class="ml-1 text-[#666]">{{ item.text }}</text>
         </label>
       </radio-group>
       <!-- <uni-data-select class="" :clear="false" v-model="value1" :localdata="range1" @change="onChange1"></uni-data-select> -->
     </view>
 
-    <view class="flex justify-between mt-[106rpx] p-4">
+    <view class="flex justify-between pt-[82rpx] px-4">
       <view class="w-[288rpx] h-[88rpx]">
         <button class="rounded-[44rpx] bg-[#F5F5F5] text-[32rpx] leading-[88rpx]" @tap="cancel">
           取消
@@ -151,8 +151,15 @@ page {
 }
 
 .placeholder,
-::v-deep .search-combox__input-plac {
+::v-deep .search-combox__input-plac,
+::v-deep .search-combox .uni-icons {
   color: #AFAFAF !important;
+}
+
+::v-deep .search-combox__input {
+  font-size: 28rpx !important;
+  height: 64rpx !important;
+  color: #666 !important;
 }
 
 ::v-deep .search-combox {

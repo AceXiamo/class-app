@@ -56,3 +56,12 @@ const onClickTab = (tab: TSliderTagOption<any>, index: number) => {
   emits('change', tab);
 }
 </script>
+
+<style scoped>
+scroll-view ::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+</style>

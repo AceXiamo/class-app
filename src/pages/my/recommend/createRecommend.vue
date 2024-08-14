@@ -1,10 +1,10 @@
 <template>
-  <view class="overflow-auto h-full p-4 text-sm">
+  <view class="overflow-auto h-full p-4 text-sm box-border space-y-4">
     <view class="text-[40rpx] leading-[92rpx] font-bold">
       创建一个引荐
     </view>
 
-    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0] mt-3">
+    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
       <view class="text-[#333] font-bold mb-2">引荐给</view>
       <!-- <uni-data-select class="w-40" :clear="false" v-model="value" :localdata="range"
         @change="onChange"></uni-data-select>       -->
@@ -12,19 +12,19 @@
       </searchCombox>
     </view>
 
-    <view class="border-b-[1rpx] border-[#F0F0F0] mt-3">
-      <view class="text-[#333] font-bold">引荐类型</view>
+    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
+      <view class="text-[#333] font-bold mb-2">引荐类型</view>
       <uni-data-select class="w-40" :clear="false" v-model="value1" :localdata="range1"
         @change="onChange1"></uni-data-select>
     </view>
 
-    <view class="pb-3 border-b-[1rpx] border-[#F0F0F0] mt-3">
-      <view class="text-[#333] font-bold mb-3">引荐内容</view>
-      <textarea v-model="content" :maxlength="-1" class="w-full" auto-height placeholder="请输入"
+    <view class="pb-3 border-b-[1rpx] border-[#F0F0F0]">
+      <view class="text-[#333] font-bold mb-4">引荐内容</view>
+      <textarea v-model="content" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
         placeholder-class="placeholder"></textarea>
     </view>
 
-    <view class="flex justify-between mt-[106rpx] p-4">
+    <view class="flex justify-between pt-[82rpx] px-4">
       <view class="w-[288rpx] h-[88rpx]">
         <button class="rounded-[44rpx] bg-[#F5F5F5] text-[32rpx] leading-[88rpx]" @tap="cancel">
           取消
@@ -140,8 +140,7 @@ page {
 
 ::v-deep .search-combox__input {
   font-size: 28rpx !important;
-  height: 48rpx !important;
-  line-height: 48rpx !important;
+  height: 64rpx !important;
 }
 
 ::v-deep .search-combox {
@@ -149,7 +148,7 @@ page {
 }
 
 ::v-deep .uni-select {
-  height: 80rpx !important;
+  height: 64rpx !important;
   border: 0 !important;
   padding: 0 !important;
 }

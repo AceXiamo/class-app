@@ -43,11 +43,11 @@
           <view @tap="toDetail(item?.id)" class="flex m-[-1rpx] pt-3 pb-[28rpx]">
             <view class="rounded-[8rpx] relative pl-[28rpx] pr-4.5 mt-[6rpx]">
               <image mode="aspectFill" class="w-[172rpx] h-[172rpx] rounded-[8rpx] bg-black" :src="!memberStore.profile ||
-                  memberStore.profile?.userInfo?.status == 0 ||
-                  memberStore.profile?.userInfo?.status == 1 ||
-                  memberStore.profile?.userInfo?.status == 2
-                  ? ''
-                  : item?.avatar
+                memberStore.profile?.userInfo?.status == 0 ||
+                memberStore.profile?.userInfo?.status == 1 ||
+                memberStore.profile?.userInfo?.status == 2
+                ? ''
+                : item?.avatar
                 ">
               </image>
               <view v-if="item?.leadership_position && item?.leadership_position != ''"
@@ -66,7 +66,7 @@
                 </text>
               </view>
 
-              <view class="w-full flex text-repeat-33 text-[26rpx] h-5.5 items-center">
+              <view class="w-[17em] flex text-repeat-33 text-[26rpx] h-5.5 items-center">
                 <view class="flex-2 break-all line-clamp-1">{{
                   !memberStore.profile ||
                   memberStore.profile?.userInfo?.status == 0 ||
