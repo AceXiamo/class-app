@@ -27,7 +27,7 @@
       </view>
     </view>
     <!-- 页面主体 -->
-    <view class="-mt-[234rpx] bg-white rounded-t-[46rpx]" style="height: calc(100vh - 376rpx);">
+    <view class="-mt-[234rpx] bg-white rounded-t-[46rpx] overflow-hidden" style="height: calc(100vh - 376rpx);">
       <scroll-view class="h-full" scroll-y>
         <!-- 荣誉榜 -->
         <view class="p-4">
