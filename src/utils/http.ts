@@ -19,8 +19,7 @@ baseURL = ''
 // #endif
 
 // 是否开启日志打印
-const openLog = import.meta.env.VITE_OPEN_LOG
-
+let openLog = import.meta.env.VITE_OPEN_LOG == 'true'
 // 添加拦截器
 const httpInterceptor = {
   // 拦截前触发

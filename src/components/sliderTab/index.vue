@@ -18,7 +18,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { ref, watch, nextTick } from 'vue';
+import { ref, watch, nextTick, onMounted } from 'vue';
 
 export type TSliderTagOption<T> = {
   key: string | number
@@ -42,8 +42,21 @@ const emits = defineEmits(['update:modelValue', 'change']);
 
 const scrollId = ref('');
 const curKey = ref(props.modelValue);
-watch(() => props.modelValue, () => {
+watch(() => props.modelValue, (newValue) => {
   curKey.value = props.modelValue;
+  curKey.value = newValue;
+  nextTick(() => {
+    console.log('scrollId', `tab-${curKey.value}`);
+    scrollId.value = `tab-${curKey.value}`;
+  });
+});
+
+// 初始化时执行滚动逻辑
+onMounted(() => {
+  nextTick(() => {
+    console.log('scrollId', `tab-${curKey.value}`);
+    scrollId.value = `tab-${curKey.value}`;
+  });
 });
 
 const onClickTab = (tab: TSliderTagOption<any>, index: number) => {

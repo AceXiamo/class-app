@@ -1,7 +1,8 @@
 <template>
   <view class="overflow-hidden text-sm">
     <!-- 顶部(固定) -->
-    <view class="w-full h-[610rpx] pr-[30rpx] pl-[30rpx]" style="background: linear-gradient( 135deg, #D41869, #92003F);">
+    <view class="w-full h-[610rpx] pr-[30rpx] pl-[30rpx]"
+      style="background: linear-gradient( 135deg, #D41869, #92003F);">
       <view class="w-full z-30 top-0 overflow-y-hidden flex" :style="{ paddingTop: `${statusBar}px` }">
         <view class="w-full flex items-center justify-center text-white text-base font-medium z-9999"
           :style="{ height: `${customBar}px` }">荣誉榜
@@ -12,7 +13,7 @@
         <uni-data-select :clear="false" v-model="value" :localdata="range" @change="change"></uni-data-select>
       </view>
       <view class="my-2">
-        <slider-tab v-model="curValue" :tabs="tabs" @change="onChange">
+        <slider-tab v-if="initStatus" v-model="curValue" :tabs="tabs" @change="onChange">
           <template #="{ active, tab, index }">
             <view :class="['h-[100rpx] text-sm flex items-center text-white text-[26rpx] relative justify-center', {
               'font-bold': active,
@@ -38,13 +39,14 @@
                 <image src="/static/images/bg-king-title.jpg" class="absolute w-full left-0" mode="widthFix" />
               </view>
               <view class="p-2 flex item-center">
-                <image mode="aspectFill" class="w-10.5 h-10.5 rounded-1/2" :src="honorBoard.kingOfRecommender?.mainImg">
+                <image mode="aspectFill" class="w-10.5 h-10.5 rounded-1/2"
+                  :src="honorBoard?.kingOfRecommender?.mainImg">
                 </image>
                 <view class="ml-2 flex flex-col">
                   <view class="flex-1">{{ honorBoard?.kingOfRecommender ? honorBoard?.kingOfRecommender : '虚位以待' }}
                   </view>
                   <view v-if="honorBoard?.kingOfRecommender" class="flex-1 text-xs break-all">引荐数量：{{
-                    honorBoard.kingOfRecommender?.recommendNum }}</view>
+                    honorBoard?.kingOfRecommender?.recommendNum }}</view>
                 </view>
               </view>
             </view>
@@ -55,13 +57,13 @@
               </view>
               <view class="p-2 flex item-center">
                 <image mode="aspectFill" class="w-10.5 h-10.5 rounded-1/2"
-                  :src="honorBoard.kingOfRecommendMoney?.mainImg">
+                  :src="honorBoard?.kingOfRecommendMoney?.mainImg">
                 </image>
                 <view class="ml-2 flex flex-col">
-                  <view class="flex-1">{{ honorBoard?.kingOfRecommendMoney ? honorBoard.kingOfRecommendMoney?.name :
+                  <view class="flex-1">{{ honorBoard?.kingOfRecommendMoney ? honorBoard?.kingOfRecommendMoney?.name :
                     '虚位以待' }}</view>
                   <view v-if="honorBoard?.kingOfRecommendMoney" class="flex-1 text-xs break-all">引荐金额：{{
-                    honorBoard.kingOfRecommendMoney?.harvestedMoney }}</view>
+                    honorBoard?.kingOfRecommendMoney?.harvestedMoney }}</view>
                 </view>
               </view>
             </view>
@@ -71,13 +73,13 @@
                 <image src="/static/images/bg-king-title.jpg" class="absolute w-full left-0" mode="widthFix" />
               </view>
               <view class="p-2 flex item-center">
-                <image mode="aspectFill" class="w-10.5 h-10.5 rounded-1/2" :src="honorBoard.kingOfGuest?.mainImg">
+                <image mode="aspectFill" class="w-10.5 h-10.5 rounded-1/2" :src="honorBoard?.kingOfGuest?.mainImg">
                 </image>
                 <view class="ml-2 flex flex-col">
                   <view class="flex-1">{{ honorBoard?.kingOfGuest ? honorBoard?.kingOfGuest ?
-                    honorBoard.kingOfGuest?.name : '虚位以待' : '虚位以待' }}</view>
+                    honorBoard?.kingOfGuest?.name : '虚位以待' : '虚位以待' }}</view>
                   <view v-if="honorBoard?.kingOfGuest" class="flex-1 text-xs break-all">邀约嘉宾：{{
-                    honorBoard.kingOfGuest?.guestNum }}</view>
+                    honorBoard?.kingOfGuest?.guestNum }}</view>
                 </view>
               </view>
             </view>
@@ -87,22 +89,22 @@
                 <image src="/static/images/bg-king-title.jpg" class="absolute w-full left-0" mode="widthFix" />
               </view>
               <view class="p-2 flex item-center">
-                <image mode="aspectFill" class="w-10.5 h-10.5 rounded-1/2" :src="honorBoard.kingOfVisit?.mainImg">
+                <image mode="aspectFill" class="w-10.5 h-10.5 rounded-1/2" :src="honorBoard?.kingOfVisit?.mainImg">
                 </image>
                 <view class="ml-2 flex flex-col">
-                  <view class="flex-1">{{ honorBoard?.kingOfVisit ? honorBoard.kingOfVisit?.name : '虚位以待' }}
+                  <view class="flex-1">{{ honorBoard?.kingOfVisit ? honorBoard?.kingOfVisit?.name : '虚位以待' }}
                   </view>
                   <view v-if="honorBoard?.kingOfVisit" class="flex-1 text-xs break-all">走访数量：{{
-                    honorBoard.kingOfVisit?.visitNum }}</view>
+                    honorBoard?.kingOfVisit?.visitNum }}</view>
                 </view>
               </view>
             </view>
           </view>
 
-          <view
+          <!-- <view
             v-if="!honorBoard?.kingOfRecommender && !honorBoard?.kingOfRecommendMoney && !honorBoard?.kingOfGuest && !honorBoard?.kingOfVisit"
             class="text-center text-repeat-79">
-            暂无数据</view>
+            暂无数据</view> -->
           <view v-if="presentPerson?.goldenList && presentPerson?.goldenList.length > 0"
             class="mt-[52rpx] flex item-center">
             <image class="w-6" src="/static/images/icon-gold.png" mode="widthFix" />
@@ -179,7 +181,7 @@
           </view>
 
           <view class="my-2">
-            <slider-tab v-model="curValue1" :tabs="tabs" @change="onChange1">
+            <slider-tab v-if="initStatus" v-model="curValue1" :tabs="tabs" @change="onChange1">
 
               <template #="{ active, tab, index }">
                 <view :class="['h-12.5 text-[26rpx] flex items-center relative justify-center', {
@@ -323,8 +325,8 @@
               </view>
             </view>
           </view>
-          <view v-if="recommandMoneyBoard && recommandMoneyBoard?.length > 5" class="text-center text-xs text-[#333] py-2"
-            @tap="hide2 = !hide2">
+          <view v-if="recommandMoneyBoard && recommandMoneyBoard?.length > 5"
+            class="text-center text-xs text-[#333] py-2" @tap="hide2 = !hide2">
             {{ hide2 ? '展开全部' : "收起全部" }}<uni-icons :type="hide2 ? 'bottom' : 'top'" color="#999"></uni-icons>
           </view>
 
@@ -373,7 +375,8 @@
             </view>
           </view>
           <view class="text-xs" :class="{ 'overflow-hidden max-h-40': hide4 }">
-            <view class="h-8 flex text-center items-center text-[#666]" v-for="(item, index) in visitBoard" :key="index">
+            <view class="h-8 flex text-center items-center text-[#666]" v-for="(item, index) in visitBoard"
+              :key="index">
               <view class="w-10 text-justify">
                 {{ item?.name }}
               </view>
@@ -421,6 +424,9 @@ let tabs: any = ref([])
 
 const change = async (e: any) => {
   tabs.value = []
+  curValue.value = 1
+  curValue1.value = 1
+  initStatus.value = false
   const result = await databoard.AppDateBoard({ session: e })
   if (result.data && result.data.length > 0) {
     tabs.value = result.data.reverse().map((value, index) => ({
@@ -429,6 +435,23 @@ const change = async (e: any) => {
     }))
   }
   if (tabs.value && tabs.value.length > 0) {
+    // 获取当前年份和月份
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    tabs.value.forEach((element: any, index: number) => {
+      if (element.year == year && element.month == month) {
+        curValue.value = index + 1
+        curValue1.value = index + 1
+        initStatus.value = true
+        getAppHonorBoard(element.year, element.month)
+        getAppAverageBoard(element.year, element.month)
+        GetPresentPerson(element.year, element.month)
+        getAppInvitePersonBoard(element.year, element.month)
+        return
+      }
+    });
+    initStatus.value = true
     getAppHonorBoard(tabs.value[0].year, tabs.value[0].month)
     getAppAverageBoard(tabs.value[0].year, tabs.value[0].month)
     GetPresentPerson(tabs.value[0].year, tabs.value[0].month)
@@ -657,6 +680,7 @@ const getAppInvitePersonBoard = async (year: number, month: number) => {
   nvitePersonBoard.value = data
 }
 
+const initStatus = ref(false)
 const getHonorAndAverage = async () => {
   const result = await databoard.AppSessionBoard()
   if (result.data && result.data.length > 0) {
@@ -673,6 +697,23 @@ const getHonorAndAverage = async () => {
       }))
     }
     if (tabs.value && tabs.value.length > 0) {
+      // 获取当前年份和月份
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1;
+      tabs.value.forEach((element: any, index: number) => {
+        if (element.year == year && element.month == month) {
+          curValue.value = index + 1
+          curValue1.value = index + 1
+          initStatus.value = true
+          getAppHonorBoard(element.year, element.month)
+          getAppAverageBoard(element.year, element.month)
+          GetPresentPerson(element.year, element.month)
+          getAppInvitePersonBoard(element.year, element.month)
+          return
+        }
+      });
+      initStatus.value = true
       getAppHonorBoard(tabs.value[0].year, tabs.value[0].month)
       getAppAverageBoard(tabs.value[0].year, tabs.value[0].month)
       GetPresentPerson(tabs.value[0].year, tabs.value[0].month)
@@ -683,7 +724,7 @@ const getHonorAndAverage = async () => {
 
 }
 
-onShow(() => {
+onLoad(() => {
   getHonorAndAverage()
 
   getAppRecommandBoard()
