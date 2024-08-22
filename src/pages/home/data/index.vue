@@ -5,13 +5,18 @@
       <view class="p-4">
         <slider-tab v-model="curValue" :tabs="tabs" @change="onChange">
           <template #="{ active, tab, index }">
-            <view :class="['h-10 text-[26rpx] flex items-center relative justify-center', {
-              'font-bold': active,
-              'text-[30rpx]': active,
-              'text-[#000]': active,
-              'text-[#666]': !active,
-              'mr-4': index !== tabs?.length - 1
-            }]">
+            <view
+              :class="[
+                'h-10 text-[26rpx] flex items-center relative justify-center',
+                {
+                  'font-bold': active,
+                  'text-[30rpx]': active,
+                  'text-[#000]': active,
+                  'text-[#666]': !active,
+                  'mr-4': index !== tabs?.length - 1,
+                },
+              ]"
+            >
               {{ tab?.year }}年{{ tab?.month }}月
               <view v-if="active" class="bg-[#92003F] w-[30rpx] h-[6rpx] absolute bottom-1"></view>
             </view>
@@ -59,17 +64,22 @@
     </view>
 
     <!-- 第几届选项 -->
-    <view v-if="tabs1" class="bg-white m-[30rpx] pb-[72rpx] rounded-[16rpx]">
+    <view v-if="tabs1 && tabs1.length > 0" class="bg-white m-[30rpx] pb-[72rpx] rounded-[16rpx]">
       <view class="p-4">
         <slider-tab v-model="curValue1" :tabs="tabs1" @change="onChange1">
           <template #="{ active, tab, index }">
-            <view :class="['h-10 text-[26rpx] flex items-center relative justify-center', {
-              'font-bold': active,
-              'text-[30rpx]': active,
-              'text-[#000]': active,
-              'text-[#666]': !active,
-              'ml-8': index !== tabs.length - 1
-            }]">
+            <view
+              :class="[
+                'h-10 text-[26rpx] flex items-center relative justify-center',
+                {
+                  'font-bold': active,
+                  'text-[30rpx]': active,
+                  'text-[#000]': active,
+                  'text-[#666]': !active,
+                  'ml-8': index !== tabs.length - 1,
+                },
+              ]"
+            >
               第{{ tab?.session }}届
               <view v-if="active" class="bg-[#92003F] w-[30rpx] h-[6rpx] absolute bottom-1"></view>
             </view>
@@ -123,7 +133,7 @@
     <!-- 累计 -->
     <view class="bg-white m-[30rpx] pb-[72rpx] rounded-[16rpx]">
       <view class="p-4">
-        <view class="text-[30rpx] font-bold">创会累计</view>
+        <view class="text-[30rpx] font-bold">第3届至今累计(创会至第2届已成交3000万)</view>
       </view>
 
       <!-- 内容区域 -->
@@ -201,7 +211,7 @@ onLoad(() => {
   homeApi.perLeaderList().then((result: any) => {
     if (result.data && result.data.length > 0) {
       tabs1.value = extractSession(result.data)
-      // console.log(tabs1.value)
+      tabs1.value = tabs1.value.filter((item: any) => item.session > 2)
       homeApi.sessionMoney({ session: tabs1.value[0]?.session }).then((result) => {
         sessionData.value = result.data
       })

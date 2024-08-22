@@ -451,6 +451,7 @@ const change = async (e: any) => {
         return
       }
     });
+
     initStatus.value = true
     getAppHonorBoard(tabs.value[0].year, tabs.value[0].month)
     getAppAverageBoard(tabs.value[0].year, tabs.value[0].month)
@@ -684,14 +685,18 @@ const initStatus = ref(false)
 const getHonorAndAverage = async () => {
   const result = await databoard.AppSessionBoard()
   if (result.data && result.data.length > 0) {
-    range.value = result.data.map((value, index) => ({
+    const original = result.data.filter((value: any) => value > 2)
+    range.value = original.map((value, index) => ({
       value: value,
       text: `第${value}届`,
     }));
     value.value = range.value[0].value
     const result1 = await databoard.AppDateBoard({ session: range.value[0].value })
-    if (result1.data && result1.data.length > 0) {
-      tabs.value = result1.data.reverse().map((value, index) => ({
+    // 2024.8 之前的隐藏
+    const newResult = result1.data.filter((value: any) => value.year > 2024 || (value.year == 2024 && value.month >= 8))
+
+    if (newResult && newResult.length > 0) {
+      tabs.value = newResult.reverse().map((value, index) => ({
         ...value,
         key: index + 1
       }))
