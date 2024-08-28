@@ -69,20 +69,20 @@
               <view class="w-[17em] flex text-repeat-33 text-[26rpx] h-5.5 items-center">
                 <view class="flex-2 break-all line-clamp-1">{{
                   !memberStore.profile ||
-                  memberStore.profile?.userInfo?.status == 0 ||
-                  memberStore.profile?.userInfo?.status == 1 ||
-                  memberStore.profile?.userInfo?.status == 2
-                  ? ''
-                  : item?.company
+                    memberStore.profile?.userInfo?.status == 0 ||
+                    memberStore.profile?.userInfo?.status == 1 ||
+                    memberStore.profile?.userInfo?.status == 2
+                    ? ''
+                    : item?.company
                 }}
                 </view>
                 <view class="ml-3 flex-1 break-all line-clamp-1">{{
                   !memberStore.profile ||
-                  memberStore.profile?.userInfo?.status == 0 ||
-                  memberStore.profile?.userInfo?.status == 1 ||
-                  memberStore.profile?.userInfo?.status == 2
-                  ? ''
-                  : item?.position
+                    memberStore.profile?.userInfo?.status == 0 ||
+                    memberStore.profile?.userInfo?.status == 1 ||
+                    memberStore.profile?.userInfo?.status == 2
+                    ? ''
+                    : item?.position
                 }}
                 </view>
               </view>
@@ -91,12 +91,12 @@
                 <text class="w-full break-all line-clamp-1 pr-10">
                   {{
                     !memberStore.profile ||
-                    memberStore.profile?.userInfo?.status == 0 ||
-                    memberStore.profile?.userInfo?.status == 1 ||
-                    memberStore.profile?.userInfo?.status == 2 ||
-                    memberStore.profile?.userInfo?.status == 3
-                    ? ''
-                    : item?.companyAddress
+                      memberStore.profile?.userInfo?.status == 0 ||
+                      memberStore.profile?.userInfo?.status == 1 ||
+                      memberStore.profile?.userInfo?.status == 2 ||
+                      memberStore.profile?.userInfo?.status == 3
+                      ? ''
+                      : item?.companyAddress
                   }}
                 </text>
                 <image mode="aspectFill" class="w-[30rpx] h-[30rpx] absolute right-3"
@@ -217,6 +217,7 @@ const lowerBottom = () => {
 }
 
 const loadData = async () => {
+  uni.showLoading({ title: '加载中' })
   const { data } = await status.page_22({
     rudeName: searchKey.value,
     status: option.value,
@@ -224,6 +225,7 @@ const loadData = async () => {
     page: page.value,
     limit: 10,
   })
+  uni.hideLoading()
   if (data?.list) {
     list.value = list.value.concat(data?.list)
   }

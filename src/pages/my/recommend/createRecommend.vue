@@ -8,7 +8,8 @@
       <view class="text-[#333] font-bold mb-2">引荐给</view>
       <!-- <uni-data-select class="w-40" :clear="false" v-model="value" :localdata="range"
         @change="onChange"></uni-data-select>       -->
-      <searchCombox :candidates="member" :isJSON="true" keyName="name" placeholder="请选择" v-model="value" @select="select">
+      <searchCombox :candidates="member" :isJSON="true" keyName="name" placeholder="请选择" v-model="value"
+        @select="select">
       </searchCombox>
     </view>
 
@@ -115,9 +116,15 @@ const submit = () => {
     if (res.code == 0) {
       uni.showToast({
         title: '创建成功',
-        icon: 'none'
+        icon: 'none',
+        duration: 2000
       })
-      cancel()
+      // cancel()
+      setTimeout(() => {
+        uni.navigateTo({
+          url: '/pages/my/recommend/postRecommend'
+        })
+      }, 2000)
     }
   })
 
