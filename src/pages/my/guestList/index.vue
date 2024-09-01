@@ -34,23 +34,25 @@
 
       <view>
         <view class="flex text-center mt-[30rpx] mb-[14rpx] leading-[44rpx] font-bold">
-          <view class="flex-1">注册日期</view>
+          <view class="flex-none w-[140rpx]">注册日期</view>
           <view class="flex-1">名字</view>
           <view class="flex-1">行业</view>
           <view class="flex-1">参会次数</view>
           <view class="flex-1">身份</view>
         </view>
-        <block v-if="guest.boundGuestNum.length">
-          <view v-for="(item, index) in guest.boundGuestNum" :key="index" :class="['flex text-center text-[#333] leading-[44rpx] pt-[26rpx] pb-[26rpx]', {
+        <!-- v-if="guest.boundGuestNum.length" -->
+        <block v-if="guest.guestVOList">
+          <view v-for="(item, index) in guest.guestVOList" :key="index" :class="['flex text-center text-[#333] leading-[44rpx] pt-[26rpx] pb-[26rpx]', {
             'border-solid': index !== guest.boundGuestNum.length - 1,
             'border-b-[2rpx]': index !== guest.boundGuestNum.length - 1,
             'border-[#F8F8F8]': index !== guest.boundGuestNum.length - 1
           }]">
-            <view class="flex-1">{{ item.createTime }}</view>
-            <view class="flex-1">{{ item.name }}</view>
-            <view class="flex-1">{{ item.industry }}</view>
-            <view class="flex-1">{{ item.attendNum }}</view>
-            <view class="flex-1">{{ item.status == 0 ? '游客' : item.status == 1 ? '待验证' : item.status == 2 ? '准嘉宾' :
+            <view class="flex-none w-[140rpx] text-[24rpx]">{{ dayjs(item.createTime).format('YYYY-MM-DD') }}</view>
+            <view class="flex-1 text-[24rpx]">{{ item.name }}</view>
+            <view class="flex-1 text-[24rpx]">{{ item.industry }}</view>
+            <view class="flex-1 text-[24rpx]">{{ item.attendNum }}</view>
+            <view class="flex-1 text-[24rpx]">{{ item.status == 0 ? '游客' : item.status == 1 ? '待验证' : item.status == 2 ?
+              '准嘉宾' :
               item.status ==
                 3 ? '嘉宾' : item.status == 4 ? '会员' : item.status == 5 ? '顾问团' : '历史会员' }}</view>
           </view>
@@ -69,6 +71,7 @@
 import { ref } from 'vue';
 import { getGuest } from '@/api/app/my'
 import { onLoad } from '@dcloudio/uni-app';
+import dayjs from 'dayjs';
 
 let guest: any = ref({})
 

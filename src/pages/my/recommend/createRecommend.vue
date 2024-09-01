@@ -121,7 +121,7 @@ const submit = () => {
       })
       // cancel()
       setTimeout(() => {
-        uni.navigateTo({
+        uni.redirectTo({
           url: '/pages/my/recommend/postRecommend'
         })
       }, 2000)

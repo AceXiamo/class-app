@@ -63,11 +63,15 @@
                   <view class="flex-1">{{ formatDate(item?.recommendTime) }}</view>
                   <view class="flex-1">{{ item?.recommenderName }}</view>
                   <view class="flex-1">{{ item?.type == 0 ? '内部' : '外部' }}</view>
-                  <view v-if="item?.dealAmout != 0" class="flex-1">{{ item.dealAmout }}</view>
-                  <view v-else @tap="openPopup(item?.recommendedId)"
-                    class="flex-1 border-solid border-[1rpx] border-[#AFAFAF] rounded-[54rpx] py-0.5 border-repeat-79">
-                    创建感谢函
-                  </view>
+                  <template v-if="item?.dealAmout > 0">
+                    <view class="flex-1">{{ item.dealAmout }}</view>
+                  </template>
+                  <template v-else>
+                    <view @click.stop="openPopup(item?.id)"
+                      class="flex-1 border-solid border-[1rpx] border-[#AFAFAF] rounded-[54rpx] py-0.5 border-repeat-79">
+                      创建感谢函
+                    </view>
+                  </template>
                 </view>
               </template>
               <view class="mx-4 mt-1 p-1 flex flex-col text-[#999]">
@@ -107,14 +111,14 @@
           <view class="mb-4 font-bold">成交内容</view>
           <textarea v-model="content" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
             placeholder-class="placeholder">
-          </textarea>
+        </textarea>
         </view>
 
         <view class="pb-3 border-b-[1rpx] border-[#F0F0F0]">
           <view class="mb-4 font-bold">感谢语</view>
           <textarea v-model="textValue" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
             placeholder-class="placeholder">
-          </textarea>
+        </textarea>
         </view>
 
         <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
@@ -162,19 +166,20 @@ let range = ref([
 
 let receiveRecommend = ref()
 let receiveRecommendList = ref()
-onLoad(async () => {
+onLoad(() => {
+  loadData()
+})
+
+const loadData = async () => {
   const recommend = await getReceiveRecommend({ queryType: value.value })
   receiveRecommend.value = recommend.data
   const recommendList = await getReceiveRecommendList({ queryType: value.value })
   receiveRecommendList.value = recommendList.data
-})
+}
 
 const onChange = async (e: any) => {
   // console.log('change事件:', e);
-  const recommend = await getReceiveRecommend({ queryType: e })
-  receiveRecommendList.value = recommend.data
-  const recommendList = await getReceiveRecommendList({ queryType: e })
-  receiveRecommendList.value = recommendList.data
+  loadData()
 }
 
 let value1 = ref(0);
@@ -194,7 +199,7 @@ let textValue = ref('')
 const submit = () => {
   console.log('submit', amount.value, content.value, textValue.value);
   createComment({
-    id: recommendedId.value,
+    id: commendId.value,
     dealAmout: amount.value,
     dealContent: content.value,
     comment: textValue.value,
@@ -206,16 +211,17 @@ const submit = () => {
       duration: 1500
     })
     closePopup()
+    loadData()
   })
 }
 
 //控制展开收起
 let disabled = ref(false);
 
-let recommendedId: any = ref()
+let commendId: any = ref()
 //弹出弹窗
 const openPopup = (id: number) => {
-  recommendedId.value = id
+  commendId.value = id
   disabled.value = true;
   _this?.refs.getContactInformation.open()
 }

@@ -63,13 +63,14 @@
     "@dcloudio/uni-mp-xhs": "3.0.0-alpha-3081220230802001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-alpha-3081220230802001",
     "@dcloudio/uni-ui": "^1.5.0",
+    "chalk": "^4.0.0",
+    "dayjs": "^1.11.13",
+    "js-beautify": "^1.14.7",
     "pinia": "2.0.27",
     "pinia-plugin-persistedstate": "^3.2.0",
+    "swagger-parser": "^10.0.3",
     "vue": "^3.2.47",
-    "vue-i18n": "^9.2.2",
-    "chalk": "^4.0.0",
-    "js-beautify": "^1.14.7",
-    "swagger-parser": "^10.0.3"
+    "vue-i18n": "^9.2.2"
   },
   "devDependencies": {
     "@dcloudio/types": "^3.3.3",

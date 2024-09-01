@@ -7,7 +7,8 @@
       <view class="text-[#333] font-bold mb-2">被走访人</view>
       <!-- <uni-data-select class="w-40" :clear="false" v-model="value" :localdata="range"
         @change="onChange"></uni-data-select>       -->
-      <searchCombox :candidates="member" :isJSON="true" keyName="name" placeholder="请选择" v-model="value" @select="select">
+      <searchCombox :candidates="member" :isJSON="true" keyName="name" placeholder="请选择" v-model="value"
+        @select="select">
       </searchCombox>
     </view>
 
@@ -138,7 +139,12 @@ const submit = () => {
         title: '录入成功',
         icon: 'none'
       })
-      cancel()
+      // cancel()
+      setTimeout(() => {
+        uni.redirectTo({
+          url: '/pages/my/interview/interviewList'
+        })
+      }, 2000)
     }
   })
 
