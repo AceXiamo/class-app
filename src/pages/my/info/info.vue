@@ -2,20 +2,35 @@
   <view class="p-4 box-border text-sm h-full space-y-4">
     <view class="font-bold text-[40rpx]">申请加入/修改个人商务信息</view>
 
-    <view class="text-[28rpx] text-[#FF982A]">温馨提示：请将下列商务信息填写完整，方便对接商务信息</view>
+    <view class="text-[28rpx] text-[#FF4646]"
+      >温馨提示：请先保存个人微信二维码，再将下列商务信息填写完整，方便对接商务信息</view
+    >
 
     <view class="flex items-center pb-2 border-b-[1rpx] border-[#F0F0F0]">
       <view class="flex-1">
-        <view class="h-6"><text class="text-[#FF4646]">*</text><text class="font-bold">头像：</text></view>
+        <view class="h-6"
+          ><text class="text-[#FF4646]">*</text><text class="font-bold">头像：</text></view
+        >
         <view class="text-[#666] h-6 mt-1.25" v-if="info.avatar">已上传</view>
         <view class="placeholder h-6 mt-1.25" v-else>请上传图片</view>
       </view>
-      <upload v-model="info.avatar" :size="96" :show-button="true" :cropper="true" @finish="onFinish" />
+      <upload
+        v-model="info.avatar"
+        :size="96"
+        :show-button="true"
+        :cropper="true"
+        @finish="onFinish"
+      />
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
       <view><text class="text-[#FF4646]">*</text><text class="font-bold">姓名：</text></view>
-      <input v-model="info.name" class="h-8 mt-2 text-[#666]" placeholder="请输入" placeholder-class="placeholder" />
+      <input
+        v-model="info.name"
+        class="h-8 mt-2 text-[#666]"
+        placeholder="请输入"
+        placeholder-class="placeholder"
+      />
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
@@ -47,90 +62,174 @@
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
       <view class="font-bold">大学/年级/专业：</view>
-      <input v-model="info.college" class="h-8 mt-2 text-[#666]" placeholder="请输入" placeholder-class="placeholder" />
+      <input
+        v-model="info.college"
+        class="h-8 mt-2 text-[#666]"
+        placeholder="请输入"
+        placeholder-class="placeholder"
+      />
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
       <view><text class="text-[#FF4646]">*</text><text class="font-bold">行业：</text></view>
-      <input v-model="info.industry" class="h-8 mt-2 text-[#666]" placeholder="请输入" placeholder-class="placeholder" />
+      <input
+        v-model="info.industry"
+        class="h-8 mt-2 text-[#666]"
+        placeholder="请输入"
+        placeholder-class="placeholder"
+      />
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view class="mb-1"><text class="text-[#FF4646]">*</text><text class="font-bold">行业类型：</text></view>
-      <uni-data-select class="w-full text-[#666]" :border="false" style="border: none" :clear="false"
-        v-model="info.industryType" :localdata="industryTypeList" @change="onChange"></uni-data-select>
+      <view class="mb-1"
+        ><text class="text-[#FF4646]">*</text><text class="font-bold">行业类型：</text></view
+      >
+      <uni-data-select
+        class="w-full text-[#666]"
+        :border="false"
+        style="border: none"
+        :clear="false"
+        v-model="info.industryType"
+        :localdata="industryTypeList"
+        @change="onChange"
+      ></uni-data-select>
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
       <view><text class="text-[#FF4646]">*</text><text class="font-bold">公司：</text></view>
-      <input v-model="info.company" class="h-8 mt-2 text-[#666]" placeholder="请输入" placeholder-class="placeholder" />
+      <input
+        v-model="info.company"
+        class="h-8 mt-2 text-[#666]"
+        placeholder="请输入"
+        placeholder-class="placeholder"
+      />
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
       <view><text class="text-[#FF4646]">*</text><text class="font-bold">职务：</text></view>
-      <input v-model="info.position" class="h-8 mt-2 text-[#666]" placeholder="请输入" placeholder-class="placeholder" />
+      <input
+        v-model="info.position"
+        class="h-8 mt-2 text-[#666]"
+        placeholder="请输入"
+        placeholder-class="placeholder"
+      />
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
       <view class="font-bold">公司地址：</view>
       <view class="flex items-center justify-between mt-2">
-        <input v-model="info.companyAddress" class="h-8 flex-1 text-[#666]" placeholder="请输入"
-          placeholder-class="placeholder" />
+        <input
+          v-model="info.companyAddress"
+          class="h-8 flex-1 text-[#666]"
+          placeholder="请输入"
+          placeholder-class="placeholder"
+        />
         <!-- <view @tap="getLocation" class="text-[#92003F]">选择地址</view> -->
       </view>
     </view>
 
     <view class="pb-3 border-b-[1rpx] border-[#F0F0F0]">
       <view class="mb-4 font-bold">主营：</view>
-      <textarea v-model="info.bussiness" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
-        placeholder-class="placeholder">
+      <textarea
+        v-model="info.bussiness"
+        :maxlength="-1"
+        class="w-full text-[#666]"
+        auto-height
+        placeholder="请输入"
+        placeholder-class="placeholder"
+      >
       </textarea>
     </view>
 
     <view class="pb-3 border-b-[1rpx] border-[#F0F0F0]">
       <view class="mb-4 font-bold">公司优势：</view>
-      <textarea v-model="info.advantage" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
-        placeholder-class="placeholder">
+      <textarea
+        v-model="info.advantage"
+        :maxlength="-1"
+        class="w-full text-[#666]"
+        auto-height
+        placeholder="请输入"
+        placeholder-class="placeholder"
+      >
       </textarea>
     </view>
 
     <view class="pb-3 border-b-[1rpx] border-[#F0F0F0]">
       <view class="mb-4 font-bold">需要引荐资源：</view>
-      <textarea v-model="info.resourcesNeed" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
-        placeholder-class="placeholder">
+      <textarea
+        v-model="info.resourcesNeed"
+        :maxlength="-1"
+        class="w-full text-[#666]"
+        auto-height
+        placeholder="请输入"
+        placeholder-class="placeholder"
+      >
       </textarea>
     </view>
 
     <view class="pb-3 border-b-[1rpx] border-[#F0F0F0]">
       <view class="mb-4 font-bold">我能提供资源：</view>
-      <textarea v-model="info.resourcesProvide" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
-        placeholder-class="placeholder">
+      <textarea
+        v-model="info.resourcesProvide"
+        :maxlength="-1"
+        class="w-full text-[#666]"
+        auto-height
+        placeholder="请输入"
+        placeholder-class="placeholder"
+      >
       </textarea>
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
       <view class="mb-4 font-bold">兴趣爱好：</view>
-      <textarea v-model="info.hobby" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
-        placeholder-class="placeholder">
+      <textarea
+        v-model="info.hobby"
+        :maxlength="-1"
+        class="w-full text-[#666]"
+        auto-height
+        placeholder="请输入"
+        placeholder-class="placeholder"
+      >
       </textarea>
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view class="mb-1"><text class="text-[#FF4646]">*</text><text class="font-bold">介绍人（如无会员引荐请选择“平台”）：</text></view>
-      <uni-data-select class="w-full text-[#666]" :clear="false" v-model="info.recommenderId" :localdata="member"
-        @change="onChange"></uni-data-select>
+      <view class="mb-1"
+        ><text class="text-[#FF4646]">*</text
+        ><text class="font-bold">介绍人（如无会员引荐请选择“平台”）：</text></view
+      >
+      <uni-data-select
+        class="w-full text-[#666]"
+        :clear="false"
+        v-model="info.recommenderId"
+        :localdata="member"
+        @change="onChange"
+      ></uni-data-select>
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
       <view><text class="text-[#FF4646]">*</text><text class="font-bold">手机：</text></view>
-      <input type="number" v-model="info.mobile" class="h-8 mt-2 text-[#666]" placeholder="请输入"
-        placeholder-class="placeholder" />
+      <input
+        type="number"
+        v-model="info.mobile"
+        class="h-8 mt-2 text-[#666]"
+        placeholder="请输入"
+        placeholder-class="placeholder"
+      />
     </view>
 
     <view>
-      <view class="mb-4"><text class="text-[#FF4646]">*</text><text class="font-bold">个人微信二维码：</text></view>
+      <view class="mb-4"
+        ><text class="text-[#FF4646]">*</text><text class="font-bold">个人微信二维码：</text></view
+      >
       <view class="flex justify-center">
-        <upload v-model="info.wechatQrCode" :size="308" :show-button="true" :cropper="true" @finish="onFinish" />
+        <upload
+          v-model="info.wechatQrCode"
+          :size="308"
+          :show-button="true"
+          :cropper="true"
+          @finish="onFinish"
+        />
       </view>
     </view>
 

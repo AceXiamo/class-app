@@ -231,6 +231,7 @@ let memberStore = useMemberStore()
 
 onShareAppMessage(() => {
   return {
+    title: '立德俱乐部',
     path: '/pages/home/index',
   }
 })
