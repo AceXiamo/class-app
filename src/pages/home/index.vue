@@ -2,8 +2,15 @@
   <view class="overflow-auto h-full text-sm">
     <!-- 轮播图 -->
     <view class="relative">
-      <swiper v-if="banners.length > 0" class="h-[808rpx] w-full" circular :indicator-dots="false" :autoplay="false"
-        :interval="3000" @change="onBannersSwiperChange">
+      <swiper
+        v-if="banners.length > 0"
+        class="h-[808rpx] w-full"
+        circular
+        :indicator-dots="false"
+        :autoplay="false"
+        :interval="3000"
+        @change="onBannersSwiperChange"
+      >
         <swiper-item v-for="(item, index) in banners" :key="index" class="h-[308rpx]">
           <image class="w-full h-full" :src="item.content" mode="scaleToFill" />>
         </swiper-item>
@@ -11,12 +18,14 @@
       <view class="flex w-full absolute bottom-[150rpx]">
         <view class="flex-1 flex justify-center mx-4.5">
           <template v-for="(item, index) in banners" :key="`dot-${index}`">
-            <view :class="[
-              'w-1.5 h-1.5 mx-[7rpx] rounded-full bg-white',
-              {
-                'opacity-50': activeBanners !== index,
-              },
-            ]" />
+            <view
+              :class="[
+                'w-1.5 h-1.5 mx-[7rpx] rounded-full bg-white',
+                {
+                  'opacity-50': activeBanners !== index,
+                },
+              ]"
+            />
           </template>
         </view>
       </view>
@@ -24,22 +33,34 @@
 
     <!-- 广告位 -->
     <view class="w-full h-[100rpx] relative" v-if="ads.length > 0">
-      <swiper class="h-[200rpx] w-full absolute top-[-108rpx]" circular :indicator-dots="false" :autoplay="false"
-        :interval="3000" @change="onAdsSwiperChange">
-        <swiper-item v-for="(item, index) in ads" :key="index" class="h-[308rpx] box-border px-[30rpx]">
+      <swiper
+        class="h-[200rpx] w-full absolute top-[-108rpx]"
+        circular
+        :indicator-dots="false"
+        :autoplay="false"
+        :interval="3000"
+        @change="onAdsSwiperChange"
+      >
+        <swiper-item
+          v-for="(item, index) in ads"
+          :key="index"
+          class="h-[308rpx] box-border px-[30rpx]"
+        >
           <image class="w-full h-full rounded-[16rpx]" :src="item.content" mode="scaleToFill" />>
         </swiper-item>
       </swiper>
       <view class="flex w-full absolute bottom-[14rpx]">
         <view class="flex-1 flex justify-center mx-4.5">
           <template v-for="(item, index) in ads" :key="`dot-${index}`">
-            <view :class="[
-              'w-1.5 h-1.5 mx-[7rpx] rounded-full',
-              {
-                'bg-[#92003F]': activeAds == index,
-                'bg-black opacity-20': activeAds !== index,
-              },
-            ]" />
+            <view
+              :class="[
+                'w-1.5 h-1.5 mx-[7rpx] rounded-full',
+                {
+                  'bg-[#92003F]': activeAds == index,
+                  'bg-black opacity-20': activeAds !== index,
+                },
+              ]"
+            />
           </template>
         </view>
       </view>
@@ -49,7 +70,10 @@
     <view class="mt-[58rpx] px-4.5">
       <view class="relative w-full flex items-center">
         <view class="text-[40rpx] font-bold">关于我们</view>
-        <view @tap="showMore" class="absolute text-sm text-repeat-99 right-0 flex items-center h-full">了解更多
+        <view
+          @tap="showMore"
+          class="absolute text-sm text-repeat-99 right-0 flex items-center h-full"
+          >了解更多
           <image src="/static/images/icon-r.png" mode="heightFix" class="h-[32rpx]" />
         </view>
       </view>
@@ -154,25 +178,36 @@
     <view class="mt-8 px-[30rpx]">
       <view class="relative w-full flex items-center mb-[30rpx]">
         <view class="text-[40rpx] font-bold">领导团队</view>
-        <view @tap="showMoreTeam" class="absolute text-sm text-repeat-99 right-0 flex items-center h-full">查看更多
+        <view
+          @tap="showMoreTeam"
+          class="absolute text-sm text-repeat-99 right-0 flex items-center h-full"
+          >查看更多
           <image src="/static/images/icon-r.png" mode="heightFix" class="h-[32rpx]" />
         </view>
       </view>
 
       <view class="bg-white rounded-[16rpx] py-[30rpx] px-4 flex flex-col justify-center">
         <view class="grid grid-cols-3 gap-[26rpx]">
-          <view v-for="(item, index) in team" :key="index" class="aspect-square relative rounded-[16rpx] overflow-hidden">
+          <view
+            v-for="(item, index) in team"
+            :key="index"
+            class="aspect-square relative rounded-[16rpx] overflow-hidden"
+          >
             <image mode="aspectFill" class="w-full h-full" :src="item.avatar"> </image>
             <view
-              class="absolute bottom-0 bg-[rgba(0,0,0,0.5)] w-full h-[49rpx] text-center text-white flex items-center justify-center text-xs">
-              {{ item.leadership_position }}</view>
+              class="absolute bottom-0 bg-[rgba(0,0,0,0.5)] w-full h-[49rpx] text-center text-white flex items-center justify-center text-xs"
+            >
+              {{ item.leadership_position }}</view
+            >
           </view>
         </view>
 
         <!-- 申请加入 -->
         <view>
-          <button class="font-medium text-white font-base bg-[#92003F] rounded-full w-[376rpx] mt-[66rpx] mb-[46rpx]"
-            @tap="join">
+          <button
+            class="font-medium text-white font-base bg-[#92003F] rounded-full w-[376rpx] mt-[66rpx] mb-[46rpx]"
+            @tap="join"
+          >
             申请加入
           </button>
         </view>
@@ -187,12 +222,14 @@
 <script setup lang="ts">
 import { getContent } from '@/api/app/news'
 import * as homeApi from '@/api/app/home'
-import { onLoad } from '@dcloudio/uni-app'
+import { onLoad, onShareAppMessage } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 import { useMemberStore } from '@/stores'
 import { formatNumber } from '@/utils/tools'
 
 let memberStore = useMemberStore()
+
+onShareAppMessage(() => {})
 
 //轮播图
 let banners: any = ref([])
