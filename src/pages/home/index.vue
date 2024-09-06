@@ -229,7 +229,11 @@ import { formatNumber } from '@/utils/tools'
 
 let memberStore = useMemberStore()
 
-onShareAppMessage(() => {})
+onShareAppMessage(() => {
+  return {
+    path: '/pages/home/index',
+  }
+})
 
 //轮播图
 let banners: any = ref([])
