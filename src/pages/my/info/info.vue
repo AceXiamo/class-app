@@ -3,7 +3,7 @@
     <view class="font-bold text-[40rpx]">申请加入/修改个人商务信息</view>
 
     <view class="text-[28rpx] text-[#FF4646]"
-      >温馨提示：请先保存个人微信二维码，再将下列商务信息填写完整，方便对接商务信息</view
+      >温馨提示：请先保存个人微信二维码再进入本页面，然后将下列商务信息填写完整，方便对接商务信息</view
     >
 
     <view class="flex items-center pb-2 border-b-[1rpx] border-[#F0F0F0]">

@@ -73,7 +73,7 @@ import mpHtml from '@/components/mp-html/components/mp-html/mp-html.vue'
 </script>
 
 <script lang="ts" setup>
-import { onLoad, onShareAppMessage } from '@dcloudio/uni-app'
+import { onLoad, onShareAppMessage, onShow } from '@dcloudio/uni-app'
 import { get_20, getEnroll } from '@/api/app/event'
 import { ref } from 'vue'
 import { useMemberStore } from '@/stores'
@@ -138,13 +138,17 @@ let list: any = ref([])
 let list_5: any = ref([])
 onLoad((options: any) => {
   id.value = options.id
-  get_20({ eventId: options.id }).then((res) => {
-    event.value = res.data || {}
-  })
+
   getEnroll({ eventId: options.id }).then((res) => {
     list.value = res.data || []
     // 提取后5个用于显示
     list_5.value = list.value.length > 5 ? list.value.slice(-5) : list.value
+  })
+})
+
+onShow(() => {
+  get_20({ eventId: id.value }).then((res) => {
+    event.value = res.data || {}
   })
 })
 </script>
