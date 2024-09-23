@@ -119,15 +119,10 @@ export const getUnreadNoticeCount = () => {
 /**
  * @description 系统通知列表
  */
-interface getMyNoticeListData {
-  /**  **/
-  query ? : any;
-}
-export const getMyNoticeList = ( data ? : getMyNoticeListData ) => {
+export const getMyNoticeList = () => {
   return http( {
     method: 'GET',
     url: '/app/my/notice/list',
-    data
   } );
 };
 /**

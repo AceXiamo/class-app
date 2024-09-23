@@ -19,12 +19,21 @@ export const sessionMoney = ( data ? : sessionMoneyData ) => {
   } );
 };
 /**
- * @description 总数据接口
+ * @description 首页数据接口
  */
 export const rudeDataBoard = () => {
   return http( {
     method: 'GET',
     url: '/app/home/rudeData',
+  } );
+};
+/**
+ * @description 客服二维码查询
+ */
+export const qrCodeShow_1 = () => {
+  return http( {
+    method: 'GET',
+    url: '/app/home/qrCode/show',
   } );
 };
 /**

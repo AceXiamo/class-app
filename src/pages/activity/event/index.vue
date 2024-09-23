@@ -23,7 +23,7 @@
         <view class="text-[30rpx] font-bold mt-[44rpx] mb-[30rpx]">活动详情</view>
 
         <view class="mb-2">
-          <mp-html :content="event?.content" />
+          <mp-html :content="event?.content" class="text-justify" />
         </view>
       </view>
     </scroll-view>
@@ -61,7 +61,7 @@
           class="rounded-full text-base px-[28rpx] h-[72rpx] absolute bg-[#92003F] text-[#FFFFFF] flex items-center text-center right-[30rpx]"
           @tap="Enroll"
         >
-          我要报名
+          {{ event?.isEnroll ? '已报名' : '我要报名' }}
         </button>
       </view>
     </view>
@@ -87,6 +87,7 @@ let memberStore = useMemberStore()
 onShareAppMessage(() => {
   return {
     title: event.value?.theme,
+    imageUrl: event.value?.mainImg,
     path: '/pages/activity/event/index?id=' + id.value,
   }
 })

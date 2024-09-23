@@ -9,7 +9,7 @@
       </view>
       <view class="flex items-center mt-2 text-gray-500 text-sm"> 来源：{{ news?.origin }} </view>
       <view class="mt-4" style="font-size: 26rpx">
-        <mp-html :content="news?.content" />
+        <mp-html :content="news?.content" class="text-justify" />
       </view>
     </view>
   </view>

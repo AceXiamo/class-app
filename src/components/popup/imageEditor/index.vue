@@ -1,9 +1,29 @@
 <template>
-  <od-popup v-model="show" :mask-close="false" content-class="absolute left-0 bottom-0 right-0" @close="onClose">
-    <image-cropper :src="src" :width="screenWidth" :height="screenHeight" :cut-width="cutWidth" :cut-height="cutHeight"
-      :cut-ratio="cutRatio" :keep-ratio="keepRatio" :hide-cropper="true" :reset-cut="true" :image-center="true"
-      :cropper-svg-img="cropperSvgImg" @cropped="onCropped" :disableTranslate="false" :disableCtrl="true" :minZoom="1"
-      v-if="show" />
+  <od-popup
+    v-model="show"
+    :mask-close="false"
+    content-class="absolute left-0 bottom-0 right-0"
+    @close="onClose"
+  >
+    <image-cropper
+      :src="src"
+      :width="screenWidth"
+      :height="screenHeight"
+      :cut-width="cutWidth"
+      :cut-height="cutHeight"
+      :cut-ratio="cutRatio"
+      :keep-ratio="keepRatio"
+      :hide-cropper="true"
+      :reset-cut="true"
+      :image-center="true"
+      :cropper-svg-img="cropperSvgImg"
+      @cropped="onCropped"
+      :disableTranslate="false"
+      :disableCtrl="true"
+      :minZoom="1"
+      :bound-detect="boundDetect"
+      v-if="show"
+    />
     <view class="absolute w-full px-4 bottom-4 ios-bottom flex justify-between items-center">
       <view class="h-8 w-20">
         <button type="default" @tap="onClose">
@@ -12,9 +32,7 @@
       </view>
       <view class="h-8 w-20">
         <button type="primary" @tap="onConfirm">
-          <text>
-            确定
-          </text>
+          <text> 确定 </text>
         </button>
       </view>
     </view>

@@ -208,7 +208,7 @@
             class="font-medium text-white font-base bg-[#92003F] rounded-full w-[376rpx] mt-[66rpx] mb-[46rpx]"
             @tap="join"
           >
-            申请加入
+            参会报名
           </button>
         </view>
       </view>

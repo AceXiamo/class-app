@@ -1,27 +1,43 @@
 <template>
   <view class="overflow-auto p-4 box-border text-sm h-full space-y-4">
-
     <view class="text-[40rpx] leading-[92rpx] font-bold">录入一个点对点走访</view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
       <view class="text-[#333] font-bold mb-2">被走访人</view>
       <!-- <uni-data-select class="w-40" :clear="false" v-model="value" :localdata="range"
         @change="onChange"></uni-data-select>       -->
-      <searchCombox :candidates="member" :isJSON="true" keyName="name" placeholder="请选择" v-model="value"
-        @select="select">
+      <searchCombox
+        :candidates="member"
+        :isJSON="true"
+        keyName="name"
+        placeholder="请选择"
+        v-model="value"
+        @select="select"
+      >
       </searchCombox>
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
       <view class="text-[#333] font-bold">走访事由</view>
-      <input v-model="content" class="h-8 mt-2 text-[#666]" placeholder="请输入" placeholder-class="placeholder" />
+      <input
+        v-model="content"
+        class="h-8 mt-2 text-[#666]"
+        placeholder="请输入"
+        placeholder-class="placeholder"
+      />
     </view>
 
     <view class="pb-3 border-b-[1rpx] border-[#F0F0F0]">
       <view class="text-[#333] font-bold mb-4">走访情况</view>
-      <textarea v-model="textValue" :maxlength="-1" class="w-full text-[#666]" auto-height placeholder="请输入"
-        placeholder-class="placeholder">
-          </textarea>
+      <textarea
+        v-model="textValue"
+        :maxlength="-1"
+        class="w-full text-[#666]"
+        auto-height
+        placeholder="请输入"
+        placeholder-class="placeholder"
+      >
+      </textarea>
     </view>
 
     <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
@@ -35,6 +51,13 @@
       <!-- <uni-data-select class="" :clear="false" v-model="value1" :localdata="range1" @change="onChange1"></uni-data-select> -->
     </view>
 
+    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
+      <view class="text-[#333] font-bold">走访时间</view>
+      <view class="mt-2">
+        <uni-datetime-picker type="datetime" v-model="visitTime" />
+      </view>
+    </view>
+
     <view class="flex justify-between pt-[82rpx] px-4">
       <view class="w-[288rpx] h-[88rpx]">
         <button class="rounded-[44rpx] bg-[#F5F5F5] text-[32rpx] leading-[88rpx]" @tap="cancel">
@@ -42,7 +65,10 @@
         </button>
       </view>
       <view class="w-[288rpx] h-[88rpx]">
-        <button class="rounded-[44rpx] bg-[#92003F] text-white text-[32rpx] leading-[88rpx]" @tap="submit">
+        <button
+          class="rounded-[44rpx] bg-[#92003F] text-white text-[32rpx] leading-[88rpx]"
+          @tap="submit"
+        >
           确定
         </button>
       </view>
@@ -51,14 +77,14 @@
 </template>
 
 <script lang="ts">
-import searchCombox from '@/components/search-combox/search-combox.vue';
+import searchCombox from '@/components/search-combox/search-combox.vue'
 </script>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { onLoad } from '@dcloudio/uni-app';
-import { getMember } from '@/api/app/my';
-import { createVisit } from '@/api/my';
+import { ref } from 'vue'
+import { onLoad } from '@dcloudio/uni-app'
+import { getMember } from '@/api/app/my'
+import { createVisit } from '@/api/my'
 let member = ref()
 
 onLoad(async () => {
@@ -79,52 +105,59 @@ const select = (e: any) => {
 //   // console.log('change事件:', e);
 // }
 
-let value1 = ref(-1);
+let value1 = ref(-1)
 let range1 = ref([
   { value: '1', text: '是' },
   { value: '0', text: '否' },
-]);
+])
 const onChange1 = (e: any) => {
   value1.value = e.detail.value * 1
 }
 
 let content = ref('')
 let textValue = ref('')
+let visitTime = ref()
+const changeLog = () => {
+  console.log(visitTime.value)
+}
 
 const cancel = () => {
   value.value = ''
   id.value = -1
-  value1.value = -1
   content.value = ''
   textValue.value = ''
+  visitTime.value = undefined
 }
 
 const submit = () => {
   if (id.value == -1) {
     uni.showToast({
       title: '请选择被走访人',
-      icon: 'none'
+      icon: 'none',
     })
     return
-  }
-  else if (content.value == '') {
+  } else if (content.value == '') {
     uni.showToast({
       title: '请填写走访内容',
-      icon: 'none'
+      icon: 'none',
     })
     return
-  }
-  else if (textValue.value == '') {
+  } else if (textValue.value == '') {
     uni.showToast({
       title: '请填写走访情况',
-      icon: 'none'
+      icon: 'none',
     })
     return
-  }
-  else if (value1.value == -1) {
+  } else if (value1.value == -1) {
     uni.showToast({
       title: '请选择是否已在群里宣传被走访人',
-      icon: 'none'
+      icon: 'none',
+    })
+    return
+  } else if (!visitTime.value) {
+    uni.showToast({
+      title: '请选择走访时间',
+      icon: 'none',
     })
     return
   }
@@ -132,22 +165,22 @@ const submit = () => {
     visitedId: id.value,
     content: content.value,
     comment: textValue.value,
-    status: value1.value
+    status: value1.value,
+    visitTime: visitTime.value,
   }).then((res: any) => {
     if (res.code == 0) {
       uni.showToast({
         title: '录入成功',
-        icon: 'none'
+        icon: 'none',
       })
       // cancel()
       setTimeout(() => {
         uni.redirectTo({
-          url: '/pages/my/interview/interviewList'
+          url: '/pages/my/interview/interviewList',
         })
       }, 2000)
     }
   })
-
 }
 </script>
 
@@ -159,7 +192,7 @@ page {
 .placeholder,
 ::v-deep .search-combox__input-plac,
 ::v-deep .search-combox .uni-icons {
-  color: #AFAFAF !important;
+  color: #afafaf !important;
 }
 
 ::v-deep .search-combox__input {

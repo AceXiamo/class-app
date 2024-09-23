@@ -9,27 +9,47 @@
     <view class="px-[30rpx] pt-4.5 pb-2 flex flex-col bg-white">
       <view class="flex font-bold items-center h-[50rpx]">
         <view class="flex-1 text-xl">{{ info?.name }}</view>
-        <view v-if="info?.leadership_position" style="background: linear-gradient(135deg, #f5cd71 0%, #cf9219 100%)"
-          class="flex items-center h-[50rpx] px-[28rpx] rounded-full text-white text-sm font-bold">
+        <view
+          v-if="info?.leadership_position"
+          style="background: linear-gradient(135deg, #f5cd71 0%, #cf9219 100%)"
+          class="flex items-center h-[50rpx] px-[28rpx] rounded-full text-white text-sm font-bold"
+        >
           {{ info?.leadership_position }}
         </view>
       </view>
-      <view class="mt-2 h-5.5 flex items-center text-[26rpx] text-repeat-33">行业：{{ info?.industry }}</view>
-      <view class="h-5.5 flex items-center text-[26rpx] text-repeat-33">入会时间：{{
-        dateFormatYearAndMonth(info?.createTime.toString()) }}</view>
+      <view class="mt-2 h-5.5 flex items-center text-[26rpx] text-repeat-33"
+        >行业：{{ info?.industry }}</view
+      >
+      <view class="h-5.5 flex items-center text-[26rpx] text-repeat-33"
+        >入会时间：{{ dateFormatYearAndMonth(info?.createTime.toString()) }}</view
+      >
     </view>
 
     <!-- 标签 -->
-    <view v-if="info?.tags && info?.tags.length > 0"
-      class="border-0 border-t-[1rpx] border-solid border-[#F8F8F8] pl-[28rpx] bg-white">
+    <view
+      v-if="info?.tags && info?.tags.length > 0"
+      class="border-0 border-t-[1rpx] border-solid border-[#F8F8F8] pl-[28rpx] bg-white"
+    >
       <!-- 折叠组件 -->
-      <collapse :width="600" :px="16" :my="20" :height="44" :textColor="'#FF7A33'" :borderColor="'rgba(0,0,0,0)'"
-        :borderRadius="9999" :borderWidth="1" :fontSize="24" :marginRight="18" :dataSource="info?.tags"
-        :bgColor="'#FFEFE1'" />
+      <collapse
+        :width="600"
+        :px="16"
+        :my="20"
+        :height="44"
+        :textColor="'#FF7A33'"
+        :borderColor="'rgba(0,0,0,0)'"
+        :borderRadius="9999"
+        :borderWidth="1"
+        :fontSize="24"
+        :marginRight="18"
+        :dataSource="info?.tags"
+        :bgColor="'#FFEFE1'"
+      />
     </view>
 
     <view
-      class="text-sm px-[30rpx] pt-[28rpx] pb-6 flex flex-col border-0 border-t-[1rpx] border-solid border-[#F8F8F8] bg-white space-y-2.75">
+      class="text-sm px-[30rpx] pt-[28rpx] pb-6 flex flex-col border-0 border-t-[1rpx] border-solid border-[#F8F8F8] bg-white space-y-2.75"
+    >
       <view class="flex items-center font-bold">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         公司：<text class="font-normal text-repeat-66">{{ info?.company }}</text>
@@ -42,7 +62,8 @@
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         公司主营：
       </view>
-      <view class="flex items-center text-repeat-66 break-all text-justify ml-[18rpx]">{{ info?.bussiness }}
+      <view class="flex items-center text-repeat-66 break-all text-justify ml-[18rpx]"
+        >{{ info?.bussiness }}
       </view>
       <view class="flex items-center font-bold">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
@@ -51,27 +72,38 @@
       <view class="flex items-center text-repeat-66 break-all text-justify ml-[18rpx]">
         {{ info?.advantage }}
       </view>
-      <view v-if="memberStore?.profile && memberStore?.profile?.userInfo?.status === 4"
-        class="flex items-center font-bold">
+      <view
+        v-if="memberStore?.profile && memberStore?.profile?.userInfo?.status === 4"
+        class="flex items-center font-bold"
+      >
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         公司地址：
       </view>
-      <view v-if="memberStore?.profile && memberStore?.profile?.userInfo?.status === 4"
-        class="font-normal flex text-repeat-66 break-all text-justify ml-[18rpx]">
+      <view
+        v-if="memberStore?.profile && memberStore?.profile?.userInfo?.status === 4"
+        class="font-normal flex text-repeat-66 break-all text-justify ml-[18rpx]"
+      >
         <view class="flex-1 break-all">{{ info?.companyAddress }}</view>
-        <image @tap="navigation" mode="aspectFill" class="w-4 h-4 ml-4 mr-[38rpx]" src="@/static/images/navigation.png">
+        <image
+          @tap="navigation"
+          mode="aspectFill"
+          class="w-4 h-4 ml-4 mr-[38rpx]"
+          src="@/static/images/navigation.png"
+        >
         </image>
       </view>
     </view>
 
     <view
-      class="font-bold text-sm space-y-2.75 px-[30rpx] pt-4.5 pb-[50rpx] flex flex-col border-solid border-[#EDEDED] border-0 border-t-[1rpx]">
+      class="font-bold text-sm space-y-2.75 px-[30rpx] pt-4.5 pb-[50rpx] flex flex-col border-solid border-[#EDEDED] border-0 border-t-[1rpx]"
+    >
       <view class="flex items-center">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         需要引荐资源：
       </view>
       <view class="font-normal flex text-repeat-66 break-all text-justify ml-[18rpx]">
-        {{ info?.resourcesNeed }}</view>
+        {{ info?.resourcesNeed }}</view
+      >
       <view class="flex items-center">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         能提供的资源：
@@ -81,22 +113,32 @@
       }}</view>
     </view>
 
-    <view v-if="info?.status == 4"
-      class="px-[30rpx] py-6 text-sm flex border-solid border-[#EDEDED] border-0 border-t-[1rpx] text-white gap-2.5">
-      <view class="flex-1 text-center rounded-[16rpx] py-4"
-        style="background: linear-gradient(135deg, #d41869 0%, #92003f 100%)">
+    <view
+      v-if="info?.status == 4"
+      class="px-[30rpx] py-6 text-sm flex border-solid border-[#EDEDED] border-0 border-t-[1rpx] text-white gap-2.5"
+    >
+      <view
+        class="flex-1 text-center rounded-[16rpx] py-4"
+        style="background: linear-gradient(135deg, #d41869 0%, #92003f 100%)"
+      >
         <view>给出引荐数</view>
         <view class="mt-1.25 text-xl font-bold">{{ info?.recommendNumProvide || 0 }}</view>
       </view>
-      <view class="flex-1 text-center rounded-[16rpx] py-4"
-        style="background: linear-gradient(135deg, #d41869 0%, #92003f 100%)">
+      <view
+        class="flex-1 text-center rounded-[16rpx] py-4"
+        style="background: linear-gradient(135deg, #d41869 0%, #92003f 100%)"
+      >
         <view>给出引荐成交金额</view>
-        <view class="mt-1.25 text-xl font-bold">￥{{ formatNumber(info?.recommendMoneyProvide) }}</view>
+        <view class="mt-1.25 text-xl font-bold"
+          >￥{{ formatNumber(info?.recommendMoneyProvide) }}</view
+        >
       </view>
     </view>
 
-    <view v-if="info?.status == 4"
-      class="font-bold text-sm px-[30rpx] pt-5 pb-5.5 border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75">
+    <view
+      v-if="info?.status == 4"
+      class="font-bold text-sm px-[30rpx] pt-5 pb-5.5 border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75"
+    >
       <view class="flex items-center">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         累计邀约嘉宾数量：{{ info?.inviteNum || 0 }}
@@ -119,7 +161,8 @@
     </view>
 
     <view
-      class="font-bold text-sm px-[30rpx] pt-5 pb-5.5 border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75">
+      class="font-bold text-sm px-[30rpx] pt-5 pb-5.5 border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75"
+    >
       <view class="flex">
         <view class="w-[170rpx] flex items-center">
           <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
@@ -127,7 +170,8 @@
         </view>
         <view class="flex-1 flex items-center flex-wrap">
           <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
-          <view class="">家乡：</view><text class="font-normal text-repeat-66">{{ info?.homeplace }}</text>
+          <view class="">家乡：</view
+          ><text class="font-normal text-repeat-66">{{ info?.homeplace }}</text>
         </view>
       </view>
       <view class="flex items-center">
@@ -136,54 +180,80 @@
       </view>
       <view class="flex">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75 mt-1.25"></view>
-        <view class="break-all text-justify w-full">爱好：<text class="font-normal text-repeat-66">{{ info?.hobby }} </text>
+        <view class="break-all text-justify w-full"
+          >爱好：<text class="font-normal text-repeat-66">{{ info?.hobby }} </text>
         </view>
       </view>
     </view>
 
     <view
-      class="font-bold text-sm px-[30rpx] pt-5 pb-[50rpx] border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75 bg-white">
-      <view v-if="profile && profile?.userInfo.status == 4" class="flex items-center">
+      class="font-bold text-sm px-[30rpx] pt-5 pb-[50rpx] border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75 bg-white"
+    >
+      <view
+        v-if="profile && profile?.userInfo?.status == 4 && info?.status == 4"
+        class="flex items-center"
+      >
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         联系电话：{{ info?.mobile }}
       </view>
-      <view v-if="profile && (profile?.userInfo.status == 3 || profile?.userInfo.status == 4)" class="flex items-center">
+      <view v-if="profile && profile?.userInfo?.status == 4" class="flex items-center">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>微信二维码：
       </view>
-      <view v-if="profile && (profile?.userInfo.status == 3 || profile?.userInfo.status == 4)"
-        class="flex justify-center">
-        <image class="w-[308rpx] h-[308rpx]" :src="info?.wechatQrCode" :show-menu-by-longpress="true"></image>
+      <view v-if="profile && profile?.userInfo?.status == 4" class="flex justify-center">
+        <image
+          class="w-[308rpx] h-[308rpx]"
+          :src="info?.wechatQrCode"
+          :show-menu-by-longpress="true"
+        ></image>
       </view>
     </view>
 
     <!-- <view
       v-if="profile && profile?.userInfo.status != 4" -->
     <view
-      class="pt-[68rpx] pb-[98rpx] border-solid border-[#EDEDED] border-0 border-t-[1rpx] flex justify-center bg-white">
+      v-if="profile && profile?.userInfo?.status == 3"
+      class="pt-[68rpx] pb-[98rpx] border-solid border-[#EDEDED] border-0 border-t-[1rpx] flex justify-center bg-white"
+    >
       <view
-        class="font-bold rounded-full w-[376rpx] h-11 flex items-center justify-center text-base text-white bg-[#92003F] active:opacity-70">
+        @click="get"
+        class="font-bold rounded-full w-[376rpx] h-11 flex items-center justify-center text-base text-white bg-[#92003F] active:opacity-70"
+      >
         获取联系方式
       </view>
     </view>
   </view>
-  <uni-popup ref="popup" type="center">
-    <image mode="aspectFill" src="@/static/images/kefu.png" :show-menu-by-longpress="true" />
+  <uni-popup ref="popup" type="dialog">
+    <view class="w-[686rpx] text-[#92003F] bg-white rounded-xl">
+      <view class="flex flex-col items-center justify-center font-bold text-xl leading-8 p-6">
+        <view class="text-justify mb-6">
+          您可成为我们会员后获取嘉宾联系方式，或添加我们工作人员微信进行咨询
+        </view>
+        <image
+          mode="aspectFill"
+          class="w-[540rpx] h-[540rpx]"
+          :src="kefuQrCode"
+          :show-menu-by-longpress="true"
+        />
+      </view>
+    </view>
   </uni-popup>
 </template>
 
 <script lang="ts"></script>
 
 <script lang="ts" setup>
-import { onLoad } from '@dcloudio/uni-app'
+import { onLoad, onShareAppMessage } from '@dcloudio/uni-app'
 import { getDetailInfo } from '@/api/app/userinfo'
-import { ref, toRefs, getCurrentInstance } from 'vue'
+import { qrCodeShow_1 } from '@/api/app/home'
+import { ref, toRefs } from 'vue'
 import { useMemberStore } from '@/stores'
 import { dateFormatYearAndMonth } from '@/utils/tools'
 import collapse from '@/components/collapse/index.vue'
 import { formatNumber } from '@/utils/tools'
 
 const { profile } = toRefs(useMemberStore())
-const _this = getCurrentInstance()
+const popup = ref()
+
 const get = async () => {
   if (!profile.value) {
     uni.navigateTo({ url: '/pages/login/login' })
@@ -192,7 +262,8 @@ const get = async () => {
     uni.navigateTo({ url: '/pages/my/info/info' })
     return
   } else if (profile?.value.userInfo.status == 3) {
-    _this?.refs.popup.open()
+    // _this?.refs.popup.open()
+    popup.value.open()
   }
 }
 
@@ -233,6 +304,7 @@ const previewImage = () => {
 }
 
 let info: any = ref()
+let kefuQrCode: any = ref()
 onLoad((options: any) => {
   // getGeocoder()
   console.log(options.id)
@@ -243,9 +315,22 @@ onLoad((options: any) => {
       title: info.value?.name,
     })
   })
+  if (profile && profile.value?.userInfo?.status == 3) {
+    qrCodeShow_1().then((res) => {
+      kefuQrCode.value = res.data
+    })
+  }
 })
 
-const onChange = () => { }
+onShareAppMessage(() => {
+  return {
+    title: info.value?.name,
+    imageUrl: info.value?.avatar,
+    path: 'pages/member/detail/index?id=' + info.value?.userId,
+  }
+})
+
+const onChange = () => {}
 </script>
 
 <style scoped></style>
