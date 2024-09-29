@@ -111,13 +111,13 @@
       </view>
       <view class="bg-white h-[400rpx] rounded-[16rpx] flex flex-col pt-[26rpx] pb-[22rpx]">
         <view class="flex text-center flex-1 items-center">
-          <view class="flex-1">
+          <view @tap="toPostRecommend" class="flex-1">
             <view>累计给出引荐</view>
             <view class="h-[50rpx] mt-1.25 text-[#92003F] text-xl font-bold">{{
               formatNumber(myData?.recommendNum || 0)
             }}</view>
           </view>
-          <view class="flex-1">
+          <view @tap="toPostRecommend" class="flex-1">
             <view>给出引荐成交金额</view>
             <view class="h-[50rpx] mt-1.25 text-[#92003F] text-xl font-bold"
               >￥{{ formatNumber(myData?.submitMoneySum || 0 || 0) }}
@@ -125,13 +125,13 @@
           </view>
         </view>
         <view class="flex text-center flex-1 items-center">
-          <view class="flex-1">
+          <view @tap="toReceiveRecommend" class="flex-1">
             <view>累计收到引荐</view>
             <view class="h-[50rpx] mt-1.25 text-[#92003F] text-xl font-bold">{{
               formatNumber(myData?.receiveRecommendNum || 0)
             }}</view>
           </view>
-          <view class="flex-1">
+          <view @tap="toReceiveRecommend" class="flex-1">
             <view>收到引荐成交金额</view>
             <view class="h-[50rpx] mt-1.25 text-[#92003F] text-xl font-bold"
               >￥{{ formatNumber(myData?.harvestMoneySum || 0 || 0) }}
@@ -141,19 +141,19 @@
       </view>
       <view class="mt-2.5 py-4 rounded-[16rpx] bg-white">
         <view class="flex text-center">
-          <view class="flex-1">
+          <view @tap="toInterviewList" class="flex-1">
             <view>走访数量</view>
             <view class="mt-1.25 text-[#92003F] text-xl font-bold">{{
               formatNumber(myData?.visitNum || 0)
             }}</view>
           </view>
-          <view class="flex-1">
+          <view @tap="toGuestList" class="flex-1">
             <view>嘉宾数量</view>
             <view class="mt-1.25 text-[#92003F] text-xl font-bold">{{
               formatNumber(myData?.guestNum || 0)
             }}</view>
           </view>
-          <view class="flex-1">
+          <view @tap="toAttendance" class="flex-1">
             <view>全勤月数</view>
             <view class="mt-1.25 text-[#92003F] text-xl font-bold"
               >{{ myData?.fullAttendanceMonth || 0 }}/{{ myData?.monthNum || 0 }}</view

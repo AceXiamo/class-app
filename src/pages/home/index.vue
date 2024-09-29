@@ -83,6 +83,16 @@
       </view>
     </view>
 
+    <!-- 申请加入 -->
+    <view>
+      <button
+        class="font-medium text-white font-base bg-[#92003F] rounded-full w-[376rpx] mt-5 mb-[46rpx]"
+        @tap="join"
+      >
+        参会报名
+      </button>
+    </view>
+
     <!-- 累计数据 -->
     <view class="mt-5 px-3">
       <view class="relative rounded-[16rpx] py-5 bg-white text-xs text-repeat-33">
@@ -200,16 +210,6 @@
               {{ item.leadership_position }}</view
             >
           </view>
-        </view>
-
-        <!-- 申请加入 -->
-        <view>
-          <button
-            class="font-medium text-white font-base bg-[#92003F] rounded-full w-[376rpx] mt-[66rpx] mb-[46rpx]"
-            @tap="join"
-          >
-            参会报名
-          </button>
         </view>
       </view>
     </view>
