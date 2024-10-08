@@ -43,7 +43,7 @@
                   :src="honorBoard?.kingOfRecommender?.mainImg">
                 </image>
                 <view class="ml-2 flex flex-col">
-                  <view class="flex-1">{{ honorBoard?.kingOfRecommender ? honorBoard?.kingOfRecommender : '虚位以待' }}
+                  <view class="flex-1">{{ honorBoard?.kingOfRecommender ? honorBoard?.kingOfRecommender.name : '虚位以待' }}
                   </view>
                   <view v-if="honorBoard?.kingOfRecommender" class="flex-1 text-xs break-all">引荐数量：{{
                     honorBoard?.kingOfRecommender?.recommendNum }}</view>
