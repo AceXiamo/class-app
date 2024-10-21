@@ -1,5 +1,5 @@
 <template>
-  <!-- <web-view v-if="news && news.url" :src="news.url" /> -->
+  <web-view v-if="news && news.url" :src="news.url" />
   <view class="h-full">
     <view class="px-4 pt-4">
       <view class="text-xl font-bold">{{ news?.title }}</view>
