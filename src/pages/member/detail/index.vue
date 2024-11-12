@@ -85,7 +85,7 @@
       >
         <view class="flex-1 break-all">{{ info?.companyAddress }}</view>
         <image
-          @tap="navigation"
+          @tap.stop="navigation"
           mode="aspectFill"
           class="w-4 h-4 ml-4 mr-[38rpx]"
           src="@/static/images/navigation.png"
@@ -191,10 +191,16 @@
     >
       <view
         v-if="profile && profile?.userInfo?.status == 4 && info?.status == 4"
-        class="flex items-center"
+        class="flex items-center relative"
       >
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
         联系电话：{{ info?.mobile }}
+        <image
+          @tap="call"
+          src="@/static/images/call.png"
+          mode="aspectFill"
+          class="w-4 h-4 absolute right-3"
+        />
       </view>
       <view v-if="profile && profile?.userInfo?.status == 4" class="flex items-center">
         <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>微信二维码：
@@ -254,6 +260,12 @@ import { formatNumber } from '@/utils/tools'
 const { profile } = toRefs(useMemberStore())
 const popup = ref()
 
+const call = () => {
+  uni.makePhoneCall({
+    phoneNumber: info.value?.mobile,
+  })
+}
+
 const get = async () => {
   if (!profile.value) {
     uni.navigateTo({ url: '/pages/login/login' })
@@ -289,12 +301,18 @@ let memberStore = useMemberStore()
 //   })
 // }
 
-// const navigation = () => {
-//   uni.openLocation({
-//     name: '深圳市南山区华润置地大厦E座1609',
-//     address: '深圳市南山区华润置地大厦E座1609'
-//   });
-// }
+const navigation = () => {
+  if (info.value.lat && info.value.lng && info.value.companyAddress) {
+    uni.openLocation({
+      address: info.value.companyAddress,
+      latitude: info.value.lat,
+      longitude: info.value.lng,
+      fail(res) {
+        console.log(res)
+      },
+    })
+  }
+}
 
 //头像预览
 const previewImage = () => {

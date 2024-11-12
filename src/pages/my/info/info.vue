@@ -124,7 +124,7 @@
           placeholder="请输入"
           placeholder-class="placeholder"
         />
-        <!-- <view @tap="getLocation" class="text-[#92003F]">选择地址</view> -->
+        <view @tap="getLocation" class="text-[#92003F]">选择地址</view>
       </view>
     </view>
 
@@ -317,11 +317,13 @@ const regionChange = (e: any) => {
 const getLocation = () => {
   uni.chooseLocation({
     success: (res) => {
-      // console.log('位置名称：' + res.name);
-      // console.log('详细地址：' + res.address);
-      // console.log('纬度：' + res.latitude);
-      // console.log('经度：' + res.longitude);
+      // console.log('位置名称：' + res.name)
+      // console.log('详细地址：' + res.address)
+      // console.log('纬度：' + res.latitude)
+      // console.log('经度：' + res.longitude)
       info.value.companyAddress = res.address
+      info.value.lng = res.longitude
+      info.value.lat = res.latitude
     },
   })
 }

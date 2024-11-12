@@ -129,6 +129,7 @@
                   {{ item?.companyAddress }}
                 </text>
                 <image
+                  @tap.stop="openLocation(item)"
                   mode="aspectFill"
                   class="w-[30rpx] h-[30rpx] absolute right-3"
                   src="@/static/images/navigation.png"
@@ -295,6 +296,19 @@ onLoad(() => {
   GetIndustry()
   loadData()
 })
+
+const openLocation = (item: any) => {
+  if (item.lat && item.lng && item.companyAddress) {
+    uni.openLocation({
+      address: item.companyAddress,
+      latitude: item.lat,
+      longitude: item.lng,
+      fail(res) {
+        console.log(res)
+      },
+    })
+  }
+}
 </script>
 
 <style lang="scss">

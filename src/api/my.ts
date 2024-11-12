@@ -56,6 +56,8 @@ interface Info {
   recommenderId: number
   mobile: string
   wechatQrCode: string
+  lng: number
+  lat: number
 }
 export const setInfo = (data?: Info) => {
   return http({
