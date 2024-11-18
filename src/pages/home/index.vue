@@ -202,6 +202,7 @@
             v-for="(item, index) in team"
             :key="index"
             class="aspect-square relative rounded-[16rpx] overflow-hidden"
+            @click="goDetail(item?.userId)"
           >
             <image mode="aspectFill" class="w-full h-full" :src="item.avatar"> </image>
             <view
@@ -302,6 +303,11 @@ const join = () => {
   } else {
     uni.navigateTo({ url: '/pages/my/info/info' })
   }
+}
+
+//跳转会员详情页
+const goDetail = (id: any) => {
+  uni.navigateTo({ url: '/pages/member/detail/index?id=' + id })
 }
 </script>
 
