@@ -75,7 +75,6 @@ const onGetphonenumber: UniHelper.ButtonOnGetphonenumber = async (ev) => {
     return
   }
   const { encryptedData, iv } = ev.detail
-  // console.log('encryptedData:', encryptedData, 'iv:', iv)
   const res = await postLoginWxMinAPI({ code, encryptedData, iv })
   if (res.code != 0) {
     uni.showToast({ icon: 'none', title: '登录失败' })

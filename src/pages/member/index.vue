@@ -5,24 +5,6 @@
       <search-bar :placeholder="''" @search="search" />
     </view>
 
-    <view class="h-12.5 flex justify-between text-xl px-10 font-bold bg-white">
-      <view
-        @tap="check(index)"
-        v-for="(item, index) in options"
-        :class="{ 'text-[#92003F]': index === i }"
-        :key="index"
-        class="flex items-center justify-center w-full"
-      >
-        <view class="relative flex justify-center px-0.5">
-          {{ item }}
-          <view
-            class="w-full h-1.5 bg-[#92003F] opacity-10 rounded-full absolute bottom-0.5"
-            v-if="index === i"
-          ></view>
-        </view>
-      </view>
-    </view>
-
     <view class="bg-white h-12.5 flex items-center overflow-x-auto">
       <slider-tab v-model="curValue" :tabs="tabs" @change="onChange">
         <template #="{ active, tab, index }">
@@ -47,7 +29,7 @@
       </slider-tab>
     </view>
 
-    <view class="flex justify-center" style="height: calc(100% - 296rpx)">
+    <view class="flex justify-center" style="height: calc(100% - 196rpx)">
       <od-list class="w-full" :total="total" :load-more="more" @on-load-more="lowerBottom">
         <view
           v-for="(item, index) in list"
@@ -56,85 +38,25 @@
         >
           <view @tap="toDetail(item?.id)" class="flex m-[-1rpx] pt-3 pb-[28rpx]">
             <view class="rounded-[8rpx] relative pl-[28rpx] pr-4.5 mt-[6rpx]">
-              <!-- <image mode="aspectFill" class="w-[172rpx] h-[172rpx] rounded-[8rpx] bg-black" :src="!memberStore.profile ||
-                memberStore.profile?.userInfo?.status == 0 ||
-                memberStore.profile?.userInfo?.status == 1 ||
-                memberStore.profile?.userInfo?.status == 2
-                ? ''
-                : item?.avatar
-                ">
-              </image> -->
               <image
-                mode="aspectFill"
-                class="w-[172rpx] h-[172rpx] rounded-[8rpx] bg-black"
+                mode="aspectFit"
+                class="w-[150rpx] h-[150rpx] rounded-[8rpx] bg-black"
                 :src="item?.avatar"
               >
               </image>
-              <view
-                v-if="item?.leadership_position && item?.leadership_position != ''"
-                class="absolute bottom-0 bg-[rgba(0,0,0,0.5)] rounded-b-[8rpx] w-full h-5 flex items-center justify-center text-white text-xs"
-              >
-                {{ item?.leadership_position }}
-              </view>
             </view>
-            <view class="w-full text-xs flex flex-col">
-              <view class="font-bold text-[30rpx] text-black h-5.5 flex items-center">
+            <view class="flex-1 text-xs flex flex-col items-end pr-[30rpx]">
+              <view class="font-bold text-[36rpx] text-black h-5.5 flex items-center">
                 {{ item?.name }}
               </view>
-
-              <view class="w-full h-5.5 flex items-center mt-1 text-repeat-33 text-[26rpx]">
-                <text class="w-full break-all line-clamp-1 pr-[34rpx]">
-                  行业：{{ item?.industry }}
-                </text>
-              </view>
-
-              <view class="w-[17em] flex text-repeat-33 text-[26rpx] h-5.5 items-center">
-                <view class="w-2/3 break-all line-clamp-1">
-                  <!-- {{
-                    !memberStore.profile ||
-                    memberStore.profile?.userInfo?.status == 0 ||
-                    memberStore.profile?.userInfo?.status == 1 ||
-                    memberStore.profile?.userInfo?.status == 2
-                      ? ''
-                      : item?.company
-                  }} -->
-                  {{ item?.company }}
-                </view>
-                <view class="ml-3 w-1/3 break-all line-clamp-1">
-                  <!-- {{
-                    !memberStore.profile ||
-                    memberStore.profile?.userInfo?.status == 0 ||
-                    memberStore.profile?.userInfo?.status == 1 ||
-                    memberStore.profile?.userInfo?.status == 2
-                      ? ''
-                      : item?.position
-                  }} -->
-                  {{ item?.position }}
-                </view>
-              </view>
-
-              <view
-                class="w-full flex items-center relative mt-[6rpx] h-5.5 text-repeat-99 text-xs"
-              >
-                <text class="w-full break-all line-clamp-1 pr-10">
-                  <!-- {{
-                    !memberStore.profile ||
-                    memberStore.profile?.userInfo?.status == 0 ||
-                    memberStore.profile?.userInfo?.status == 1 ||
-                    memberStore.profile?.userInfo?.status == 2 ||
-                    memberStore.profile?.userInfo?.status == 3
-                      ? ''
-                      : item?.companyAddress
-                  }} -->
-                  {{ item?.companyAddress }}
-                </text>
-                <image
-                  @tap.stop="openLocation(item)"
-                  mode="aspectFill"
-                  class="w-[30rpx] h-[30rpx] absolute right-3"
-                  src="@/static/images/navigation.png"
+              <view class="mt-auto flex flex-col gap-[10rpx]">
+                <view
+                  class="flex items-center justify-end"
+                  v-for="(str, index) in item?.college.split(',')"
+                  :key="index"
                 >
-                </image>
+                  <text class="text-[#333] text-[26rpx]">{{ str }}</text>
+                </view>
               </view>
             </view>
           </view>
@@ -282,14 +204,24 @@ const loadData = async () => {
   }
 }
 
-let curValue = ref(0)
-let tabs = ref([{ key: 0, title: '全部' }])
+let curValue = ref(-1)
+let tabs = ref([
+  { key: -1, title: '全部' },
+  { key: 10, title: '会长' },
+  { key: 9, title: '名誉会长' },
+  { key: 8, title: '执行会长' },
+  { key: 7, title: '监事长' },
+  { key: 6, title: '常务副会长' },
+  { key: 5, title: '副会长' },
+  { key: 4, title: '理事' },
+  { key: 3, title: '秘书处' },
+])
 
 const GetIndustry = async () => {
-  const { data } = await status.getIndustry()
-  data.map((item: any) => {
-    tabs.value.push({ key: item.id, title: item.title })
-  })
+  // const { data } = await status.getIndustry()
+  // data.map((item: any) => {
+  //   tabs.value.push({ key: item.id, title: item.title })
+  // })
 }
 
 onLoad(() => {
