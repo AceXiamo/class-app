@@ -1,5 +1,5 @@
 <template>
-  <view class="overflow-auto h-full text-sm bg-white pb-[200rpx]">
+  <view class="overflow-auto h-full text-sm bg-white">
     <view class="relative">
       <swiper
         v-if="banners.length > 0"
@@ -11,7 +11,12 @@
         @change="onBannersSwiperChange"
       >
         <swiper-item v-for="(item, index) in banners" :key="index" class="h-[308rpx]">
-          <image class="w-full h-full" :src="item.content" mode="scaleToFill" />>
+          <image
+            class="w-full h-full"
+            :src="item.content"
+            mode="scaleToFill"
+            @click="goto(item.target)"
+          />
         </swiper-item>
       </swiper>
       <view class="flex w-full absolute bottom-[150rpx]">
@@ -29,15 +34,7 @@
         </view>
       </view>
     </view>
-    <image :src="aboutUsCover" mode="widthFix" class="w-full mt-[50rpx]" />
-    <view class="mt-[80rpx]">
-      <button
-        class="font-medium text-white font-base bg-[#92003F] rounded-full w-[376rpx] mt-5 mb-[46rpx]"
-        @tap="join"
-      >
-        加入商会
-      </button>
-    </view>
+    <image :src="aboutUsCover" mode="widthFix" class="w-full" />
     <view class="w-full h-[34rpx]"></view>
   </view>
 </template>
@@ -51,12 +48,39 @@ import { onLoad, onShareAppMessage } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 import { useMemberStore } from '@/stores'
 import { formatNumber } from '@/utils/tools'
+import { loginWithCode } from '@/api/user'
 
 let memberStore = useMemberStore()
 
+const loginHandler = () => {
+  uni.login({
+    provider: 'weixin',
+    success: (res) => {
+      // console.log('登录成功', res)
+      loginWithCode({
+        code: res.code,
+      }).then((res) => {
+        if (res.code == 0) loginSuccess(res.data)
+      })
+    },
+  })
+}
+
+const goto = (url: string) => {
+  if (url) uni.navigateTo({ url })
+}
+
+const loginSuccess = (profile) => {
+  console.log('登录成功', profile)
+  // 保存会员信息
+  memberStore.setProfile(profile)
+  // 成功提示
+  // uni.showToast({ icon: 'success', title: '登录成功' })
+}
+
 onShareAppMessage(() => {
   return {
-    title: '立德俱乐部',
+    title: '鹏城橙乡情',
     path: '/pages/home/index',
   }
 })
@@ -89,6 +113,8 @@ let total: any = ref()
 const aboutUsCover = ref('')
 
 onLoad(async () => {
+  loginHandler()
+
   homeApi.bannerList_1().then((result1) => {
     banners.value = result1.data || []
   })
@@ -128,16 +154,6 @@ const showMoreData = () => {
 //跳转历届领导团队
 const showMoreTeam = () => {
   uni.navigateTo({ url: '/pages/home/team/index' })
-}
-
-//申请加入
-const join = () => {
-  // console.log('申请加入')
-  if (!memberStore.profile) {
-    uni.navigateTo({ url: '/pages/login/login' })
-  } else {
-    uni.navigateTo({ url: '/pages/my/info/info' })
-  }
 }
 
 //跳转会员详情页

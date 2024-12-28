@@ -29,15 +29,22 @@
       >
         <view class="flex justify-between">
           <view class="relative w-20 h-20 flex justify-center">
-            <image mode="aspectFill" class="w-20 h-20 rounded-full" :src="info?.avatar"></image>
+            <image
+              mode="aspectFill"
+              class="w-20 h-20 rounded-full"
+              :src="
+                info?.avatar ||
+                'https://chambers.oss-cn-shenzhen.aliyuncs.com/20241208/f7c7fd8a-7323-416a-b3db-62eb07118217-WechatIMG163_39398.jpg'
+              "
+            ></image>
           </view>
           <view class="text-[28rpx] flex flex-col">
-            <view class="flex flex-col items-end gap-[5rpx]">
+            <view class="flex flex-col items-end gap-[10rpx]">
               <text class="text-[#333] text-[32rpx]">{{
                 roleArr.find((item: any) => item.value == info?.status)?.label
               }}</text>
               <text class="text-[#333] text-[32rpx]">
-                {{ roleArr.find((item: any) => item.value == info?.position)?.label }}
+                {{ info?.position }}
               </text>
             </view>
             <view class="font-bold text-[36rpx] text-[#333] mt-[30rpx] ml-auto">{{
@@ -48,7 +55,7 @@
 
         <view class="flex flex-col gap-[20rpx] mt-[100rpx]" v-if="info?.college">
           <view class="flex items-center font-bold">
-            <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
+            <view class="w-0.5 h-2.75 bg-[#E33531] mr-1.75"></view>
             企业职务：
           </view>
           <view class="flex flex-col gap-[10rpx]">
@@ -60,7 +67,7 @@
 
         <view class="flex flex-col gap-[20rpx] mt-[50rpx]" v-if="info?.bussiness">
           <view class="flex items-center font-bold">
-            <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
+            <view class="w-0.5 h-2.75 bg-[#E33531] mr-1.75"></view>
             社会职务：
           </view>
           <view class="flex flex-col gap-[10rpx]">
@@ -77,14 +84,14 @@
       <view
         v-if="!profile"
         @tap="toLogin"
-        class="flex m-4 justify-center py-[20rpx] mt-[50rpx] border-solid bg-[#92003F] border-white border-[1rpx] rounded-[16rpx] text-white text-[26rpx] z-10 active:opacity-[0.7]"
+        class="flex m-4 justify-center py-[20rpx] mt-[50rpx] border-solid bg-[#E33531] border-white border-[1rpx] rounded-[16rpx] text-white text-[26rpx] z-10 active:opacity-[0.7]"
       >
         登录
       </view>
       <view
         v-if="profile"
         @tap="logout"
-        class="flex m-4 justify-center py-[20rpx] mt-[50rpx] border-solid bg-[#92003F] border-white border-[1rpx] rounded-[16rpx] text-white text-[26rpx] z-10 active:opacity-[0.7]"
+        class="flex m-4 justify-center py-[20rpx] mt-[50rpx] border-solid bg-[#E33531] border-white border-[1rpx] rounded-[16rpx] text-white text-[26rpx] z-10 active:opacity-[0.7]"
       >
         退出登录
       </view>

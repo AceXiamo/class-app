@@ -44,7 +44,7 @@
       <view class="text-[#333] font-bold">是否已在群里宣传被走访人</view>
       <radio-group class="h-8 mt-2 ml-2 flex items-center" @change="onChange1">
         <label class="flex-1" v-for="(item, index) in range1" :key="item.value">
-          <radio :value="item.value" color="#92003F" />
+          <radio :value="item.value" color="#E33531" />
           <text class="ml-1 text-[#666]">{{ item.text }}</text>
         </label>
       </radio-group>
@@ -66,7 +66,7 @@
       </view>
       <view class="w-[288rpx] h-[88rpx]">
         <button
-          class="rounded-[44rpx] bg-[#92003F] text-white text-[32rpx] leading-[88rpx]"
+          class="rounded-[44rpx] bg-[#E33531] text-white text-[32rpx] leading-[88rpx]"
           @tap="submit"
         >
           确定

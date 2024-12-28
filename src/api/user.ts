@@ -18,6 +18,13 @@ export const postLoginWxMinAPI = (data: LoginWxMinParams) => {
   })
 }
 
+export const loginWithCode = (data: LoginWxMinParams) => {
+  return http<LoginResult>({
+    method: 'POST',
+    url: '/app/auth/loginWithCode',
+    data,
+  })
+}
 
 /**
  *  刷新token
@@ -25,14 +32,14 @@ export const postLoginWxMinAPI = (data: LoginWxMinParams) => {
  */
 interface refreshData {
   /** 刷新令牌 **/
-  refreshToken?: any;
+  refreshToken?: any
 }
 export const refresh = (data?: refreshData) => {
   return http({
     method: 'POST',
     url: '/app/auth/refresh?refreshToken=' + data?.refreshToken,
-  });
-};
+  })
+}
 // type LoginParams = {
 //   account: string
 //   password: string

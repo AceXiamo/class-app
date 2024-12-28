@@ -1,34 +1,43 @@
 <template>
   <view class="overflow-auto h-full p-4 text-sm space-y-4">
     <view class="rounded-[16rpx] bg-white w-full">
-      <view class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative">
-        <view class="w-0.75 h-[28rpx] bg-[#92003F] mr-2"></view>
+      <view
+        class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative"
+      >
+        <view class="w-0.75 h-[28rpx] bg-[#E33531] mr-2"></view>
         <view class="text-base font-bold">我的嘉宾</view>
         <view class="w-[108rpx] h-[42rpx] rounded-full absolute right-[30rpx]">
-          <uni-data-select class="w-16" :clear="false" v-model="value" :localdata="range"
-            @change="onChange"></uni-data-select>
+          <uni-data-select
+            class="w-16"
+            :clear="false"
+            v-model="value"
+            :localdata="range"
+            @change="onChange"
+          ></uni-data-select>
         </view>
       </view>
 
       <view class="flex item-center pt-6 pb-6">
         <view class="flex-1 text-center">
           <view>介绍会员数</view>
-          <view class="text-[40rpx] text-[#92003F] font-bold mt-1">{{ guest.memberNum }}</view>
+          <view class="text-[40rpx] text-[#E33531] font-bold mt-1">{{ guest.memberNum }}</view>
         </view>
         <view class="flex-1 text-center">
           <view>嘉宾数</view>
-          <view class="text-[40rpx] text-[#92003F] font-bold mt-1">{{ guest.guestNum }}</view>
+          <view class="text-[40rpx] text-[#E33531] font-bold mt-1">{{ guest.guestNum }}</view>
         </view>
         <view class="flex-1 text-center">
           <view>准嘉宾数</view>
-          <view class="text-[40rpx] text-[#92003F] font-bold mt-1">{{ guest.boundGuestNum }}</view>
+          <view class="text-[40rpx] text-[#E33531] font-bold mt-1">{{ guest.boundGuestNum }}</view>
         </view>
       </view>
     </view>
 
     <view class="rounded-[16rpx] bg-white w-full">
-      <view class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative">
-        <view class="w-0.75 h-[28rpx] bg-[#92003F] mr-2"></view>
+      <view
+        class="flex items-center h-[112rpx] border-0 border-solid border-b-[2rpx] border-[#F8F8F8] relative"
+      >
+        <view class="w-0.75 h-[28rpx] bg-[#E33531] mr-2"></view>
         <view class="text-base font-bold">嘉宾列表</view>
       </view>
 
@@ -42,57 +51,75 @@
         </view>
         <!-- v-if="guest.boundGuestNum.length" -->
         <block v-if="guest.guestVOList">
-          <view v-for="(item, index) in guest.guestVOList" :key="index" :class="['flex text-center text-[#333] leading-[44rpx] pt-[26rpx] pb-[26rpx]', {
-            'border-solid': index !== guest.boundGuestNum.length - 1,
-            'border-b-[2rpx]': index !== guest.boundGuestNum.length - 1,
-            'border-[#F8F8F8]': index !== guest.boundGuestNum.length - 1
-          }]">
-            <view class="flex-none w-[140rpx] text-[24rpx]">{{ dayjs(item.createTime).format('YYYY-MM-DD') }}</view>
+          <view
+            v-for="(item, index) in guest.guestVOList"
+            :key="index"
+            :class="[
+              'flex text-center text-[#333] leading-[44rpx] pt-[26rpx] pb-[26rpx]',
+              {
+                'border-solid': index !== guest.boundGuestNum.length - 1,
+                'border-b-[2rpx]': index !== guest.boundGuestNum.length - 1,
+                'border-[#F8F8F8]': index !== guest.boundGuestNum.length - 1,
+              },
+            ]"
+          >
+            <view class="flex-none w-[140rpx] text-[24rpx]">{{
+              dayjs(item.createTime).format('YYYY-MM-DD')
+            }}</view>
             <view class="flex-1 text-[24rpx]">{{ item.name }}</view>
             <view class="flex-1 text-[24rpx]">{{ item.industry }}</view>
             <view class="flex-1 text-[24rpx]">{{ item.attendNum }}</view>
-            <view class="flex-1 text-[24rpx]">{{ item.status == 0 ? '游客' : item.status == 1 ? '待验证' : item.status == 2 ?
-              '准嘉宾' :
-              item.status ==
-                3 ? '嘉宾' : item.status == 4 ? '会员' : item.status == 5 ? '顾问团' : '历史会员' }}</view>
+            <view class="flex-1 text-[24rpx]">{{
+              item.status == 0
+                ? '游客'
+                : item.status == 1
+                ? '待验证'
+                : item.status == 2
+                ? '准嘉宾'
+                : item.status == 3
+                ? '嘉宾'
+                : item.status == 4
+                ? '会员'
+                : item.status == 5
+                ? '顾问团'
+                : '历史会员'
+            }}</view>
           </view>
         </block>
         <view v-else class="text-center text-[#999] text-xs py-2">暂无信息</view>
       </view>
     </view>
-
   </view>
 </template>
 
-<script lang="ts">
-</script>
+<script lang="ts"></script>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 import { getGuest } from '@/api/app/my'
-import { onLoad } from '@dcloudio/uni-app';
-import dayjs from 'dayjs';
+import { onLoad } from '@dcloudio/uni-app'
+import dayjs from 'dayjs'
 
 let guest: any = ref({})
 
-let value = ref(0);
+let value = ref(0)
 let range = ref([
   { value: 0, text: '本周' },
   { value: 1, text: '本月' },
   { value: 2, text: '本届' },
   { value: 3, text: '累计' },
-]);
+])
 
 onLoad(async () => {
-  const { data } = await getGuest({ queryType: value.value });
-  guest.value = data || {};
+  const { data } = await getGuest({ queryType: value.value })
+  guest.value = data || {}
   // console.log(guest.value);
 })
 
 const onChange = async (e: any) => {
   // console.log('change事件:', e);
-  const { data } = await getGuest({ queryType: e });
-  guest.value = data || {};
+  const { data } = await getGuest({ queryType: e })
+  guest.value = data || {}
 }
 </script>
 
@@ -108,12 +135,12 @@ const onChange = async (e: any) => {
 }
 
 ::v-deep .uni-select__input-text {
-  color: #92003f !important;
+  color: #e33531 !important;
   text-align: right !important;
 }
 
 ::v-deep .uni-icons {
-  color: #92003f !important;
+  color: #e33531 !important;
   margin: 0 6rpx 0 8rpx !important;
 }
 </style>

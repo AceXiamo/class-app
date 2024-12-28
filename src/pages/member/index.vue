@@ -10,7 +10,7 @@
         <template #="{ active, tab, index }">
           <view
             :class="[
-              'text-[26rpx] h-12.5 flex items-center relative justify-center',
+              'text-[30rpx] h-12.5 flex items-center relative justify-center',
               {
                 'text-repeat-33': active,
                 'text-repeat-66': !active,
@@ -23,7 +23,7 @@
             ]"
           >
             {{ tab.title }}
-            <view v-if="active" class="bg-[#92003F] w-[30rpx] h-0.75 absolute bottom-2"></view>
+            <view v-if="active" class="bg-[#E33531] w-[30rpx] h-0.75 absolute bottom-2"></view>
           </view>
         </template>
       </slider-tab>
@@ -36,17 +36,18 @@
           :key="index"
           class="m-[30rpx] rounded-[16rpx] bg-white overflow-hidden"
         >
-          <view @tap="toDetail(item?.id)" class="flex m-[-1rpx] pt-3 pb-[28rpx]">
-            <view class="rounded-[8rpx] relative pl-[28rpx] pr-4.5 mt-[6rpx]">
-              <image
-                mode="aspectFit"
-                class="w-[150rpx] h-[150rpx] rounded-[8rpx] bg-black"
-                :src="item?.avatar"
-              >
-              </image>
-            </view>
+          <view @tap="toDetail(item?.id)" class="flex m-[-1rpx] pt-3 pb-[28rpx] ml-[25rpx]">
+            <image
+              mode="aspectFit"
+              class="w-[180rpx] h-[180rpx] rounded-[8rpx]"
+              :src="
+                item?.avatar ||
+                'https://chambers.oss-cn-shenzhen.aliyuncs.com/20241208/f7c7fd8a-7323-416a-b3db-62eb07118217-WechatIMG163_39398.jpg'
+              "
+            >
+            </image>
             <view class="flex-1 text-xs flex flex-col items-end pr-[30rpx]">
-              <view class="font-bold text-[36rpx] text-black h-5.5 flex items-center">
+              <view class="font-bold text-[40rpx] text-black h-5.5 flex items-center">
                 {{ item?.name }}
               </view>
               <view class="mt-auto flex flex-col gap-[10rpx]">

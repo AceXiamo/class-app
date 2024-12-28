@@ -1,19 +1,21 @@
 <template>
   <view class="h-full bg-white flex flex-col items-center justify-center relative">
-    <image
-      class="w-full absolute top-0"
-      src="@/static/images/logo_icon.png"
-      mode="aspectFit"
-    ></image>
+    <view class="bg-[#E33531] w-full flex items-center justify-center absolute top-0">
+      <image
+        class="w-full"
+        src="https://chambers.oss-cn-shenzhen.aliyuncs.com/20241208/4080b67a-24ce-4aa6-884a-30ba0aa7ac40-WechatIMG114_38776.jpg"
+        mode="aspectFit"
+      ></image>
+    </view>
     <view class="h-min flex flex-col items-center justify-center">
       <!-- <image
-        class="h-20 w-20 rounded-full bg-[#90003c] mb-10"
+        class="h-20 w-20 rounded-full bg-[#E33531] mb-10"
         src="@/static/images/logo_icon.png"
         mode="aspectFit"
       ></image> -->
       <button
         v-if="!isAgreePrivacy"
-        class="bg-[#90003c] rounded-full text-white"
+        class="bg-[#E33531] rounded-full text-white"
         @click="checkedAgreePrivacy"
       >
         <text class="icon-phone"></text>
@@ -21,7 +23,7 @@
       </button>
       <button
         v-else
-        class="bg-[#90003c] rounded-full text-white"
+        class="bg-[#E33531] rounded-full text-white"
         open-type="getPhoneNumber"
         @getphonenumber="onGetphonenumber"
       >
@@ -31,12 +33,12 @@
     </view>
     <view class="absolute bottom-8 flex px-8" :class="{ animate__shakeY: isAgreePrivacyShakeY }">
       <label @tap="isAgreePrivacy = !isAgreePrivacy">
-        <radio color="#90003c" :checked="isAgreePrivacy" />
+        <radio color="#E33531" :checked="isAgreePrivacy" />
       </label>
 
-      <view class="text-[#90003c]">
+      <view class="text-[#E33531]">
         <view
-          >登录/注册即视为你同意深大校友商务对接平台<text class="link" @tap="onOpenPrivacyContract"
+          >登录/注册即视为你同意深圳市廉江商会<text class="link" @tap="onOpenPrivacyContract"
             >《隐私协议》</text
           ></view
         >
@@ -53,7 +55,7 @@
 <script lang="ts"></script>
 
 <script setup lang="ts">
-import { postLoginWxMinAPI } from '@/api/user'
+import { postLoginWxMinAPI, loginWithCode } from '@/api/user'
 import { onLoad } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 import type { LoginResult } from '@/types/member'

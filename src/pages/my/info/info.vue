@@ -1,122 +1,129 @@
 <template>
   <view class="p-4 box-border text-sm h-full space-y-4">
-    <view class="flex items-center pb-2 border-b-[1rpx] border-[#F0F0F0] mt-[30rpx]">
-      <view class="flex-1">
-        <view class="h-6"
-          ><text class="text-[#FF4646]">*</text><text class="font-bold">头像：</text></view
-        >
-        <view class="text-[#666] h-6 mt-1.25" v-if="info.avatar">已上传</view>
-        <view class="placeholder h-6 mt-1.25" v-else>请上传图片</view>
+    <template v-if="banners.length > 0 && !!banners[0].target">
+      <view class="flex items-center pb-2 border-b-[1rpx] border-[#F0F0F0] mt-[30rpx]">
+        <view class="flex-1">
+          <view class="h-6"
+            ><text class="text-[#FF4646]">*</text><text class="font-bold">头像：</text></view
+          >
+          <view class="text-[#666] h-6 mt-1.25" v-if="info.avatar">已上传</view>
+          <view class="placeholder h-6 mt-1.25" v-else>请上传图片</view>
+        </view>
+        <upload
+          v-model="info.avatar"
+          :size="96"
+          :show-button="true"
+          :cropper="true"
+          @finish="onFinish"
+        />
       </view>
-      <upload
-        v-model="info.avatar"
-        :size="96"
-        :show-button="true"
-        :cropper="true"
-        @finish="onFinish"
-      />
-    </view>
 
-    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view><text class="text-[#FF4646]">*</text><text class="font-bold">姓名：</text></view>
-      <input
-        v-model="info.name"
-        class="h-8 mt-2 text-[#666]"
-        placeholder="请输入"
-        placeholder-class="placeholder"
-      />
-    </view>
+      <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
+        <view><text class="text-[#FF4646]">*</text><text class="font-bold">姓名：</text></view>
+        <input
+          v-model="info.name"
+          class="h-8 mt-2 text-[#666]"
+          placeholder="请输入"
+          placeholder-class="placeholder"
+        />
+      </view>
 
-    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view><text class="text-[#FF4646]">*</text><text class="font-bold">手机号：</text></view>
-      <input
-        v-model="info.mobile"
-        class="h-8 mt-2 text-[#666]"
-        placeholder="请输入"
-        placeholder-class="placeholder"
-      />
-    </view>
+      <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
+        <view><text class="text-[#FF4646]">*</text><text class="font-bold">手机号：</text></view>
+        <input
+          v-model="info.mobile"
+          class="h-8 mt-2 text-[#666]"
+          placeholder="请输入"
+          placeholder-class="placeholder"
+        />
+      </view>
 
-    <!-- <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
+      <!-- <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
       <view><text class="text-[#FF4646]">*</text><text class="font-bold">性别：</text></view>
       <radio-group class="h-8 mt-2 ml-2 flex items-center" @change="sexChange">
         <label class="flex-1" v-for="item in range" :key="item.value">
-          <radio :value="item.value + ''" :checked="info.sex == item.value" color="#92003F" />
+          <radio :value="item.value + ''" :checked="info.sex == item.value" color="#E33531" />
           <text class="ml-1 text-[#666]">{{ item.text }}</text>
         </label>
       </radio-group>
     </view> -->
 
-    <view class="pb-2">
-      <view class="flex justify-between items-center">
-        <text class="font-bold">企业职务：</text>
-        <view class="text-blue-500" @click="companyArr.push('')">添加</view>
-      </view>
-      <view class="flex flex-col gap-[10rpx] w-full mt-2">
-        <view
-          class="flex items-center gap-[30rpx] w-full"
-          v-for="(item, index) in companyArr"
-          :key="index"
-        >
-          <input
-            v-model="companyArr[index]"
-            class="h-8 text-[#666] flex-auto border-[1rpx] border-solid rounded-[4rpx] border-[#F0F0F0] px-[20rpx]"
-            placeholder="请输入"
-            placeholder-class="placeholder"
-          />
-          <view class="text-red-500 text-[24rpx]" @click="companyArr.splice(index, 1)">删除</view>
+      <view class="pb-2">
+        <view class="flex justify-between items-center">
+          <text class="font-bold">企业职务：</text>
+          <view class="text-blue-500" @click="companyArr.push('')">添加</view>
+        </view>
+        <view class="flex flex-col gap-[10rpx] w-full mt-2">
+          <view
+            class="flex items-center gap-[30rpx] w-full"
+            v-for="(item, index) in companyArr"
+            :key="index"
+          >
+            <input
+              v-model="companyArr[index]"
+              class="h-8 text-[#666] flex-auto border-[1rpx] border-solid rounded-[4rpx] border-[#F0F0F0] px-[20rpx]"
+              placeholder="请输入"
+              placeholder-class="placeholder"
+            />
+            <view class="text-red-500 text-[24rpx]" @click="companyArr.splice(index, 1)">删除</view>
+          </view>
         </view>
       </view>
-    </view>
 
-    <view class="pb-2">
-      <view class="flex justify-between items-center">
-        <text class="font-bold">社会职务：</text>
-        <view class="text-blue-500" @click="societyArr.push('')">添加</view>
-      </view>
-      <view class="flex flex-col gap-[10rpx] w-full mt-2">
-        <view
-          class="flex items-center gap-[30rpx] w-full"
-          v-for="(item, index) in societyArr"
-          :key="index"
-        >
-          <input
-            v-model="societyArr[index]"
-            class="h-8 text-[#666] flex-auto border-[1rpx] border-solid rounded-[4rpx] border-[#F0F0F0] px-[20rpx]"
-            placeholder="请输入"
-            placeholder-class="placeholder"
-          />
-          <view class="text-red-500 text-[24rpx]" @click="societyArr.splice(index, 1)">删除</view>
+      <view class="pb-2">
+        <view class="flex justify-between items-center">
+          <text class="font-bold">社会职务：</text>
+          <view class="text-blue-500" @click="societyArr.push('')">添加</view>
+        </view>
+        <view class="flex flex-col gap-[10rpx] w-full mt-2">
+          <view
+            class="flex items-center gap-[30rpx] w-full"
+            v-for="(item, index) in societyArr"
+            :key="index"
+          >
+            <input
+              v-model="societyArr[index]"
+              class="h-8 text-[#666] flex-auto border-[1rpx] border-solid rounded-[4rpx] border-[#F0F0F0] px-[20rpx]"
+              placeholder="请输入"
+              placeholder-class="placeholder"
+            />
+            <view class="text-red-500 text-[24rpx]" @click="societyArr.splice(index, 1)">删除</view>
+          </view>
         </view>
       </view>
-    </view>
 
-    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view><text class="font-bold">企业简介：</text></view>
-      <textarea
-        v-model="info.company"
-        class="h-[200rpx] mt-2 text-[#666]"
-        placeholder="请输入"
-        placeholder-class="placeholder"
-      />
-    </view>
+      <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
+        <view><text class="font-bold">企业简介：</text></view>
+        <textarea
+          v-model="info.company"
+          class="h-[200rpx] mt-2 text-[#666]"
+          placeholder="请输入"
+          placeholder-class="placeholder"
+        />
+      </view>
 
-    <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view><text class="font-bold">个人简介：</text></view>
-      <textarea
-        v-model="info.companyAddress"
-        class="h-[200rpx] mt-2 text-[#666]"
-        placeholder="请输入"
-        placeholder-class="placeholder"
-      />
-    </view>
+      <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
+        <view><text class="font-bold">个人简介：</text></view>
+        <textarea
+          v-model="info.companyAddress"
+          class="h-[200rpx] mt-2 text-[#666]"
+          placeholder="请输入"
+          placeholder-class="placeholder"
+        />
+      </view>
 
-    <view class="mt-4 pb-10 flex">
-      <!-- <button class="w-[288rpx] h-[88rpx] rounded-[44rpx] bg-[#F5F5F5]">保存</button> -->
-      <button class="w-[288rpx] h-[88rpx] rounded-[44rpx] bg-[#92003F] text-white" @tap="commit">
-        提交
-      </button>
-    </view>
+      <view class="mt-4 pb-10 flex">
+        <!-- <button class="w-[288rpx] h-[88rpx] rounded-[44rpx] bg-[#F5F5F5]">保存</button> -->
+        <button class="w-[288rpx] h-[88rpx] rounded-[44rpx] bg-[#E33531] text-white" @tap="commit">
+          提交
+        </button>
+      </view>
+    </template>
+    <template v-else>
+      <view class="flex justify-center items-center h-full">
+        <view class="text-sm text-[#666]">Todo:</view>
+      </view>
+    </template>
   </view>
 </template>
 
@@ -128,9 +135,17 @@ import upload from '@/components/uploadImage/upload.vue'
 import { onLoad } from '@dcloudio/uni-app'
 import * as my from '@/api/app/my'
 import { setInfo } from '@/api/my'
+import * as homeApi from '@/api/app/home'
 
 const societyArr = ref<string[]>([''])
 const companyArr = ref<string[]>([''])
+const banners = ref<any>([])
+
+const loadBanner = () => {
+  homeApi.bannerList_1().then((result1) => {
+    banners.value = result1.data || []
+  })
+}
 
 let info: any = ref({
   avatar: '',
@@ -156,6 +171,8 @@ let info: any = ref({
 let member: any = ref([{ value: 0, text: '平台' }])
 let industryTypeList: any = ref()
 onLoad(async () => {
+  loadBanner()
+
   const result = await my.getAllInfo()
   info.value = result.data
 

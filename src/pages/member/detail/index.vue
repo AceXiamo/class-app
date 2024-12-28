@@ -1,15 +1,24 @@
 <template>
-  <view class="overflow-y-auto overflow-x-hidden text-sm">
+  <view class="overflow-y-auto overflow-x-hidden text-sm bg-white min-h-screen pb-[100rpx]">
     <!-- 头像 -->
-    <view class="w-full aspect-square">
-      <image mode="widthFix" class="w-full h-full" :src="info?.avatar" @click="previewImage">
+    <view class="w-full aspect-square flex">
+      <image
+        mode="widthFix"
+        class="w-full h-full"
+        :src="
+          info?.avatar ||
+          'https://chambers.oss-cn-shenzhen.aliyuncs.com/20241208/f7c7fd8a-7323-416a-b3db-62eb07118217-WechatIMG163_39398.jpg'
+        "
+        @click="previewImage"
+      >
       </image>
     </view>
-
     <!-- 基本信息 -->
     <view class="px-[30rpx] pt-4.5 pb-2 flex flex-col bg-white">
       <view class="flex font-bold items-center h-[50rpx]">
-        <view class="flex-1 text-xl">{{ info?.name }}</view>
+        <view class="flex-1 text-[45rpx] translate-x-[10rpx] translate-y-[10rpx]">{{
+          info?.name
+        }}</view>
         <view
           style="background: linear-gradient(135deg, #f5cd71 0%, #cf9219 100%)"
           class="flex items-center h-[50rpx] px-[28rpx] rounded-full text-white text-sm font-bold"
@@ -17,11 +26,10 @@
           {{ tabs.find((item: any) => item.key == info?.status)?.title }}
         </view>
       </view>
-      <view class="flex justify-end text-[#666] text-sm mt-[10rpx] pr-[20rpx]">
-        {{ tabs.find((item: any) => item.key == info?.position)?.title }}
+      <view class="flex justify-end text-[#666] text-sm mt-[20rpx] pr-[20rpx] pb-[50rpx]">
+        {{ info?.position }}
       </view>
     </view>
-
     <!-- 标签 -->
     <!-- <view
       v-if="info?.tags && info?.tags.length > 0"
@@ -42,16 +50,15 @@
         :bgColor="'#FFEFE1'"
       />
     </view> -->
-
     <view
-      class="text-sm px-[30rpx] pt-[28rpx] pb-6 flex flex-col border-0 border-t-[1rpx] border-solid border-[#F8F8F8] bg-white space-y-2.75"
+      class="text-sm px-[30rpx] pt-[30rpx] pb-6 gap-[30rpx] flex flex-col border-0 border-t-[1rpx] border-solid border-[#F8F8F8] bg-white space-y-2.75"
     >
       <view class="flex flex-col gap-[20rpx]" v-if="info?.college">
-        <view class="flex items-center font-bold">
-          <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
+        <view class="flex items-center font-bold text-[32rpx]">
+          <view class="w-0.5 h-2.75 bg-[#E33531] mr-1.75"></view>
           企业职务：
         </view>
-        <view class="flex flex-col gap-[10rpx]">
+        <view class="flex flex-col text-[30rpx] gap-[10rpx]">
           <view class="text-[#666]" v-for="str in info.college?.split(',')" :key="str">
             {{ str }}
           </view>
@@ -59,11 +66,11 @@
       </view>
 
       <view class="flex flex-col gap-[20rpx]" v-if="info?.bussiness">
-        <view class="flex items-center font-bold">
-          <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
+        <view class="flex items-center font-bold text-[32rpx]">
+          <view class="w-0.5 h-2.75 bg-[#E33531] mr-1.75"></view>
           社会职务：
         </view>
-        <view class="flex flex-col gap-[10rpx]">
+        <view class="flex flex-col text-[30rpx] gap-[10rpx]">
           <view class="text-[#666]" v-for="str in info.bussiness?.split(',')" :key="str">
             {{ str }}
           </view>
@@ -71,36 +78,35 @@
       </view>
 
       <view class="flex flex-col gap-[20rpx]" v-if="info?.company">
-        <view class="flex items-center font-bold">
-          <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
+        <view class="flex items-center font-bold text-[32rpx]">
+          <view class="w-0.5 h-2.75 bg-[#E33531] mr-1.75"></view>
           企业介绍：
         </view>
-        <view class="flex flex-col gap-[10rpx]">
-          <text class="text-[#666]">
+        <view class="flex flex-col gap-[10rpx] text-[30rpx]">
+          <text class="text-[#666] leading-[50rpx]">
             {{ info?.company }}
           </text>
         </view>
       </view>
 
       <view class="flex flex-col gap-[20rpx]" v-if="info?.companyAddress">
-        <view class="flex items-center font-bold">
-          <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
+        <view class="flex items-center font-bold text-[32rpx]">
+          <view class="w-0.5 h-2.75 bg-[#E33531] mr-1.75"></view>
           个人介绍：
         </view>
-        <view class="flex flex-col gap-[10rpx]">
-          <text class="text-[#666]">
+        <view class="flex flex-col gap-[10rpx] text-[30rpx]">
+          <text class="text-[#666] leading-[50rpx]">
             {{ info?.companyAddress }}
           </text>
         </view>
       </view>
     </view>
-
     <view
       class="font-bold text-sm px-[30rpx] pt-5 pb-[50rpx] border-solid border-[#EDEDED] border-0 border-t-[1rpx] space-y-2.75 bg-white"
       v-if="info?.mobile"
     >
-      <view class="flex items-center relative">
-        <view class="w-0.5 h-2.75 bg-[#92003F] mr-1.75"></view>
+      <view class="flex items-center relative text-[30rpx]">
+        <view class="w-0.5 h-2.75 bg-[#E33531] mr-1.75"></view>
         联系电话：{{ info?.mobile }}
         <image
           @tap="call"
@@ -229,5 +235,3 @@ onShareAppMessage(() => {
 
 const onChange = () => {}
 </script>
-
-<style scoped></style>
