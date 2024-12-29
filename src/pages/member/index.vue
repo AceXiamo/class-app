@@ -51,36 +51,15 @@
                 {{ item?.name }}
               </view>
               <view class="mt-auto flex flex-col gap-[10rpx]">
-                <view
-                  class="flex items-center justify-end"
-                  v-for="(str, index) in item?.college.split(',')"
-                  :key="index"
-                >
-                  <text class="text-[#333] text-[26rpx]">{{ str }}</text>
+                <view class="flex items-center justify-end gap-[10rpx]">
+                  <uni-icons type="location" size="14" color="#333" class="translate-y-[2rpx]" />
+                  <text class="text-[#333] text-[26rpx]">{{ item?.homeplace }}</text>
+                </view>
+                <view class="flex items-center justify-end">
+                  <text class="text-[#333] text-[26rpx]">{{ item?.company }}</text>
                 </view>
               </view>
             </view>
-          </view>
-
-          <view
-            v-if="item?.tags && item?.tags.length > 0"
-            class="border-0 border-t-[1rpx] border-solid border-[#F8F8F8] pl-[28rpx]"
-          >
-            <!-- 折叠组件 -->
-            <collapse
-              :width="600"
-              :px="16"
-              :my="20"
-              :height="44"
-              :textColor="'#FF7A33'"
-              :borderColor="'rgba(0,0,0,0)'"
-              :borderRadius="9999"
-              :borderWidth="1"
-              :fontSize="24"
-              :marginRight="18"
-              :dataSource="item?.tags"
-              :bgColor="'#FFEFE1'"
-            />
           </view>
         </view>
 
@@ -205,17 +184,11 @@ const loadData = async () => {
   }
 }
 
-let curValue = ref(-1)
+let curValue = ref(4)
 let tabs = ref([
-  { key: -1, title: '全部' },
-  { key: 10, title: '会长' },
-  { key: 9, title: '名誉会长' },
-  { key: 8, title: '执行会长' },
-  { key: 7, title: '监事长' },
-  { key: 6, title: '常务副会长' },
-  { key: 5, title: '副会长' },
-  { key: 4, title: '理事' },
-  { key: 3, title: '秘书处' },
+  // { key: -1, title: '全部' },
+  { key: 4, title: '老师' },
+  { key: 3, title: '同学' },
 ])
 
 const GetIndustry = async () => {

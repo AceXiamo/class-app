@@ -38,74 +38,40 @@
         />
       </view>
 
-      <!-- <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-      <view><text class="text-[#FF4646]">*</text><text class="font-bold">性别：</text></view>
-      <radio-group class="h-8 mt-2 ml-2 flex items-center" @change="sexChange">
-        <label class="flex-1" v-for="item in range" :key="item.value">
-          <radio :value="item.value + ''" :checked="info.sex == item.value" color="#E33531" />
-          <text class="ml-1 text-[#666]">{{ item.text }}</text>
-        </label>
-      </radio-group>
-    </view> -->
-
-      <view class="pb-2">
-        <view class="flex justify-between items-center">
-          <text class="font-bold">企业职务：</text>
-          <view class="text-blue-500" @click="companyArr.push('')">添加</view>
-        </view>
-        <view class="flex flex-col gap-[10rpx] w-full mt-2">
-          <view
-            class="flex items-center gap-[30rpx] w-full"
-            v-for="(item, index) in companyArr"
-            :key="index"
-          >
-            <input
-              v-model="companyArr[index]"
-              class="h-8 text-[#666] flex-auto border-[1rpx] border-solid rounded-[4rpx] border-[#F0F0F0] px-[20rpx]"
-              placeholder="请输入"
-              placeholder-class="placeholder"
-            />
-            <view class="text-red-500 text-[24rpx]" @click="companyArr.splice(index, 1)">删除</view>
-          </view>
-        </view>
-      </view>
-
-      <view class="pb-2">
-        <view class="flex justify-between items-center">
-          <text class="font-bold">社会职务：</text>
-          <view class="text-blue-500" @click="societyArr.push('')">添加</view>
-        </view>
-        <view class="flex flex-col gap-[10rpx] w-full mt-2">
-          <view
-            class="flex items-center gap-[30rpx] w-full"
-            v-for="(item, index) in societyArr"
-            :key="index"
-          >
-            <input
-              v-model="societyArr[index]"
-              class="h-8 text-[#666] flex-auto border-[1rpx] border-solid rounded-[4rpx] border-[#F0F0F0] px-[20rpx]"
-              placeholder="请输入"
-              placeholder-class="placeholder"
-            />
-            <view class="text-red-500 text-[24rpx]" @click="societyArr.splice(index, 1)">删除</view>
-          </view>
-        </view>
-      </view>
-
       <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-        <view><text class="font-bold">企业简介：</text></view>
-        <textarea
-          v-model="info.company"
-          class="h-[200rpx] mt-2 text-[#666]"
+        <view><text class="text-[#FF4646]">*</text><text class="font-bold">所在城市：</text></view>
+        <input
+          v-model="info.homeplace"
+          class="h-8 mt-2 text-[#666]"
           placeholder="请输入"
           placeholder-class="placeholder"
         />
       </view>
 
       <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
-        <view><text class="font-bold">个人简介：</text></view>
+        <view><text class="text-[#FF4646]">*</text><text class="font-bold">公司/单位：</text></view>
+        <input
+          v-model="info.company"
+          class="h-8 mt-2 text-[#666]"
+          placeholder="请输入"
+          placeholder-class="placeholder"
+        />
+      </view>
+
+      <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
+        <view><text class="text-[#FF4646]">*</text><text class="font-bold">职务：</text></view>
+        <input
+          v-model="info.position"
+          class="h-8 mt-2 text-[#666]"
+          placeholder="请输入"
+          placeholder-class="placeholder"
+        />
+      </view>
+
+      <view class="pb-2 border-b-[1rpx] border-[#F0F0F0]">
+        <view><text class="font-bold">毕业20年，我想对大家说：</text></view>
         <textarea
-          v-model="info.companyAddress"
+          v-model="info.college"
           class="h-[200rpx] mt-2 text-[#666]"
           placeholder="请输入"
           placeholder-class="placeholder"
@@ -175,9 +141,6 @@ onLoad(async () => {
 
   const result = await my.getAllInfo()
   info.value = result.data
-
-  societyArr.value = (info.value.bussiness || '').split(',')
-  companyArr.value = (info.value.college || '').split(',')
 
   const { data } = await my.getMember()
   member.value = member.value.concat(
@@ -251,13 +214,10 @@ const commit = () => {
     return
   }
 
-  info.value.bussiness = societyArr.value.join(',')
-  info.value.college = companyArr.value.join(',')
-
   setInfo(info.value).then((res) => {
     // console.log(res)
     uni.showToast({
-      title: '提交成功',
+      title: '提交成功，请等待审核',
       icon: 'none',
       duration: 1000,
     })

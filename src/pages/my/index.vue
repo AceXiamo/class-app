@@ -39,41 +39,9 @@
             ></image>
           </view>
           <view class="text-[28rpx] flex flex-col">
-            <view class="flex flex-col items-end gap-[10rpx]">
-              <text class="text-[#333] text-[32rpx]">{{
-                roleArr.find((item: any) => item.value == info?.status)?.label
-              }}</text>
-              <text class="text-[#333] text-[32rpx]">
-                {{ info?.position }}
-              </text>
-            </view>
             <view class="font-bold text-[36rpx] text-[#333] mt-[30rpx] ml-auto">{{
               info?.name
             }}</view>
-          </view>
-        </view>
-
-        <view class="flex flex-col gap-[20rpx] mt-[100rpx]" v-if="info?.college">
-          <view class="flex items-center font-bold">
-            <view class="w-0.5 h-2.75 bg-[#E33531] mr-1.75"></view>
-            企业职务：
-          </view>
-          <view class="flex flex-col gap-[10rpx]">
-            <view class="text-[#666]" v-for="str in info.college?.split(',')" :key="str">
-              {{ str }}
-            </view>
-          </view>
-        </view>
-
-        <view class="flex flex-col gap-[20rpx] mt-[50rpx]" v-if="info?.bussiness">
-          <view class="flex items-center font-bold">
-            <view class="w-0.5 h-2.75 bg-[#E33531] mr-1.75"></view>
-            社会职务：
-          </view>
-          <view class="flex flex-col gap-[10rpx]">
-            <view class="text-[#666]" v-for="str in info.bussiness?.split(',')" :key="str">
-              {{ str }}
-            </view>
           </view>
         </view>
 

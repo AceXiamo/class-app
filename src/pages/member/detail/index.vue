@@ -14,89 +14,68 @@
       </image>
     </view>
     <!-- 基本信息 -->
-    <view class="px-[30rpx] pt-4.5 pb-2 flex flex-col bg-white">
-      <view class="flex font-bold items-center h-[50rpx]">
-        <view class="flex-1 text-[45rpx] translate-x-[10rpx] translate-y-[10rpx]">{{
+    <view class="px-[30rpx] pt-4.5 pb-2 flex flex-col bg-white mb-[30rpx]">
+      <view class="flex items-start">
+        <view class="flex-1 text-[45rpx] font-bold translate-x-[10rpx] translate-y-[10rpx] flex">{{
           info?.name
         }}</view>
-        <view
-          style="background: linear-gradient(135deg, #f5cd71 0%, #cf9219 100%)"
-          class="flex items-center h-[50rpx] px-[28rpx] rounded-full text-white text-sm font-bold"
-        >
-          {{ tabs.find((item: any) => item.key == info?.status)?.title }}
+        <view class="flex flex-col gap-[10rpx]" v-if="info?.status == 4">
+          <view
+            class="flex items-center h-[50rpx] px-[28rpx] rounded-full text-black text-sm"
+            v-for="item in info?.tags"
+            :key="item"
+          >
+            {{ item }}
+          </view>
         </view>
       </view>
-      <view class="flex justify-end text-[#666] text-sm mt-[20rpx] pr-[20rpx] pb-[50rpx]">
-        {{ info?.position }}
-      </view>
     </view>
-    <!-- 标签 -->
-    <!-- <view
-      v-if="info?.tags && info?.tags.length > 0"
-      class="border-0 border-t-[1rpx] border-solid border-[#F8F8F8] pl-[28rpx] bg-white"
-    >
-      <collapse
-        :width="600"
-        :px="16"
-        :my="20"
-        :height="44"
-        :textColor="'#FF7A33'"
-        :borderColor="'rgba(0,0,0,0)'"
-        :borderRadius="9999"
-        :borderWidth="1"
-        :fontSize="24"
-        :marginRight="18"
-        :dataSource="info?.tags"
-        :bgColor="'#FFEFE1'"
-      />
-    </view> -->
     <view
       class="text-sm px-[30rpx] pt-[30rpx] pb-6 gap-[30rpx] flex flex-col border-0 border-t-[1rpx] border-solid border-[#F8F8F8] bg-white space-y-2.75"
     >
-      <view class="flex flex-col gap-[20rpx]" v-if="info?.college">
+      <view class="flex gap-[20rpx]">
         <view class="flex items-center font-bold text-[32rpx]">
           <view class="w-0.5 h-2.75 bg-[#E33531] mr-1.75"></view>
-          企业职务：
+          城市：
         </view>
         <view class="flex flex-col text-[30rpx] gap-[10rpx]">
-          <view class="text-[#666]" v-for="str in info.college?.split(',')" :key="str">
-            {{ str }}
-          </view>
+          <text class="text-[#666] leading-[50rpx]">
+            {{ info?.homeplace }}
+          </text>
         </view>
       </view>
-
-      <view class="flex flex-col gap-[20rpx]" v-if="info?.bussiness">
+      <view class="flex flex-col gap-[20rpx]">
         <view class="flex items-center font-bold text-[32rpx]">
           <view class="w-0.5 h-2.75 bg-[#E33531] mr-1.75"></view>
-          社会职务：
+          {{ info?.status == 3 ? '公司/单位' : '学校/单位' }}：
         </view>
         <view class="flex flex-col text-[30rpx] gap-[10rpx]">
-          <view class="text-[#666]" v-for="str in info.bussiness?.split(',')" :key="str">
-            {{ str }}
-          </view>
-        </view>
-      </view>
-
-      <view class="flex flex-col gap-[20rpx]" v-if="info?.company">
-        <view class="flex items-center font-bold text-[32rpx]">
-          <view class="w-0.5 h-2.75 bg-[#E33531] mr-1.75"></view>
-          企业介绍：
-        </view>
-        <view class="flex flex-col gap-[10rpx] text-[30rpx]">
           <text class="text-[#666] leading-[50rpx]">
             {{ info?.company }}
           </text>
         </view>
       </view>
 
-      <view class="flex flex-col gap-[20rpx]" v-if="info?.companyAddress">
+      <view class="flex flex-col gap-[20rpx]" v-if="info?.position">
         <view class="flex items-center font-bold text-[32rpx]">
           <view class="w-0.5 h-2.75 bg-[#E33531] mr-1.75"></view>
-          个人介绍：
+          职务：
+        </view>
+        <view class="flex flex-col text-[30rpx] gap-[10rpx]">
+          <text class="text-[#666] leading-[50rpx]">
+            {{ info?.position }}
+          </text>
+        </view>
+      </view>
+
+      <view class="flex flex-col gap-[20rpx]">
+        <view class="flex items-center font-bold text-[32rpx]">
+          <view class="w-0.5 h-2.75 bg-[#E33531] mr-1.75"></view>
+          毕业20年，我想对大家说：
         </view>
         <view class="flex flex-col gap-[10rpx] text-[30rpx]">
           <text class="text-[#666] leading-[50rpx]">
-            {{ info?.companyAddress }}
+            {{ info?.college }}
           </text>
         </view>
       </view>
